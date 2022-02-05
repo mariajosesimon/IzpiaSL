@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+          crossorigin="anonymous"/>
+     <script src="/static/js/script.js"></script>
+
+    <title>IZPIA S.L.</title>
+
+
+</head>
+
+{% block navbar %}
+<nav class="flex justify-between items-center text-gray-200 px-4 shadow-md sm:py-4 sm:justify-around">
+    <div class="sm:hidden text-2xl"></div>
+    <ul class="hidden sm:flex justify-between w-64">
+        <li class="text-green-800 no-underline hover:underline">
+            <a href="/">Inicio</a>
+        </li>
+        <li class="text-green-800 no-underline hover:underline">
+            <a href="/Clientes">Clientes</a>
+        </li>
+        <li class="text-green-800 no-underline hover:underline">
+            <a href="/Proveedores">Proveedores</a>
+        </li>
+         <li class="text-green-800 no-underline hover:underline">
+            <a href="/Obras">Obras</a>
+        </li>
+
+    </ul>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-5 text-center" style="margin-top:25px">
+
+    {% block contenido %}{% endblock %}
+</div>
+
+{% endblock %}
+
+<footer class="text-center text-green-800 py-4 "> Izpia S.L.
+
+</footer>

@@ -1,0 +1,14 @@
+{
+  "name": "electricidad_v1",
+  "version": "1.0.0",
+  "description": "FCT Izpia S.L.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mª Jose Simón",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.0.18"
+  }
+}
