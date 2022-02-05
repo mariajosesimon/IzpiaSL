@@ -52,7 +52,8 @@ def clientes_new():
                         Provincia=formNewCliente.Provincia.data,
                         Telefono=formNewCliente.Telefono.data,
                         Email=formNewCliente.Email.data,
-                        Contacto=formNewCliente.Contacto.data)
+                        Contacto=formNewCliente.Contacto.data,
+                        Activo=formNewCliente.Activo.data)
 
 
         db.session.add(cl)
@@ -117,7 +118,8 @@ def proveedores_new():
                         Provincia=formNewProveedor.Provincia.data,
                         Telefono=formNewProveedor.Telefono.data,
                         Email=formNewProveedor.Email.data,
-                        Contacto=formNewProveedor.Contacto.data)
+                        Contacto=formNewProveedor.Contacto.data,
+                        Activo=formNewProveedor.Activo.data)
 
 
         db.session.add(pv)

@@ -1,7 +1,8 @@
 
 from email import message
+from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField
+from wtforms import StringField, SubmitField, IntegerField, BooleanField
 from wtforms.validators import ValidationError, DataRequired, Length, Email
 
 
@@ -18,9 +19,12 @@ class formCliente(FlaskForm):
     Email = StringField("Email: ", validators=[Email(), Length(min=5, max=50,
      message='Escribe un email valido.')])
     Contacto = StringField("Contacto: ")
-    
+    Activo = BooleanField('Baja')
+   
+     
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+    
 
 
 
@@ -37,6 +41,7 @@ class formProveedor(FlaskForm):
     Email = StringField("Email: ", validators=[Email(), Length(min=5, max=50,
      message='Escribe un email valido.')])
     Contacto = StringField("Contacto: ")
+    Activo = BooleanField('Baja')
     
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})

@@ -15,6 +15,7 @@ class cliente(db.Model):
     Telefono = Column(Integer)
     Email  = Column(String(100))
     Contacto = Column(String(45))
+    Activo = Column(Boolean)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -31,6 +32,8 @@ class proveedor(db.Model):
     Telefono = Column(Integer)
     Email  = Column(String(100))
     Contacto = Column(String(45))
+    Activo = Column(Boolean)
+
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))

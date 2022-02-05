@@ -49,6 +49,20 @@
                 {% endfor %}
 
             </div>
+            {% if form.Activo.type == 'BooleanField' %}
+            {% if form.Activo() == 1 %}
+            <div class="form-check form-check-inline">  
+                {{form.Activo.label(class="font-bold text-green-800")}} 
+                {{ form.Activo(checked=True, class='form-check-input ') }}
+            </div>
+            {% else %}
+            <div class="form-check form-check-inline">
+                {{form.Activo.label(class="font-bold text-green-800")}}         
+                {{ form.Activo(checked=False, class='form-check-input ') }}
+            </div>
+            {% endif %}
+            {%endif%}
+
 
 
 
