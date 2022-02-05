@@ -30,33 +30,35 @@ def clientes():
 
 
 #Creacion de nuevo cliente.
-@app.route('/Clientes/New', methods=['GET, POST'])
+@app.route('/Clientes/New', methods=['GET', 'POST'])
 def clientes_new():
 
+    cli = cliente()
     #recopilacion de datos del cliente
-    formNewCliente = formCliente(request.form)
+    formNewCliente = formCliente()
 
-    if formNewCliente.submit.data:
-
+    if formNewCliente.submit.data and formNewCliente.validate():
+            #validacion de los campos según nuestro form, que hemos puesto Validators
+    
       #Creacion del cliente para subirlo
         cl = cliente(Empresa=formNewCliente.Empresa.data,
-                          CifNif=formNewCliente.CifNif.data,
-                          Direccion=formNewCliente.Direccion.data,
-                          CP=formNewCliente.CP.data,
-                          Ciudad=formNewCliente.Ciudad.data,
-                          Provincia=formNewCliente.Provincia.data,
-                          Telefono=formNewCliente.Telefono.data,
-                          Email=formNewCliente.Email.data,
-                          Contacto=formNewCliente.Contacto.data)
+                        CifNif=formNewCliente.CifNif.data,
+                        Direccion=formNewCliente.Direccion.data,
+                        CP=formNewCliente.CP.data,
+                        Ciudad=formNewCliente.Ciudad.data,
+                        Provincia=formNewCliente.Provincia.data,
+                        Telefono=formNewCliente.Telefono.data,
+                        Email=formNewCliente.Email.data,
+                        Contacto=formNewCliente.Contacto.data)
 
 
         db.session.add(cl)
         db.session.commit()
-        return redirect(url_for("clientes"))
+        return redirect(url_for("inicio"))
     elif formNewCliente.btn_cancel.data:
-        return redirect(url_for("clientes"))
+        return redirect(url_for("inicio"))
     else:
-        return render_template("clientes_new.html", form=formNewCliente)
+        return render_template("clientes_new.html", form=formNewCliente, cliente=cli)
 
 
 
