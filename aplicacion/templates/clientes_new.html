@@ -1,23 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Nuevo Cliente{% endblock %}
+{% block title %}Cliente{% endblock %}
 {% block contenido %}
 <body>
 
 <div class="container mx-auto py-4">
-    <div class="text-green-800 font-bold text-lg mx-10">CLIENTE:
-        {% if cliente.Empresa != None %}
-        {{ cliente.Empresa }}
-        {% endif%}
-    </div>
 
-  
-    <form action="" method="post" novalidate>
+
+    <form action="" method="post" novalidate enctype="multipart/form-data">
         <div class="form-group">
             {{ form.csrf_token }}
           
-            <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 ">
+            <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
                 {{form.Empresa.label(class="font-bold ")}}
-                {{form.Empresa (class="text-green-800 border border-green-200 ")}}
+                {{form.Empresa (class="text-green-800 border border-green-200")}}
                 {% for error in form.Empresa.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
@@ -34,7 +29,7 @@
             </div>
 
            
-            <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 ">
+            <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
                 {{form.Ciudad.label(class="font-bold ")}}
                 {{form.Ciudad(class="border border-green-200 ")}}
                

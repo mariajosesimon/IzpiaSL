@@ -58,35 +58,24 @@ def clientes_new():
     elif formNewCliente.btn_cancel.data:
         return redirect(url_for("inicio"))
     else:
-        return render_template("clientes_new.html", form=formNewCliente, cliente=cli)
+        return render_template("clientes_new.html", form=formNewCliente)
 
 
-
-@app.route( '/clientes/<id>/edit', methods=["get", "post"] )
-def clientes_edit(idCliente):
-    cliente = clientes.query.get( idCliente )
-    if cliente is None:
+@app.route( '/Clientes/<id>/edit', methods=["get", "post"] )
+def clientes_edit(id):
+    clien = cliente.query.get(id)
+    if clien is None:
         abort( 404 )
 
-    formEditCliente = formCliente(request.form, obj=cliente)
+    formEditCliente = formCliente(obj=clien)
+   
 
     if formEditCliente.validate_on_submit():
-        cliente.Empresa=formEditCliente.Empresa.data
-        cliente.CifNif = formEditCliente.CifNif.data
-        cliente.Direccion = formEditCliente.Direccion.data
-        cliente.CP = formEditCliente.CP.data
-        cliente.Ciudad = formEditCliente.Ciudad.data
-        cliente.Provincia = formEditCliente.Provincia.data
-        cliente.Telefono = formEditCliente.Telefono.data
-        cliente.Email = formEditCliente.Email.data
-        cliente.Contacto = formEditCliente.Contacto.data
-
-        formEditCliente.populate_obj( cliente )
+        formEditCliente.populate_obj( clien )
         db.session.commit()
-        return redirect( url_for( "clientes" ) )
+        return redirect( url_for( "inicio" ) )
 
     return render_template( "clientes_new.html", form=formEditCliente )
-
 
 @app.route( '/clientes/<id>/delete', methods=["get", "post"] )
 def clientes_delete(id):
