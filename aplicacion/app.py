@@ -9,7 +9,7 @@ from sqlalchemy import null
 
 from werkzeug.utils import redirect
 import config
-from forms import formCliente, formSINO, formProveedor, formTrabajador, formUnidad
+from forms import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
@@ -83,13 +83,6 @@ def clientes_edit(id):
         return redirect( url_for( "inicio" ) )
 
     return render_template( "clientes_new.html", form=formEditCliente )
-
-
-
-
-
-
-
 
 
 ####################### PROVEEDORES #####################################
@@ -212,7 +205,6 @@ def unidades():
     unidades = unidad.query.all()
     return render_template("unidadMedida.html", unidades=unidades)
 
-
 @app.route('/UnidadMedida/New', methods=['POST'])
 def unidades_new():
     un = unidad()
@@ -223,8 +215,6 @@ def unidades_new():
         return redirect(url_for("inicio"))
     else:
         return render_template("unidadMedida.html")
-
-
 
 @app.route( '/UnidadMedida/<id>/edit', methods=["get", "post"] )
 def unidades_edit(id):
@@ -242,7 +232,76 @@ def unidades_edit(id):
         return render_template("unidadMedida_edit.html", form=formEditUnidad)
    
 
+####################### PRODUCTOS #####################################
 
+
+@app.route('/Productos', methods=['GET', 'POST'] )
+def productos():
+    productos = producto.query.all()
+    um = unidad.query.all()
+    return render_template("productos.html", productos=productos, unidadMedida=um)
+
+
+
+#Creacion de nuevo producto.
+@app.route('/Productos/New', methods=['GET', 'POST'])
+def productos_new():
+
+    prd = producto()
+    #recopilacion de datos del producto
+    formNewProducto = formProducto()
+
+    # Tengo que crear un select que será un list para las unidades de medida.
+    # um = unidad.query.all()
+    # unidadesMedida = []
+    # for u in um:
+    #     unidadesMedida.append(u.Unidad)
+
+    unidadesMedida = [(u.idUnidad, u.Unidad) for u in unidad.query.all()]
+
+    # Añado mi listado de medidas al select / choices definidos en el form de Producto 
+    formNewProducto.idUnidad.choices = unidadesMedida
+
+
+    if formNewProducto.submit.data and formNewProducto.validate():
+            #validacion de los campos según nuestro form, que hemos puesto Validators
+    
+      #Creacion del producto para subirlo
+        prd = producto(Nombre=formNewProducto.Nombre.data,
+                        Precio=formNewProducto.Precio.data,
+                        idUnidad=formNewProducto.idUnidad.data)
+
+        print("id unidad: ", formNewProducto.idUnidad.data)
+
+        db.session.add(prd)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    elif formNewProducto.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("productos_new.html", form=formNewProducto )
+
+
+@app.route( '/Productos/<id>/edit', methods=["get", "post"] )
+def productos_edit(id):
+    prd = producto.query.get(id)
+    if prd is None:
+        abort( 404 )
+
+    formEditProducto = formProducto(obj=prd)
+     # Tengo que crear un select que será un list para las unidades de medida.
+    unidadesMedida = [(u.idUnidad, u.Unidad) for u in unidad.query.all()]
+
+    # Añado mi listado de medidas al select / choices definidos en el form de Producto 
+    formEditProducto.idUnidad.choices=unidadesMedida
+   
+
+    if formEditProducto.validate_on_submit():
+        formEditProducto.populate_obj( prd )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "productos_new.html", form=formEditProducto )
 
 
 

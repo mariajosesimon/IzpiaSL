@@ -7,8 +7,8 @@ from re import A
 from threading import activeCount
 from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, BooleanField, SelectField, PasswordField
-from wtforms.validators import ValidationError, DataRequired, Length, Email
+from wtforms import StringField, SubmitField, IntegerField, BooleanField, SelectField, PasswordField, FloatField
+from wtforms.validators import ValidationError, DataRequired, Length, Email, NumberRange 
 
 
 class formCliente(FlaskForm):
@@ -66,6 +66,20 @@ class formUnidad(FlaskForm):
     message='Campo obligatorio. Minimo 1 caracteres.')])
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
+class formProducto(FlaskForm):
+    # Nombre, Precio (float), idUnidad (que es un fk de unidad)
+
+    Nombre = StringField("Nombre: ", validators=[DataRequired(), Length(min=3, max=45, 
+    message='Campo obligatorio. Minimo 5 caracteres.')])
+    Precio = FloatField("Precio: ", validators=[DataRequired(),NumberRange(0, 1E+20) ], default=1.0)
+    idUnidad = SelectField('Unidad Medida: ',  coerce=int)
+
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
+
+
 
 class formSINO(FlaskForm):
     si = SubmitField('Si')

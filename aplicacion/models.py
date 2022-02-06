@@ -1,10 +1,12 @@
+from turtle import back
 from sqlalchemy import Column, ForeignKey, BLOB, Boolean, Float, Text, Time
 from sqlalchemy import Integer, String, Date
 from app import db
+from sqlalchemy.orm import relationship
 
 
 class cliente(db.Model):
-    __tablename__ = 'Cliente'
+    __tablename__ = 'cliente'
     idCliente = Column(Integer, primary_key=True)
     Empresa = Column(String(100), nullable=False)
     CifNif = Column(String(45), nullable=False)
@@ -21,7 +23,7 @@ class cliente(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class proveedor(db.Model):
-    __tablename__ = 'Proveedor'
+    __tablename__ = 'proveedor'
     idProveedor = Column(Integer, primary_key=True)
     Empresa = Column(String(100), nullable=False)
     CifNif = Column(String(45), nullable=False)
@@ -39,17 +41,17 @@ class proveedor(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class estado(db.Model):
-    __tablename__ = 'Estado'
+    __tablename__ = 'estado'
     idEstado = Column(Integer, primary_key=True)
     Estado = Column(String(45), nullable=False)
 
 class unidad(db.Model):
-    __tablename__ = 'Unidad'
+    __tablename__ = 'unidad'
     idUnidad = Column(Integer, primary_key=True)
     Unidad = Column(String(45), nullable=False)
 
 class trabajador(db.Model):
-    __tablename__ = 'Trabajador'
+    __tablename__ = 'trabajador'
     idTrabajador = Column(Integer, primary_key=True)
     Nombre = Column(String(45), nullable=False)
     Apellidos = Column(String(45), nullable=False)
@@ -63,19 +65,20 @@ class trabajador(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class producto(db.Model):
-    __tablename__= 'Producto'
+    __tablename__= 'producto'
     idProducto = Column(Integer, primary_key=True)
     Nombre = Column(String(45), nullable=False)
     Precio = Column(Float, nullable=False)
 
-    # UnidadID -> toma el id de unidad de medida.
-    UnidadID = Column(Integer, ForeignKey('unidad.idUnidad'), nullable=False)
+    # idUnidad -> toma el id de unidad de medida.
+    idUnidad = Column(Integer, ForeignKey('unidad.idUnidad'), nullable=False)
+
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class obra(db.Model):
-    __tablename__= 'Obra'
+    __tablename__= 'obra'
     idObra = Column(Integer, primary_key=True)
     Nombre = Column(String(100), nullable=False)
     Foto = Column(BLOB)
@@ -91,7 +94,7 @@ class obra(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class albaran(db.Model):
-    __tablename__= 'Albaran'
+    __tablename__= 'albaran'
     idAlbaran = Column(Integer, primary_key=True)
     Numero = Column(String(45), nullable=False)
 
@@ -102,7 +105,7 @@ class albaran(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class tarea(db.Model):
-    __tablename__= 'Tarea'
+    __tablename__= 'tarea'
     idTarea = Column(Integer, primary_key=True)
     Descripcion = Column(Text(), nullable=False)
     EstadoAlbaran = Column(String(45), nullable=False, default='Pendiente')
@@ -115,7 +118,7 @@ class tarea(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class trabajorealizado(db.Model):
-    __tablename__= 'Trabajorealizado'
+    __tablename__= 'trabajorealizado'
     idTrabajoRealizado = Column(Integer, primary_key=True)
     Fecha = Column(Date, nullable=False)
     HoraInicio = Column(Time())
@@ -130,7 +133,7 @@ class trabajorealizado(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class productoalbaran(db.Model):
-    __tablename__= 'Productoalbaran'
+    __tablename__= 'productoalbaran'
     idProductoAlbaran = Column(Integer, primary_key=True)
     Cantidad = Column(Integer, nullable=False)
 
@@ -143,7 +146,7 @@ class productoalbaran(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class obraproducto(db.Model):
-    __tablename__ = 'Obraproducto'
+    __tablename__ = 'obraproducto'
     idObraProducto = Column(Integer, primary_key=True)
     Cantidad = Column(Integer, nullable=False)
 
@@ -156,7 +159,7 @@ class obraproducto(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class obraproveedor(db.Model):
-    __tablename__ = 'Obraproveedor'
+    __tablename__ = 'obraproveedor'
     idObraProveedor = Column(Integer, primary_key=True)
     Cantidad = Column(Integer, nullable=False)
 
@@ -169,7 +172,7 @@ class obraproveedor(db.Model):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class operariotrabajorealizado(db.Model):
-    __tablename__ = 'Pperariotrabajorealizado'
+    __tablename__ = 'operariotrabajorealizado'
     idOperariotrabajorealizado = Column(Integer, primary_key=True)
 
     # TrabajadorID -> se asigna a un trabajador.
