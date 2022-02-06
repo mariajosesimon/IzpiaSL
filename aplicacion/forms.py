@@ -67,6 +67,12 @@ class formUnidad(FlaskForm):
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
+class formEstado(FlaskForm):
+    Estado= StringField("Estado: ", validators=[DataRequired(), Length(min=1, max=45, 
+    message='Campo obligatorio. Minimo 1 caracteres.')])
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
 class formProducto(FlaskForm):
     # Nombre, Precio (float), idUnidad (que es un fk de unidad)
 

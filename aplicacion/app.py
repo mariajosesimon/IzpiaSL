@@ -305,6 +305,39 @@ def productos_edit(id):
 
 
 
+####################### UNIDADES #####################################
+
+@app.route('/Estado', methods=['GET', 'POST'] )
+def estados():
+    estados = estado.query.all()
+    return render_template("estados.html", estados=estados)
+
+@app.route('/Estado/New', methods=['POST'])
+def estados_new():
+    es = estado()
+    if request.method == 'POST':
+        es.Estado = request.form['Estado']
+        db.session.add(es)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("estados.html")
+
+@app.route( '/Estado/<id>/edit', methods=["get", "post"] )
+def estados_edit(id):
+    es = estado.query.get(id)
+    if es is None:
+        abort( 404 )
+
+    formEditEstado = formEstado(obj=es)
+    
+    if formEditEstado.validate_on_submit():
+        print("estoy aqui")
+        formEditEstado.populate_obj( es )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+    else:
+        return render_template("estados_edit.html", form=formEditEstado)
 
 
 
