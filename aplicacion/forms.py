@@ -22,7 +22,7 @@ class formCliente(FlaskForm):
     Provincia = StringField("Provincia: ")
     Telefono = IntegerField("Telefono: ", validators=[DataRequired()])
     Email = StringField("Email: ", validators=[Email(), Length(min=5, max=50,
-     message='Escribe un email valido.')])
+    message='Escribe un email valido.')])
     Contacto = StringField("Contacto: ")
     Baja = BooleanField('Baja')
    
@@ -56,8 +56,14 @@ class formTrabajador(FlaskForm):
     Baja = BooleanField('Baja', default=0)
     Rol = SelectField('Rol: ', choices=[('All'),('Admin'), ('Trabajador')])
     Usuario = StringField("Usuario: ")
-    Contrasena = StringField('Contraseña: ')
+    Contrasena = PasswordField('Contraseña: ')
  
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
+class formUnidad(FlaskForm):
+    Unidad= StringField("Unidad: ", validators=[DataRequired(), Length(min=1, max=10, 
+    message='Campo obligatorio. Minimo 1 caracteres.')])
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 

@@ -1,13 +1,15 @@
+from asyncio.windows_events import NULL
 import os
 
 from os import abort
+from pickle import NONE
 from flask import Flask, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import null
 
 from werkzeug.utils import redirect
 import config
-from forms import formCliente, formSINO, formProveedor, formTrabajador
+from forms import formCliente, formSINO, formProveedor, formTrabajador, formUnidad
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
@@ -156,9 +158,6 @@ def trabajadores():
     trabajadores = trabajador.query.all()
     return render_template("trabajadores.html", trabajadores=trabajadores)
 
-
-
-
 #Creacion de nuevo trabajador.
 @app.route('/Trabajadores/New', methods=['GET', 'POST'])
 def trabajadores_new():
@@ -198,7 +197,6 @@ def trabajadores_edit(id):
 
     formEditTrabajador = formTrabajador(obj=trb)
    
-
     if formEditTrabajador.validate_on_submit():
         formEditTrabajador.populate_obj( trb )
         db.session.commit()
@@ -207,11 +205,42 @@ def trabajadores_edit(id):
     return render_template( "trabajadores_new.html", form=formEditTrabajador )
 
 
+####################### UNIDADES #####################################
+
+@app.route('/UnidadMedida', methods=['GET', 'POST'] )
+def unidades():
+    unidades = unidad.query.all()
+    return render_template("unidadMedida.html", unidades=unidades)
+
+
+@app.route('/UnidadMedida/New', methods=['POST'])
+def unidades_new():
+    un = unidad()
+    if request.method == 'POST':
+        un.Unidad = request.form['Unidad']
+        db.session.add(un)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("unidadMedida.html")
 
 
 
+@app.route( '/UnidadMedida/<id>/edit', methods=["get", "post"] )
+def unidades_edit(id):
+    un = unidad.query.get(id)
+    if un is None:
+        abort( 404 )
 
-
+    formEditUnidad = formUnidad(obj=un)
+   
+    if formEditUnidad.validate_on_submit():
+        formEditUnidad.populate_obj( un )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+    else:
+        return render_template("unidadMedida_edit.html", form=formEditUnidad)
+   
 
 
 
