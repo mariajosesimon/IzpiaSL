@@ -7,7 +7,8 @@ from re import A
 from threading import activeCount
 from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, BooleanField, SelectField, PasswordField, FloatField
+from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField
+from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField
 from wtforms.validators import ValidationError, DataRequired, Length, Email, NumberRange 
 
 
@@ -84,9 +85,74 @@ class formProducto(FlaskForm):
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
+class formAlbaran(FlaskForm):
+  
+    Numero = StringField("Numero: ", validators=[DataRequired(), Length(min=3, max=45, 
+    message='Campo obligatorio. Minimo 5 caracteres.')])
+    idProveedor = SelectField('Proveedor: ',  coerce=int)
 
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
+class formObra(FlaskForm):
+  
+    Nombre = StringField("Nombre: ", validators=[DataRequired(), Length(min=3, max=45, 
+    message='Campo obligatorio. Minimo 5 caracteres.')])
+    Foto = FileField('Selecciona imagen:')
+    PDF = FileField('Selecciona pdf:')
+    
+    idEstado = SelectField('Estado: ',  coerce=int)
+    idCliente = SelectField('Cliente: ',  coerce=int)
 
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
+class formObraProducto(FlaskForm):    
+    idProducto = SelectField('Producto: ',  coerce=int)
+    idObra = SelectField('Obra: ',  coerce=int)
+    Cantidad = IntegerField("Cantidad: ", validators=[DataRequired()])
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+    
+class formObraProveedor(FlaskForm):    
+    idObra = SelectField('Obra: ',  coerce=int)
+    idProveedor = SelectField('Proveedor: ',  coerce=int)
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
+class formOperarioTrabajoRealizado(FlaskForm):    
+    idTrabajador = SelectField('Trabajador: ',  coerce=int)
+    idTrabajorealizado = SelectField('Trabajo realizado: ',  coerce=int)
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
+class formProductoAlbaran(FlaskForm):    
+    idProducto = SelectField('Producto: ',  coerce=int)
+    idAlbaran = SelectField('Albarán: ',  coerce=int)
+    Cantidad = IntegerField("Cantidad: ", validators=[DataRequired()])
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
+class formTarea(FlaskForm):
+    Descripcion = TextAreaField("Descripcion: ", validators=[DataRequired(), Length(min=5, max=500, 
+    message='Campo obligatorio. Minimo 5 caracteres.')])
+    Estado = SelectField('Estado: ', choices=['--','Asignada', 'En progreso', 'En Pausa', 'En espera de material', 'Finalizada'])
+    Notas = TextAreaField("Notas: ")
+    idObra = SelectField('Obra: ',  coerce=int)
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+    
+class formTrabajoRealizado(FlaskForm):
+    Fecha = DateField('Fecha: ', format='%d-%m-%Y')
+    HoraInicio = TimeField('Hora de Inicio',format='%H:%M')
+    HoraFin = TimeField('Hora de Fin',format='%H:%M')
+    Descripcion = TextAreaField("Descripcion: ", validators=[DataRequired(), Length(min=5, max=500, 
+    message='Campo obligatorio. Minimo 5 caracteres.')])
+    idObra = SelectField('Obra: ',  coerce=int)
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+    
+    
 class formSINO(FlaskForm):
     si = SubmitField('Si')
     no = SubmitField('No')
