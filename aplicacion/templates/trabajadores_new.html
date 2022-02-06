@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Proveedor{% endblock %}
+{% block title %}Trabajadores{% endblock %}
 {% block contenido %}
 <body>
 
@@ -11,30 +11,16 @@
             {{ form.csrf_token }}
           
             <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
-                {{form.Empresa.label(class="font-bold ")}}
-                {{form.Empresa (class="text-green-800 border border-green-200")}}
-                {% for error in form.Empresa.errors %}
+                {{form.Nombre.label(class="font-bold ")}}
+                {{form.Nombre (class="text-green-800 border border-green-200")}}
+                {% for error in form.Nombre.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
-                {{form.CifNif.label(class="font-bold")}}
-                {{form.CifNif (class="border border-green-200")}}
-                {% for error in form.CifNif.errors %}
+                {{form.Apellidos.label(class="font-bold")}}
+                {{form.Apellidos (class="border border-green-200")}}
+                {% for error in form.Apellidos.errors %}
                 <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-                {{form.Direccion.label(class="font-bold ")}}
-                {{form.Direccion(class="border border-green-200 ")}}
-                {{form.CP.label(class="font-bold")}}
-                {{form.CP (class="border border-green-200 ")}}
-               
-            </div>
-
-           
-            <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
-                {{form.Ciudad.label(class="font-bold ")}}
-                {{form.Ciudad(class="border border-green-200 ")}}
-               
-                {{form.Provincia.label(class="text-green-800 font-bold")}}
-                {{form.Provincia(class="border border-green-200 ")}}
+                {% endfor %}                        
 
                 {{form.Telefono.label(class="text-green-800 font-bold")}}
                 {{form.Telefono( class="border border-green-200")}}
@@ -42,11 +28,7 @@
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
 
-                {{form.Email.label(class="font-bold")}}
-                {{form.Email(class="border border-green-200")}}
-                {% for error in form.Email.errors %}
-                <span style="color: red;">{{ error }}</span>
-                {% endfor %}
+               
 
             </div>
             {% if form.Baja.type == 'BooleanField' %}
@@ -62,7 +44,16 @@
             </div>
             {% endif %}
             {%endif%}
+			
+            {{form.Rol.label(class="text-green-800 font-bold")}}
+            {{form.Rol( class="border border-green-200")}}
 
+
+				{{form.Usuario.label(class="text-green-800 font-bold")}}
+                {{form.Usuario( class="border border-green-200")}}
+
+                {{form.Contrasena.label(class="text-green-800 font-bold")}}
+                {{form.Contrasena( class="border border-green-200")}}
 
 
 

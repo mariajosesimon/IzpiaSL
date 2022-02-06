@@ -3,10 +3,11 @@ import os
 from os import abort
 from flask import Flask, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import null
 
 from werkzeug.utils import redirect
 import config
-from forms import formCliente, formSINO, formProveedor
+from forms import formCliente, formSINO, formProveedor, formTrabajador
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
@@ -53,7 +54,7 @@ def clientes_new():
                         Telefono=formNewCliente.Telefono.data,
                         Email=formNewCliente.Email.data,
                         Contacto=formNewCliente.Contacto.data,
-                        Activo=formNewCliente.Activo.data)
+                        Baja=formNewCliente.Baja.data)
 
 
         db.session.add(cl)
@@ -119,7 +120,7 @@ def proveedores_new():
                         Telefono=formNewProveedor.Telefono.data,
                         Email=formNewProveedor.Email.data,
                         Contacto=formNewProveedor.Contacto.data,
-                        Activo=formNewProveedor.Activo.data)
+                        Baja=formNewProveedor.Baja.data)
 
 
         db.session.add(pv)
@@ -146,6 +147,82 @@ def proveedores_edit(id):
         return redirect( url_for( "inicio" ) )
 
     return render_template( "proveedores_new.html", form=formEditProveedor )
+
+
+####################### TRABAJADORES #####################################
+
+@app.route('/Trabajadores', methods=['GET', 'POST'] )
+def trabajadores():
+    trabajadores = trabajador.query.all()
+    return render_template("trabajadores.html", trabajadores=trabajadores)
+
+
+
+
+#Creacion de nuevo trabajador.
+@app.route('/Trabajadores/New', methods=['GET', 'POST'])
+def trabajadores_new():
+
+    trb = trabajador()
+    #recopilacion de datos del trabajador
+    formNewTrabajador = formTrabajador()
+
+    if formNewTrabajador.submit.data and formNewTrabajador.validate():
+            #validacion de los campos según nuestro form, que hemos puesto Validators
+
+      #Creacion del trabajador para subirlo
+        trb = trabajador(Nombre=formNewTrabajador.Nombre.data,
+                        Apellidos=formNewTrabajador.Apellidos.data,
+                        Telefono=formNewTrabajador.Telefono.data,
+						Baja = formNewTrabajador.Baja.data,
+                        Rol = formNewTrabajador.Rol.data,
+                        Usuario=formNewTrabajador.Usuario.data,
+                        Contrasena = None
+                        )
+
+        print(trb.Baja, ' ', trb.Usuario)
+        db.session.add(trb)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    elif formNewTrabajador.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("trabajadores_new.html", form=formNewTrabajador)
+
+
+@app.route( '/Trabajadores/<id>/edit', methods=["get", "post"] )
+def trabajadores_edit(id):
+    trb = trabajador.query.get(id)
+    if trb is None:
+        abort( 404 )
+
+    formEditTrabajador = formTrabajador(obj=trb)
+   
+
+    if formEditTrabajador.validate_on_submit():
+        formEditTrabajador.populate_obj( trb )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "trabajadores_new.html", form=formEditTrabajador )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
