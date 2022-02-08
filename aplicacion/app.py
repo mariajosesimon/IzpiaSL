@@ -10,6 +10,7 @@ from sqlalchemy import null
 from werkzeug.utils import redirect
 import config
 from forms import *
+from funciones import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
@@ -90,9 +91,6 @@ def clientes_edit(id):
 def proveedores():
     proveedores = proveedor.query.all()
     return render_template("proveedores.html", proveedores=proveedores)
-
-
-
 
 #Creacion de nuevo proveedor.
 @app.route('/Proveedores/New', methods=['GET', 'POST'])
@@ -241,8 +239,6 @@ def productos():
     um = unidad.query.all()
     return render_template("productos.html", productos=productos, unidadMedida=um)
 
-
-
 #Creacion de nuevo producto.
 @app.route('/Productos/New', methods=['GET', 'POST'])
 def productos_new():
@@ -251,16 +247,8 @@ def productos_new():
     #recopilacion de datos del producto
     formNewProducto = formProducto()
 
-    # Tengo que crear un select que será un list para las unidades de medida.
-    # um = unidad.query.all()
-    # unidadesMedida = []
-    # for u in um:
-    #     unidadesMedida.append(u.Unidad)
-
-    unidadesMedida = [(u.idUnidad, u.Unidad) for u in unidad.query.all()]
-
     # Añado mi listado de medidas al select / choices definidos en el form de Producto 
-    formNewProducto.idUnidad.choices = unidadesMedida
+    formNewProducto.idUnidad.choices = listaunidades()
 
 
     if formNewProducto.submit.data and formNewProducto.validate():
@@ -281,7 +269,6 @@ def productos_new():
     else:
         return render_template("productos_new.html", form=formNewProducto )
 
-
 @app.route( '/Productos/<id>/edit', methods=["get", "post"] )
 def productos_edit(id):
     prd = producto.query.get(id)
@@ -289,11 +276,10 @@ def productos_edit(id):
         abort( 404 )
 
     formEditProducto = formProducto(obj=prd)
-     # Tengo que crear un select que será un list para las unidades de medida.
-    unidadesMedida = [(u.idUnidad, u.Unidad) for u in unidad.query.all()]
-
+    
     # Añado mi listado de medidas al select / choices definidos en el form de Producto 
-    formEditProducto.idUnidad.choices=unidadesMedida
+    # ver funciones.listaunidades. 
+    formEditProducto.idUnidad.choices= listaunidades()
    
 
     if formEditProducto.validate_on_submit():
@@ -302,8 +288,6 @@ def productos_edit(id):
         return redirect( url_for( "inicio" ) )
 
     return render_template( "productos_new.html", form=formEditProducto )
-
-
 
 ####################### UNIDADES #####################################
 
@@ -340,8 +324,60 @@ def estados_edit(id):
         return render_template("estados_edit.html", form=formEditEstado)
 
 
+####################### ALBARANES #####################################
+
+@app.route('/Albaranes', methods=['GET', 'POST'] )
+def albaranes():
+    albaranes = albaran.query.all()
+    proveedores = proveedor.query.all()
+    return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores)
+
+#Creacion de nuevo albaran.
+@app.route('/Albaranes/New', methods=['GET', 'POST'])
+def albaranes_new():
+
+    alb = albaran()
+    #recopilacion de datos del albaran
+    formNewAlbaran = formAlbaran()
+	
+
+	# Añado el listado de los proveedores al formulario.
+    # He creado un archivo donde recojo las funciones que utilizo. 
+    formNewAlbaran.idProveedor.choices = listaproveedores()
+
+    if formNewAlbaran.submit.data and formNewAlbaran.validate():
+            #validacion de los campos según nuestro form, que hemos puesto Validators
+
+      #Creacion del albaran para subirlo
+        alb = albaran(Numero=formNewAlbaran.Numero.data,
+                       idProveedor=formNewAlbaran.idProveedor.data)             
+
+        db.session.add(alb)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    elif formNewAlbaran.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("albaranes_new.html", form=formNewAlbaran)
 
 
+@app.route( '/Albaranes/<id>/edit', methods=["get", "post"] )
+def albaranes_edit(id):
+    alb = albaran.query.get(id)
+    if alb is None:
+        abort( 404 )
+
+    formEditAlbaran = formAlbaran(obj=alb)	
+	
+	# Añado el listado de los proveedores al formulario
+    formEditAlbaran.idProveedor.choices = listaproveedores()
+   
+    if formEditAlbaran.validate_on_submit():
+        formEditAlbaran.populate_obj( alb )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "albaranes_new.html", form=formEditAlbaran )
 
 
 
