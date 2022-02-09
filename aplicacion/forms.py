@@ -1,15 +1,11 @@
 
 from email import message
-from email.policy import default
-from logging import RootLogger
-from mailbox import NoSuchMailboxError
-from re import A
-from threading import activeCount
-from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField
 from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField
 from wtforms.validators import ValidationError, DataRequired, Length, Email, NumberRange 
+from flask_wtf.file import FileField, FileRequired
+
 
 
 class formCliente(FlaskForm):
@@ -98,8 +94,6 @@ class formObra(FlaskForm):
   
     Nombre = StringField("Nombre: ", validators=[DataRequired(), Length(min=3, max=45, 
     message='Campo obligatorio. Minimo 5 caracteres.')])
-    Foto = FileField('Selecciona imagen:')
-    PDF = FileField('Selecciona pdf:')
     
     idEstado = SelectField('Estado: ',  coerce=int)
     idCliente = SelectField('Cliente: ',  coerce=int)
@@ -152,7 +146,12 @@ class formTrabajoRealizado(FlaskForm):
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
-    
+
+class formImagenAlb(FlaskForm):
+    fotoAlb = FileField('Imagen: ', validators=[FileRequired()])
+    submit = SubmitField('Enviar')
+    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+
 class formSINO(FlaskForm):
     si = SubmitField('Si')
     no = SubmitField('No')

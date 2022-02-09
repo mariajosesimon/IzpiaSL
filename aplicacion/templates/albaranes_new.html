@@ -14,15 +14,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
                     {{form.Numero.label(class="font-bold ")}}
                     {{form.Numero (class="text-green-800 border border-green-200")}}
-                    {% for error in form.Empresa.errors %}
-                    <span style="color: red;">{{ error }}</span>
-                    {% endfor %}
-                    
-                </div>
-                          {{form.idProveedor.label(class=" font-bold") }}
+                    {{form.idProveedor.label(class=" font-bold") }}
                     {{form.idProveedor(class="form-control border border-green-200")}}
 
-
+                </div>
 
             </div>
             <!--BOTONES-->

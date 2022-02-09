@@ -96,7 +96,7 @@ class albaran(db.Model):
     Numero = Column(String(45), nullable=False)
 
     # ProveedorID -> toma el proveedor del albarán.
-    ProveedorID = Column(Integer, ForeignKey('proveedor.idProveedor'), nullable=False)
+    idProveedor = Column(Integer, ForeignKey('proveedor.idProveedor'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
