@@ -1,8 +1,6 @@
-from turtle import back
 from sqlalchemy import Column, ForeignKey, BLOB, Boolean, Float, Text, Time
 from sqlalchemy import Integer, String, Date
 from app import db
-from sqlalchemy.orm import relationship
 
 
 class cliente(db.Model):
@@ -81,8 +79,7 @@ class obra(db.Model):
     __tablename__= 'obra'
     idObra = Column(Integer, primary_key=True)
     Nombre = Column(String(100), nullable=False)
-    Foto = Column(BLOB)
-    PDF = Column(BLOB)
+    NumeroPedido = Column(String(10), nullable=False)
 
     # EstadoID -> toma el Estado que va a estar la obra (Parada, finalizada, en proceso...).
     EstadoID = Column(Integer, ForeignKey('estado.idEstado'), nullable=False)
@@ -180,5 +177,27 @@ class operariotrabajorealizado(db.Model):
     # TrabajoRealizadoID -> se asigna a un trabajo realizado
     TrabajoRealizadoID = Column(Integer, ForeignKey('trabajotealizado.idTrabajoRealizado'), nullable=False)
 
+    def __repr__(self):
+        return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
+
+class imagenobra(db.Model):
+    __tablename__='imagenobra'
+    idImagenObra = Column(Integer, primary_key=True)
+    fotoObra = Column(BLOB, nullable=False )
+
+    #necesito el id de la obra para asignarlo a la imagen
+    ObraID=Column(Integer, ForeignKey('obra.idObra'), nullable=False)
+
+    def __repr__(self):
+        return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
+
+class imagenalbaran(db.Model):
+    __tablename__='imagenalbaran'
+    idImagenAlbaran = Column(Integer, primary_key=True)
+    fotoAlb = Column(BLOB, nullable=False )
+
+    #necesito el id de la obra para asignarlo a la imagen
+    AlbaranID=Column(Integer, ForeignKey('albaran.idAlbaran'), nullable=False)
+    
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
