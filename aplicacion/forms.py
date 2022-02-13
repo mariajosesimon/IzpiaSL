@@ -1,9 +1,14 @@
 
+from distutils import errors
 from email import message
+from msilib.schema import Error
+from typing_extensions import Required
+from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField
-from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField
-from wtforms.validators import ValidationError, DataRequired, Length, Email, NumberRange 
+from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField, validators
+from wtforms.validators import ValidationError, DataRequired 
+from wtforms.validators import Length, Email, NumberRange, InputRequired	
 from flask_wtf.file import FileField, FileRequired
 
 
@@ -97,20 +102,26 @@ class formObra(FlaskForm):
     
     idEstado = SelectField('Estado: ',  coerce=int)
     idCliente = SelectField('Cliente: ',  coerce=int)
+    NumeroPedido = StringField("Numero de pedido: ")
 
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
 class formObraProducto(FlaskForm):    
+    Cantidad = IntegerField('Cantidad: ', default=0, validators=[InputRequired()])
     idProducto = SelectField('Producto: ',  coerce=int)
     idObra = SelectField('Obra: ',  coerce=int)
-    Cantidad = IntegerField("Cantidad: ", validators=[DataRequired()])
-    submit = SubmitField('Enviar')
+   
+ #   def validate_Cantidad(form, field):
+ #       if field == None or field.data < 1:          
+ #           raise ValidationError("Cantidad minima 1.") 
+
+    submit = SubmitField('Añadir')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
-class formObraProveedor(FlaskForm):    
+class formObraAlbaran(FlaskForm):    
     idObra = SelectField('Obra: ',  coerce=int)
-    idProveedor = SelectField('Proveedor: ',  coerce=int)
+    idAlbaran = SelectField('Albaran: ',  coerce=int)
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
@@ -130,7 +141,7 @@ class formProductoAlbaran(FlaskForm):
 class formTarea(FlaskForm):
     Descripcion = TextAreaField("Descripcion: ", validators=[DataRequired(), Length(min=5, max=500, 
     message='Campo obligatorio. Minimo 5 caracteres.')])
-    Estado = SelectField('Estado: ', choices=['--','Asignada', 'En progreso', 'En Pausa', 'En espera de material', 'Finalizada'])
+    EstadoTarea = SelectField('Estado: ', choices=['--','Asignada', 'En progreso', 'En Pausa', 'En espera de material', 'Finalizada'])
     Notas = TextAreaField("Notas: ")
     idObra = SelectField('Obra: ',  coerce=int)
     submit = SubmitField('Enviar')
@@ -146,7 +157,6 @@ class formTrabajoRealizado(FlaskForm):
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
-
 class formImagenAlb(FlaskForm):
     fotoAlb = FileField('Imagen: ', validators=[FileRequired()])
     submit = SubmitField('Enviar')

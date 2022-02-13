@@ -1,8 +1,7 @@
-from asyncio.windows_events import NULL
+
 import os
 
 from os import abort
-from pickle import NONE
 from flask import Flask, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import null
@@ -381,6 +380,158 @@ def albaranes_edit(id):
 
 
 
+####################### TAREAS #####################################
+
+@app.route('/Tareas', methods=['GET', 'POST'] )
+def tareas():
+    tareas = tarea.query.all()
+    obras = obra.query.all()
+    return render_template("tareas.html", tareas=tareas, obras=obras)
+
+#Creacion de nuevo tarea.
+@app.route('/Tareas/New', methods=['GET', 'POST'])
+def tareas_new():
+
+    tar = tarea()
+    #recopilacion de datos del tarea
+    formNewTarea = formTarea()
+	
+
+	# Añado el listado de los obras al formulario.
+    # He creado un archivo donde recojo las funciones que utilizo. 
+   
+    formNewTarea.idObra.choices = listaobras()
+
+    if formNewTarea.submit.data and formNewTarea.validate():
+            #validacion de los campos según nuestro form, que hemos puesto Validators
+
+
+      #Creacion del tarea para subirlo
+        tar = tarea(Descripcion=formNewTarea.Descripcion.data,
+					EstadoTarea = formNewTarea.EstadoTarea.data,
+					Notas = formNewTarea.Notas.data,
+                    idObra=formNewTarea.idObra.data)             
+
+        db.session.add(tar)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    elif formNewTarea.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("tareas_new.html", form=formNewTarea)
+
+
+@app.route( '/Tareas/<id>/edit', methods=["get", "post"] )
+def tareas_edit(id):
+    tar = tarea.query.get(id)
+    if tar is None:
+        abort( 404 )
+
+    formEditTarea = formTarea(obj=tar)	
+	
+	# Añado el listado de los obras al formulario
+    formEditTarea.idObra.choices = listaobras()
+   
+    if formEditTarea.validate_on_submit():
+        formEditTarea.populate_obj( tar )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "tareas_new.html", form=formEditTarea )
+
+####################### OBRAS #####################################
+
+@app.route('/Obras', methods=['GET', 'POST'] )
+def obras():
+    obras = obra.query.all()
+    clientes = cliente.query.all()
+    estados = estado.query.all()
+    return render_template("obras.html", obras=obras, clientes=clientes, estados=estados)
+
+
+#Creacion de nuevo obra.
+@app.route('/Obras/New', methods=['GET', 'POST'])
+def obras_new():
+
+    ob = obra()
+    #recopilacion de datos del obra
+    formNewObra = formObra()
+	
+	# Añado el listado de los obras al formulario.
+    # He creado un archivo donde recojo las funciones que utilizo. 
+   
+    formNewObra.idCliente.choices = listaclientes()
+    formNewObra.idEstado.choices = listaestados()
+    formAddProducto = formObraProducto()
+    
+
+    if formNewObra.submit.data and formNewObra.validate():
+            #validacion de los campos según nuestro form, que hemos puesto Validators
+
+
+      #Creacion del obra para subirlo
+        ob = obra(Nombre=formNewObra.Nombre.data,
+					idEstado = formNewObra.idEstado.data,
+					idCliente = formNewObra.idCliente.data,
+                    NumeroPedido=formNewObra.NumeroPedido.data)             
+
+        db.session.add(ob)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    elif formNewObra.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("obras_new.html", form=formNewObra, obr=ob, formularioProductos = formAddProducto)
+
+
+@app.route( '/Obras/<id>/edit', methods=["get", "post"] )
+def obras_edit(id):
+    ob = obra.query.get(id)
+    if ob is None:
+        abort( 404 )
+
+    #asigno todos los campos con los que he recuperado de la query. 
+    formEditObra = formObra(obj=ob)	
+	
+	# Añado el listado de los obras al formulario
+    formEditObra.idCliente.choices = listaclientes()
+    formEditObra.idEstado.choices = listaestados()
+
+     #en este form tengo que añadir todos los productos que se habian utilizado. hay que populate
+    formEditProducto = formObraProducto()
+    formEditProducto.idProducto.choices = listaproductos()
+
+    #Tengo que rellenar el form con los datos 
+
+    productosSeleccionados = obraproducto.query.filter_by(idObra=id).all()
+    products = producto.query.all()
+    for ps in productosSeleccionados:
+        print(ps.Cantidad)
+
+
+    
+    if formEditProducto.submit.data:
+        #Creacion del obra para subirlo   
+    
+        if formEditProducto.Cantidad.data > 0:
+       
+            if formEditProducto.idObra.data==None:
+                formEditProducto.idObra.data = id
+                obrPrd = obraproducto(Cantidad=formEditProducto.Cantidad.data,
+                        idProducto = formEditProducto.idProducto.data,
+                        idObra = formEditProducto.idObra.data)
+
+                db.session.add(obrPrd)
+                db.session.commit()
+       
+
+    
+    if formEditObra.validate():
+        formEditObra.populate_obj( ob )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "obras_new.html", form=formEditObra, obr = ob, formularioProductos=formEditProducto, productosSeleccionados=productosSeleccionados, products= products )
 
 
 if __name__ == '__main__':

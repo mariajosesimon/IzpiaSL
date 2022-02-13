@@ -1,3 +1,4 @@
+from ssl import DefaultVerifyPaths
 from sqlalchemy import Column, ForeignKey, BLOB, Boolean, Float, Text, Time
 from sqlalchemy import Integer, String, Date
 from app import db
@@ -82,10 +83,10 @@ class obra(db.Model):
     NumeroPedido = Column(String(10), nullable=False)
 
     # EstadoID -> toma el Estado que va a estar la obra (Parada, finalizada, en proceso...).
-    EstadoID = Column(Integer, ForeignKey('estado.idEstado'), nullable=False)
+    idEstado = Column(Integer, ForeignKey('estado.idEstado'), nullable=False)
 
     # ClienteID -> toma el cliente de la obra.
-    ClienteID = Column(Integer, ForeignKey('cliente.idCliente'), nullable=False)
+    idCliente = Column(Integer, ForeignKey('cliente.idCliente'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -105,11 +106,11 @@ class tarea(db.Model):
     __tablename__= 'tarea'
     idTarea = Column(Integer, primary_key=True)
     Descripcion = Column(Text(), nullable=False)
-    EstadoAlbaran = Column(String(45), nullable=False, default='Pendiente')
+    EstadoTarea = Column(String(45), nullable=False, default='Pendiente')
     Notas = Column(Text())
 
     # ObraID -> se asigna a una obra.
-    ObraID = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
+    idObra = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -124,7 +125,7 @@ class trabajorealizado(db.Model):
 
     # ObraIDTR -> se asigna a una obra.
     #En la clase tarea ya aparece ObraID no puedo tener repedidas las variables, añado TR de trabajo realizado
-    ObraIDTR = Column(Integer, ForeignKey('obra.idObraTR'), nullable=False)
+    idObra = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -135,35 +136,35 @@ class productoalbaran(db.Model):
     Cantidad = Column(Integer, nullable=False)
 
     # ProductoID -> se asigna a un producto.
-    ProductoID = Column(Integer, ForeignKey('producto.idProducto'), nullable=False)
+    idProducto = Column(Integer, ForeignKey('producto.idProducto'), nullable=False)
     # AlbaranID -> se asigna a un albaran.
-    AlbaranID = Column(Integer, ForeignKey('albaran.idAlbaran'), nullable=False)
+    idAlbaran = Column(Integer, ForeignKey('albaran.idAlbaran'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 class obraproducto(db.Model):
     __tablename__ = 'obraproducto'
-    idObraProducto = Column(Integer, primary_key=True)
+    idObraProducto = Column(Integer, primary_key=True, default=0)
     Cantidad = Column(Integer, nullable=False)
 
     # ProductoIDOP -> se asigna a un producto.
-    ProductoIDOP = Column(Integer, ForeignKey('producto.idProducto'), nullable=False)
+    idProducto = Column(Integer, ForeignKey('producto.idProducto'), nullable=False)
     # ObraID -> se asigna a una obra.
-    ObraIDOP = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
+    idObra = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
-class obraproveedor(db.Model):
-    __tablename__ = 'obraproveedor'
-    idObraProveedor = Column(Integer, primary_key=True)
+class obraalbaran(db.Model):
+    __tablename__ = 'obraalbaran'
+    idObraAlbaran = Column(Integer, primary_key=True)
     Cantidad = Column(Integer, nullable=False)
 
     # ProveedorIDOPv -> se asigna a un producto.
-    ProveedorIDOPv = Column(Integer, ForeignKey('proveedor.idProveedor'), nullable=False)
+    idAlbaran = Column(Integer, ForeignKey('albaran.idAlbaran'), nullable=False)
     # ObraID -> se asigna a una obra.
-    ObraIDOPv = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
+    idObra = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -173,9 +174,9 @@ class operariotrabajorealizado(db.Model):
     idOperariotrabajorealizado = Column(Integer, primary_key=True)
 
     # TrabajadorID -> se asigna a un trabajador.
-    TrabajadorID = Column(Integer, ForeignKey('trabajador.idTrabajador'), nullable=False)
+    idTrabajador = Column(Integer, ForeignKey('trabajador.idTrabajador'), nullable=False)
     # TrabajoRealizadoID -> se asigna a un trabajo realizado
-    TrabajoRealizadoID = Column(Integer, ForeignKey('trabajotealizado.idTrabajoRealizado'), nullable=False)
+    idTrabajoRealizado = Column(Integer, ForeignKey('trabajotealizado.idTrabajoRealizado'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -186,7 +187,7 @@ class imagenobra(db.Model):
     fotoObra = Column(BLOB, nullable=False )
 
     #necesito el id de la obra para asignarlo a la imagen
-    ObraID=Column(Integer, ForeignKey('obra.idObra'), nullable=False)
+    idObra=Column(Integer, ForeignKey('obra.idObra'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -197,7 +198,7 @@ class imagenalbaran(db.Model):
     fotoAlb = Column(BLOB, nullable=False )
 
     #necesito el id de la obra para asignarlo a la imagen
-    AlbaranID=Column(Integer, ForeignKey('albaran.idAlbaran'), nullable=False)
+    idAlbaran=Column(Integer, ForeignKey('albaran.idAlbaran'), nullable=False)
     
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
