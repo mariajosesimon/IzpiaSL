@@ -116,7 +116,7 @@ class formObraProducto(FlaskForm):
  #       if field == None or field.data < 1:          
  #           raise ValidationError("Cantidad minima 1.") 
 
-    submit = SubmitField('Añadir')
+    btn_add = SubmitField('Añadir')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
 class formObraAlbaran(FlaskForm):    

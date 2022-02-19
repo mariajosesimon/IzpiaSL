@@ -1,10 +1,11 @@
 
+from imp import reload
 import os
 
 from os import abort
 from flask import Flask, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import null
+from sqlalchemy import func, null
 
 from werkzeug.utils import redirect
 import config
@@ -486,6 +487,8 @@ def obras_new():
 
 @app.route( '/Obras/<id>/edit', methods=["get", "post"] )
 def obras_edit(id):
+
+    #Obra seleccionada.
     ob = obra.query.get(id)
     if ob is None:
         abort( 404 )
@@ -497,21 +500,30 @@ def obras_edit(id):
     formEditObra.idCliente.choices = listaclientes()
     formEditObra.idEstado.choices = listaestados()
 
-     #en este form tengo que añadir todos los productos que se habian utilizado. hay que populate
+    #en este form tengo que añadir todos los productos que se habian utilizado. hay que populate
     formEditProducto = formObraProducto()
     formEditProducto.idProducto.choices = listaproductos()
 
+    productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
+    prod = listaproductos()
+  
+    for a in productosSeleccionados:
+       for p in prod:
+           if a[1] == p[0]:
+               print(a[0], " -",p[1], " -" , a[2])
+
     #Tengo que rellenar el form con los datos 
 
-    productosSeleccionados = obraproducto.query.filter_by(idObra=id).all()
+    #Hago una select en la tabla obraproducto por el id de obra, y recojo todos los productos. 
+    #productosSeleccionados = obraproducto.query.filter_by(idObra=id).all()
     products = producto.query.all()
-    for ps in productosSeleccionados:
-        print(ps.Cantidad)
+    #for ps in productosSeleccionados:
+    #    print(ps.Cantidad)
 
 
-    
-    if formEditProducto.submit.data:
-        #Creacion del obra para subirlo   
+    if formEditProducto.btn_add.data:
+        # Añadimos un producto a la obra. 
+      
     
         if formEditProducto.Cantidad.data > 0:
        
@@ -520,18 +532,33 @@ def obras_edit(id):
                 obrPrd = obraproducto(Cantidad=formEditProducto.Cantidad.data,
                         idProducto = formEditProducto.idProducto.data,
                         idObra = formEditProducto.idObra.data)
-
+    
                 db.session.add(obrPrd)
                 db.session.commit()
-       
+                
+                productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
 
-    
-    if formEditObra.validate():
+                
+                formEditProducto.Cantidad.data = 0
+                
+
+                
+
+    if formEditObra.submit.data:
         formEditObra.populate_obj( ob )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
 
-    return render_template( "obras_new.html", form=formEditObra, obr = ob, formularioProductos=formEditProducto, productosSeleccionados=productosSeleccionados, products= products )
+   
+    formEditProducto.Cantidad.data = 0
+    
+   
+    return render_template( "obras_new.html",
+     form=formEditObra,
+     obr = ob,
+     formularioProductos=formEditProducto,
+     productosSeleccionados=productosSeleccionados, 
+     products= products )
 
 
 if __name__ == '__main__':

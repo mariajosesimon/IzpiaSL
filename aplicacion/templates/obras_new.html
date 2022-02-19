@@ -6,23 +6,21 @@
 
     <div class="container mx-auto py-4">
 
-
         <form action="" method="post" novalidate enctype="multipart/form-data">
             <div class="form-group">
                 {{ form.csrf_token }}
 
                 <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
-                    {{form.Nombre.label(class="font-bold ")}}
 
+                    <!--Mostramos el nombre de la obra-->
+                    {{form.Nombre.label(class="font-bold ")}}
                     {% if obr.idObra != None %}
                     <h1>{{obr.Nombre}}</h1>
-
+                    <!--Fin Mostramos el nombre de la obra-->
 
                     <div>
                         <!--aqui tenemos que meter los productos y su tabla con cantidades-->
-
-
-                        <!--actual component start-->
+                       <!--actual component start-->
                         <div x-data="setup()">
                             <ul class="flex justify-center items-center my-4">
                                 <template x-for="(tab, index) in tabs" :key="index">
@@ -41,18 +39,19 @@
                                             <grid class="grid grid-flow-col grid-cols-2 grid-rows-1 ">
                                                 <div class="text-green-800 font-bold">NOMBRE</div>
                                                 <div class="text-green-800 font-bold">CANTIDAD</div>
-        
+
                                             </grid>
                                             {%for ps in productosSeleccionados%}
                                             {%for p in products%}
-                                            {%if ps.idProducto ==p.idProducto %}
-                                            <grid class="grid grid-flow-col grid-cols-2 grid place-items-center grid-rows-1 ">
-        
+                                            {%if ps.idProducto == p.idProducto %}
+                                            <grid
+                                                class="grid grid-flow-col grid-cols-2 grid place-items-center grid-rows-1 ">
+
                                                 <div class="text-green-800 ">{{p.Nombre}}</div>
-                                                <div class="text-green-800 ">{{ps.Cantidad}}</div>
-        
+                                                <div class="text-green-800 ">{{ps[1]}}</div>
+
                                             </grid>
-        
+
                                             {%endif%}
                                             {%endfor%}
                                             {%endfor%}
@@ -72,6 +71,21 @@
                                         {% endfor %}
 
 
+                                        <div class="flex gap-4 justify-center border-t p-4">
+
+                                            {{formularioProductos.btn_add(class="bg-transparent
+                                            hover:bg-blue-500 text-blue-700
+                                            font-semibold hover:text-white py-2 px-4
+                                            border border-blue-500 hover:border-transparent rounded")}}
+        
+                                            {{formularioProductos.btn_cancel(class="bg-transparent
+                                            hover:bg-blue-500 text-blue-700
+                                            font-semibold hover:text-white py-2 px-4
+                                            border border-blue-500 hover:border-transparent rounded")}}
+        
+        
+                                        </div>
+        
 
                                     </div>
                                     <div x-show="activeTab===1">
@@ -81,27 +95,13 @@
 
                                 </div>
 
-
-
-                                <div class="flex gap-4 justify-center border-t p-4">
-
-                                    {{formularioProductos.submit(class="bg-transparent
-                                    hover:bg-blue-500 text-blue-700
-                                    font-semibold hover:text-white py-2 px-4
-                                    border border-blue-500 hover:border-transparent rounded")}}
-
-                                    {{formularioProductos.btn_cancel(class="bg-transparent
-                                    hover:bg-blue-500 text-blue-700
-                                    font-semibold hover:text-white py-2 px-4
-                                    border border-blue-500 hover:border-transparent rounded")}}
-
-
-                                </div>
-
+                               
 
                             </div>
+                           
                             <!--actual component end-->
 
+                            <!--Muestra las pestañas-->
                             <script>
                                 function setup() {
                                     return {
@@ -109,10 +109,12 @@
                                         tabs: [
                                             "Productos",
                                             "Albaranes",
-
                                         ]
                                     };
                                 };
+
+                           
+
                             </script>
 
 

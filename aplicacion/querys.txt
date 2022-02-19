@@ -1,0 +1,9 @@
+
+Suma cantidades de productos por obras y por producto.
+ SELECT sum(cantidad), idProducto, idObra FROM izpiasl.obraproducto group by(idProducto, idObra);
+
+    rs = db.session.query(obraproducto.idObra, obraproducto.idProducto, db.func.sum(obraproducto.Cantidad))
+    .group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
+
+
+ 
