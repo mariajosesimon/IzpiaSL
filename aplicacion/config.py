@@ -1,6 +1,7 @@
 import os
 
-secret_key = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
+#secret_key = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
+secret_key = os.urandom(16)
 PWD = os.path.abspath(os.curdir)
 
 DEBUG = True

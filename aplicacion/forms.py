@@ -1,4 +1,5 @@
 
+from decimal import Decimal
 from distutils import errors
 from email import message
 from msilib.schema import Error
@@ -6,7 +7,7 @@ from typing_extensions import Required
 from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField
-from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField, validators
+from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField, DecimalField
 from wtforms.validators import ValidationError, DataRequired 
 from wtforms.validators import Length, Email, NumberRange, InputRequired	
 from flask_wtf.file import FileField, FileRequired
@@ -80,7 +81,7 @@ class formProducto(FlaskForm):
 
     Nombre = StringField("Nombre: ", validators=[DataRequired(), Length(min=3, max=45, 
     message='Campo obligatorio. Minimo 5 caracteres.')])
-    Precio = FloatField("Precio: ", validators=[DataRequired(),NumberRange(0, 1E+20) ], default=1.0)
+    Precio = FloatField("Precio: ", validators=[DataRequired(),NumberRange(0, 1E+20) ], default=1.00)
     idUnidad = SelectField('Unidad Medida: ',  coerce=int)
 
     submit = SubmitField('Enviar')
@@ -108,14 +109,10 @@ class formObra(FlaskForm):
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
 class formObraProducto(FlaskForm):    
-    Cantidad = IntegerField('Cantidad: ', default=0, validators=[InputRequired()])
+    Cantidad = DecimalField('Cantidad: ', default=0.0, validators=[DataRequired(message='no admite letras')], places=2)
     idProducto = SelectField('Producto: ',  coerce=int)
     idObra = SelectField('Obra: ',  coerce=int)
    
- #   def validate_Cantidad(form, field):
- #       if field == None or field.data < 1:          
- #           raise ValidationError("Cantidad minima 1.") 
-
     btn_add = SubmitField('Añadir')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     

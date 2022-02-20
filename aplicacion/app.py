@@ -13,7 +13,8 @@ from forms import *
 from funciones import *
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
+#app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
+app.config['SECRET_KEY'] =  os.urandom(16)
 app.config.from_object( config )
 
 
@@ -504,6 +505,7 @@ def obras_edit(id):
     formEditProducto = formObraProducto()
     formEditProducto.idProducto.choices = listaproductos()
 
+    #Sumo cantidades por producto que se han comprado para la obra escogida. 
     productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
     prod = listaproductos()
   
@@ -523,26 +525,19 @@ def obras_edit(id):
 
     if formEditProducto.btn_add.data:
         # Añadimos un producto a la obra. 
-      
-    
-        if formEditProducto.Cantidad.data > 0:
-       
-            if formEditProducto.idObra.data==None:
-                formEditProducto.idObra.data = id
-                obrPrd = obraproducto(Cantidad=formEditProducto.Cantidad.data,
-                        idProducto = formEditProducto.idProducto.data,
-                        idObra = formEditProducto.idObra.data)
-    
-                db.session.add(obrPrd)
-                db.session.commit()
-                
-                productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
 
-                
-                formEditProducto.Cantidad.data = 0
-                
+        if formEditProducto.idObra.data==None:
+            formEditProducto.idObra.data = id
+            obrPrd = obraproducto(Cantidad=formEditProducto.Cantidad.data,
+                    idProducto = formEditProducto.idProducto.data,
+                    idObra = formEditProducto.idObra.data)
 
-                
+            db.session.add(obrPrd)
+            db.session.commit()
+            
+            productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
+            formEditProducto.Cantidad.data = 0
+                         
 
     if formEditObra.submit.data:
         formEditObra.populate_obj( ob )

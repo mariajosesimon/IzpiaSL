@@ -11,3 +11,8 @@ Ejecutar aplicacion.
 
 Elementos instalados
  pip list
+
+
+
+https://flask-es.readthedocs.io/quickstart/
+Cómo generar buenas claves secretas
