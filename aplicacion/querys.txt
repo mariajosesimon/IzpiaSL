@@ -1,9 +1,14 @@
 
-Suma cantidades de productos por obras y por producto.
+  OBRAS EDIT 
+  Suma cantidades de productos por obras y por producto.
  SELECT sum(cantidad), idProducto, idObra FROM izpiasl.obraproducto group by(idProducto, idObra);
 
     rs = db.session.query(obraproducto.idObra, obraproducto.idProducto, db.func.sum(obraproducto.Cantidad))
     .group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
 
 
- 
+  OBRAS EDIT
+  Necesito mostrar las tareas realizadas en la obra y su estado. 
+  SELECT * FROM izpiasl.tarea where idObra=1;
+
+  resultadoTareasObra = db.session.query(tarea.Descripcion, tarea.Notas, tarea.EstadoTarea).filter(tarea.idObra==id)

@@ -397,7 +397,6 @@ def tareas_new():
     tar = tarea()
     #recopilacion de datos del tarea
     formNewTarea = formTarea()
-	
 
 	# Añado el listado de los obras al formulario.
     # He creado un archivo donde recojo las funciones que utilizo. 
@@ -491,6 +490,8 @@ def obras_edit(id):
 
     #Obra seleccionada.
     ob = obra.query.get(id)
+    #Necesito saber el cliente para mostrarlo. 
+    client = cliente.query.get(ob.idCliente)
     if ob is None:
         abort( 404 )
 
@@ -500,6 +501,12 @@ def obras_edit(id):
 	# Añado el listado de los obras al formulario
     formEditObra.idCliente.choices = listaclientes()
     formEditObra.idEstado.choices = listaestados()
+    
+    #Necesito mostrar las tareas realizadas en la obra y su estado. 
+
+    resultadoTareasObra = db.session.query(tarea.Descripcion, tarea.Notas, tarea.EstadoTarea).filter(tarea.idObra==id)
+    #for r in resultadoTareasObra:
+     #   print(r[0])
 
     #en este form tengo que añadir todos los productos que se habian utilizado. hay que populate
     formEditProducto = formObraProducto()
@@ -509,11 +516,6 @@ def obras_edit(id):
     productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
     prod = listaproductos()
   
-    for a in productosSeleccionados:
-       for p in prod:
-           if a[1] == p[0]:
-               print(a[0], " -",p[1], " -" , a[2])
-
     #Tengo que rellenar el form con los datos 
 
     #Hago una select en la tabla obraproducto por el id de obra, y recojo todos los productos. 
@@ -536,7 +538,6 @@ def obras_edit(id):
             db.session.commit()
             
             productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
-            formEditProducto.Cantidad.data = 0
                          
 
     if formEditObra.submit.data:
@@ -545,15 +546,94 @@ def obras_edit(id):
         return redirect( url_for( "inicio" ) )
 
    
-    formEditProducto.Cantidad.data = 0
-    
-   
     return render_template( "obras_new.html",
      form=formEditObra,
      obr = ob,
      formularioProductos=formEditProducto,
      productosSeleccionados=productosSeleccionados, 
-     products= products )
+     products= products, client=client, 
+    resultadoTareasObra = resultadoTareasObra )
+
+
+
+
+
+
+####################### TRABAJOS REALIZADOS #####################################
+
+@app.route('/TrabajosRealizados', methods=['GET', 'POST'] )
+def trabajosrealizados():
+    trabajosrealizados = trabajorealizado.query.all()
+    obras = obra.query.all()
+   
+    return render_template("trabajosrealizados.html", trabajosrealizados=trabajosrealizados, obras = obras)
+
+
+#Creacion de nuevo trabajorealizado.
+@app.route('/TrabajosRealizados/New', methods=['GET', 'POST'])
+def trabajosrealizados_new():
+
+    tr = trabajorealizado()
+    #recopilacion de datos del trabajorealizado
+    formNewTrabajosRealizados = formTrabajoRealizado()
+    formNewTrabajosRealizados.idObra.choices = listaobras()
+    formNewTrabajosRealizados.idTrabajador.choices=listatrabajadores()
+
+    if formNewTrabajosRealizados.submit.data:
+            #validacion de los campos según nuestro form, que hemos puesto Validators
+
+      #Creacion del trabajorealizado para subirlo
+        tr = trabajorealizado(Fecha=formNewTrabajosRealizados.Fecha.data,
+					HoraInicio=formNewTrabajosRealizados.HoraInicio.data,		
+					HoraFin=formNewTrabajosRealizados.HoraFin.data,
+					Descripcion=formNewTrabajosRealizados.Descripcion.data,
+                    idObra=formNewTrabajosRealizados.idObra.data)             
+
+        db.session.add(tr)
+        db.session.commit()
+        
+        ## UTILIZACION DEL ID NECESARIO, EL CORRELATIVO.
+        # https://www.iteramos.com/pregunta/63587/sqlalchemy-flush-y-obtener-id-insertado
+        db.session.flush()
+        db.session.refresh(tr)
+
+        for a in formNewTrabajosRealizados.idTrabajador.data:
+            to = operariotrabajorealizado(idTrabajador=a, 
+        idTrabajoRealizado=tr.idTrabajoRealizado)
+            db.session.add(to)
+            db.session.commit()
+
+        return redirect(url_for("inicio"))
+    elif formNewTrabajosRealizados.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template("trabajosrealizados_new.html", form=formNewTrabajosRealizados)
+
+@app.route( '/TrabajosRealizados/<id>/edit', methods=["get", "post"] )
+def trabajosrealizados_edit(id):
+    tr = trabajorealizado.query.get(id)
+    if tr is None:
+        abort( 404 )
+
+    formEditTrabajosRealizados = formTrabajoRealizado(obj=tr)	
+
+        #Necesito saber la para mostrarla. 
+    ob = obra.query.get(tr.idObra)
+	
+	# Añado el listado de los obras al formulario
+    formEditTrabajosRealizados.idObra.choices = listaobras()
+   
+    if formEditTrabajosRealizados.validate_on_submit():
+        formEditTrabajosRealizados.populate_obj( tr )
+        db.session.commit()
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "trabajosrealizados_new.html", form=formEditTrabajosRealizados)
+
+
+
+
+
 
 
 if __name__ == '__main__':

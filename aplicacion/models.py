@@ -176,7 +176,7 @@ class operariotrabajorealizado(db.Model):
     # TrabajadorID -> se asigna a un trabajador.
     idTrabajador = Column(Integer, ForeignKey('trabajador.idTrabajador'), nullable=False)
     # TrabajoRealizadoID -> se asigna a un trabajo realizado
-    idTrabajoRealizado = Column(Integer, ForeignKey('trabajotealizado.idTrabajoRealizado'), nullable=False)
+    idTrabajoRealizado = Column(Integer, ForeignKey('trabajorealizado.idTrabajoRealizado'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))

@@ -7,7 +7,7 @@ from typing_extensions import Required
 from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField
-from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField, DecimalField
+from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField, DecimalField, SelectMultipleField
 from wtforms.validators import ValidationError, DataRequired 
 from wtforms.validators import Length, Email, NumberRange, InputRequired	
 from flask_wtf.file import FileField, FileRequired
@@ -114,7 +114,7 @@ class formObraProducto(FlaskForm):
     idObra = SelectField('Obra: ',  coerce=int)
    
     btn_add = SubmitField('Añadir')
-    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+   # btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
 class formObraAlbaran(FlaskForm):    
     idObra = SelectField('Obra: ',  coerce=int)
@@ -122,11 +122,12 @@ class formObraAlbaran(FlaskForm):
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
-class formOperarioTrabajoRealizado(FlaskForm):    
-    idTrabajador = SelectField('Trabajador: ',  coerce=int)
-    idTrabajorealizado = SelectField('Trabajo realizado: ',  coerce=int)
-    submit = SubmitField('Enviar')
-    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+# Este formulario se anula. He añadido el campo trabajador en el formTrabajoRealizado.
+# class formOperarioTrabajoRealizado(FlaskForm):    
+#    idTrabajador = SelectMultipleField('Trabajador: ')
+#    idTrabajorealizado = IntegerField('Trabajo realizado: ')
+#    submit = SubmitField('Enviar')
+#    btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
 class formProductoAlbaran(FlaskForm):    
     idProducto = SelectField('Producto: ',  coerce=int)
@@ -145,12 +146,13 @@ class formTarea(FlaskForm):
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
 class formTrabajoRealizado(FlaskForm):
-    Fecha = DateField('Fecha: ', format='%d-%m-%Y')
+    Fecha = DateField('Fecha: ')
     HoraInicio = TimeField('Hora de Inicio',format='%H:%M')
     HoraFin = TimeField('Hora de Fin',format='%H:%M')
     Descripcion = TextAreaField("Descripcion: ", validators=[DataRequired(), Length(min=5, max=500, 
     message='Campo obligatorio. Minimo 5 caracteres.')])
     idObra = SelectField('Obra: ',  coerce=int)
+    idTrabajador = SelectMultipleField('Trabajador: ')
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     

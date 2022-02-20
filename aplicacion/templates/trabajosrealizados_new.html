@@ -7,23 +7,32 @@
     <div class="container mx-auto py-4">
 
 
-        <form action="" method="post" novalidate enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 {{ form.csrf_token }}
 
                 <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
                     {{form.Fecha.label(class="font-bold ")}}
-					{{form.Fecha(class="datepicker border border-green-200")}}                  
-					{{form.FechaInicio.label(class="font-bold ")}}
-					{{form.FechaInicio(class="timepicker  border border-green-200")}}         
-					{{form.FechaFin.label(class="font-bold ")}}
-					{{form.FechaFin(class="timepicker  border border-green-200")}}    
-					
-                     {{form.Descripcion.label(class="font-bold ")}}
+                    {{form.Fecha(class="datepicker border border-green-200")}}
+                    {{form.HoraInicio.label(class="font-bold ")}}
+                    {{form.HoraInicio(class="timepicker border border-green-200")}}
+                    {{form.HoraFin.label(class="font-bold ")}}
+                    {{form.HoraFin(class="timepicker border border-green-200")}}
+
+                    {{form.Descripcion.label(class="font-bold ")}}
                     {{form.Descripcion (class="text-green-800 border border-green-200")}}
                 </div>
-                     {{form.idObra.label(class=" font-bold") }}
+                <div>
+                    {{form.idObra.label(class=" font-bold") }}
                     {{form.idObra(class="form-control border border-green-200")}}
+                </div>
+                <div>
+                    {{form.idTrabajador.label(class=" font-bold")}}
+                    </div><div>
+                        {{form.idTrabajador(class="form-control border border-green-200")}}
+                    </div>
+                        
+                </div>
 
 
 

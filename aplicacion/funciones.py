@@ -25,10 +25,7 @@ def listaalbaranes():
     return [(alb.idAlbaran, alb.Numero) for alb in albaran.query.all()]
 	
 def listaobras():
-    listaObra=[(0,'--')]
-    for o in obra.query.all():
-        listaObra.append(o.idObra, o.Nombre)
-    return listaObra
+    return [(o.idObra, o.Nombre) for o in obra.query.all()]
 
 def listatrabajosrealizados():
     return [(tr.idTrabajorealizado, tr.Descripcion, tr.Fecha) for tr in trabajorealizado.query.all()]		
