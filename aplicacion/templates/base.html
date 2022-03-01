@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -8,58 +9,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-          crossorigin="anonymous"/>
-     <script src="/static/js/script.js"></script>
-     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
+
+   
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
     <title>IZPIA S.L.</title>
 
 
 </head>
+<body>
 
 {% block navbar %}
-<nav class="flex justify-around items-center text-gray-200 px-4 shadow-md sm:py-4 sm:justify-around">
-    <div class="sm:hidden text-2xl"></div>
-    <ul class="hidden md:flex items-center space-x-3">
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/">Inicio</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Clientes">Clientes</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Proveedores">Proveedores</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Trabajadores">Trabajadores</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Productos">Productos</a>
-        </li>
-        
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Tareas">Tareas</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/TrabajosRealizados">Trabajos Realizados</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Albaranes">Albaranes</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Obras">Obras</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/UnidadMedida">Unidad Medida</a>
-        </li>
-        <li class="text-green-800 no-underline hover:underline">
-            <a href="/Estado">Estados</a>
-        </li>
 
 
-    </ul>
+<nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+
+    <div class="block lg:hidden">
+        <button id='boton'
+            class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+        </button>
+    </div>
+    <div id='menu' class="w-full block flex-grow lg:flex lg:items-center lg:w-auto text-center">
+        <div class="text-sm lg:flex-grow">
+            <a href="/Clientes" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                Clientes</a>
+            </a>
+            <a href="/Proveedores" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                Proveedores
+            </a>
+            <a href="/Trabajadores" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Trabajadores
+            </a>
+
+            <a href="/Productos" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Productos
+            </a>
+            <a href="/Tareas" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Tareas
+            </a>
+            <a href="/TrabajosRealizados" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Trabajos Realizados
+            </a>
+
+            <a href="/Albaranes" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Albaranes
+            </a>
+
+            <a href="/Obras" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Obras
+            </a>
+
+            <a href="/UnidadMedida" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Unidad Medida
+            </a>
+
+            <a href="/Estados" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Estados
+            </a>
+
+        </div>
+
+    </div>
 </nav>
+
 
 {% endblock %}
 
@@ -70,7 +88,17 @@
 </div>
 
 {% endblock %}
-
+   <!--Muestra y oculta menú en pantallas pequeñas-->
+<script>    
+const menu = document.querySelector('#menu');
+const boton = document.querySelector('#boton');
+boton.addEventListener('click', () => {
+    console.log("hola")
+    menu.classList.toggle('hidden')
+})
+</script>
+</body>
 <footer class="text-center text-green-800 py-4 "> Izpia S.L. <i class="fas fa-plug"></i>
 
 </footer>
+</html>
