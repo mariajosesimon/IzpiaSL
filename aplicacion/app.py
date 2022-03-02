@@ -1,5 +1,4 @@
 
-from imp import reload
 import os
 
 from os import abort
@@ -134,7 +133,6 @@ def proveedores_edit(id):
 
     formEditProveedor = formProveedor(obj=prv)
    
-
     if formEditProveedor.validate_on_submit():
         formEditProveedor.populate_obj( prv )
         db.session.commit()
@@ -170,8 +168,6 @@ def trabajadores_new():
                         Usuario=formNewTrabajador.Usuario.data,
                         Contrasena = None
                         )
-
-        print(trb.Baja, ' ', trb.Usuario)
         db.session.add(trb)
         db.session.commit()
         return redirect(url_for("inicio"))
@@ -552,7 +548,7 @@ def obras_edit(id):
      formularioProductos=formEditProducto,
      productosSeleccionados=productosSeleccionados, 
      products= products, client=client, 
-    resultadoTareasObra = resultadoTareasObra )
+     resultadoTareasObra = resultadoTareasObra )
 
 
 
@@ -578,6 +574,7 @@ def trabajosrealizados_new():
     formNewTrabajosRealizados = formTrabajoRealizado()
     formNewTrabajosRealizados.idObra.choices = listaobras()
     formNewTrabajosRealizados.idTrabajador.choices=listatrabajadores()
+   
 
     if formNewTrabajosRealizados.submit.data:
             #validacion de los campos según nuestro form, que hemos puesto Validators
@@ -599,7 +596,7 @@ def trabajosrealizados_new():
 
         for a in formNewTrabajosRealizados.idTrabajador.data:
             to = operariotrabajorealizado(idTrabajador=a, 
-        idTrabajoRealizado=tr.idTrabajoRealizado)
+                idTrabajoRealizado=tr.idTrabajoRealizado)
             db.session.add(to)
             db.session.commit()
 
@@ -607,7 +604,8 @@ def trabajosrealizados_new():
     elif formNewTrabajosRealizados.btn_cancel.data:
         return redirect(url_for("inicio"))
     else:
-        return render_template("trabajosrealizados_new.html", form=formNewTrabajosRealizados)
+        return render_template("trabajosrealizados_new.html", form=formNewTrabajosRealizados, 
+        trabajorealizado = tr)
 
 @app.route( '/TrabajosRealizados/<id>/edit', methods=["get", "post"] )
 def trabajosrealizados_edit(id):
@@ -617,18 +615,28 @@ def trabajosrealizados_edit(id):
 
     formEditTrabajosRealizados = formTrabajoRealizado(obj=tr)	
 
-        #Necesito saber la para mostrarla. 
+    #Necesito saber la obra para mostrarla. 
     ob = obra.query.get(tr.idObra)
 	
 	# Añado el listado de los obras al formulario
     formEditTrabajosRealizados.idObra.choices = listaobras()
-   
+    
+    #Necesito saber los operarios que han realizado la tarea.
+    
+    operarios = db.session.query(trabajador.Nombre).join(operariotrabajorealizado, operariotrabajorealizado.idTrabajador==trabajador.idTrabajador).filter(operariotrabajorealizado.idTrabajoRealizado==id)   
+    print(operarios)
+    
+    for o in operarios:
+        print(o.Nombre)
     if formEditTrabajosRealizados.validate_on_submit():
         formEditTrabajosRealizados.populate_obj( tr )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
 
-    return render_template( "trabajosrealizados_new.html", form=formEditTrabajosRealizados)
+    return render_template( "trabajosrealizados_new.html",
+     form=formEditTrabajosRealizados, 
+     operarios=operarios,
+    trabajorealizado = tr, ob=ob)
 
 
 
