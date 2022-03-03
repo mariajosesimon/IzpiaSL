@@ -30,7 +30,11 @@ def listaobras():
 def listatrabajosrealizados():
     return [(tr.idTrabajorealizado, tr.Descripcion, tr.Fecha) for tr in trabajorealizado.query.all()]		
 
-	
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'pdf', 'docx'])
+  
+def allowed_file(filename):
+ return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 	
 	
 	

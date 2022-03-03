@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, null
 
-from werkzeug.utils import redirect
+from werkzeug.utils import redirect, secure_filename
 import config
 from forms import *
 from funciones import *
@@ -15,6 +15,9 @@ app = Flask(__name__)
 #app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
 app.config['SECRET_KEY'] =  os.urandom(16)
 app.config.from_object( config )
+#Carpeta para subir imagenes de albaranes
+UPLOAD_FOLDER_ALBARAN = '/static/upload/Albaranes'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER_ALBARAN
 
 
 db = SQLAlchemy( app )
@@ -337,6 +340,7 @@ def albaranes_new():
     #recopilacion de datos del albaran
     formNewAlbaran = formAlbaran()
 	
+    
 
 	# Añado el listado de los proveedores al formulario.
     # He creado un archivo donde recojo las funciones que utilizo. 
@@ -351,11 +355,15 @@ def albaranes_new():
 
         db.session.add(alb)
         db.session.commit()
+        db.session.flush()
+        db.session.refresh(alb)
+        print("id de albaran: ", alb.idAlbaran)
+
         return redirect(url_for("inicio"))
     elif formNewAlbaran.btn_cancel.data:
         return redirect(url_for("inicio"))
     else:
-        return render_template("albaranes_new.html", form=formNewAlbaran)
+        return render_template("albaranes_new.html", form=formNewAlbaran, alb = alb)
 
 
 @app.route( '/Albaranes/<id>/edit', methods=["get", "post"] )
@@ -365,6 +373,48 @@ def albaranes_edit(id):
         abort( 404 )
 
     formEditAlbaran = formAlbaran(obj=alb)	
+
+    #form para añadir la imagen. 
+    formImagenAlbaran = formImagenAlb()
+
+    #Añadir 1 imagen 
+   # if formImagenAlbaran.upload:
+   #    print("estoy en el form")
+   #    try:
+   #           print("en el try")
+   #          f = formImagenAlbaran.fotoAlb.data
+   #         nombre_fichero=secure_filename(f.filename)
+   #         f.save(app.root_path+app.config['UPLOAD_FOLDER']+nombre_fichero)
+   #     except:
+   #         print("en exept")
+   #         nombre_fichero=""
+   #
+   #       imagenDeAlbaran=imagenalbaran()
+   #       #https://stackoverflow.com/questions/39112238/sqlalchemy-insert-string-argument-without-an-encoding
+   #        #para codificar el nombre del archivo hay que añadir str.enconde(nombrearchivo)
+   #       imagenDeAlbaran.fotoAlb=str.encode(nombre_fichero)
+   #       imagenDeAlbaran.idAlbaran=alb.idAlbaran
+   #       db.session.add(imagenDeAlbaran)
+   #      db.session.commit()
+            
+
+    # tutorial para subir varias imagenes:
+    # https://tutorial101.blogspot.com/2021/01/python-flask-upload-multiple-images-and.html
+    if formImagenAlbaran.upload:
+        files = request.files.getlist('files[]')
+        #print(files)
+        for file in files:
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(app.root_path+app.config['UPLOAD_FOLDER']+filename)
+                imagenDeAlbaran=imagenalbaran()
+        #https://stackoverflow.com/questions/39112238/sqlalchemy-insert-string-argument-without-an-encoding
+        #para codificar el nombre del archivo hay que añadir str.enconde(nombrearchivo)
+                imagenDeAlbaran.fotoAlb=str.encode(filename)
+                imagenDeAlbaran.idAlbaran=alb.idAlbaran
+                db.session.add(imagenDeAlbaran)
+                db.session.commit()           
+   
 	
 	# Añado el listado de los proveedores al formulario
     formEditAlbaran.idProveedor.choices = listaproveedores()
@@ -374,7 +424,7 @@ def albaranes_edit(id):
         db.session.commit()
         return redirect( url_for( "inicio" ) )
 
-    return render_template( "albaranes_new.html", form=formEditAlbaran )
+    return render_template( "albaranes_new.html", form=formEditAlbaran, formularioImagen=formImagenAlbaran, alb=alb )
 
 
 
@@ -624,10 +674,7 @@ def trabajosrealizados_edit(id):
     #Necesito saber los operarios que han realizado la tarea.
     
     operarios = db.session.query(trabajador.Nombre).join(operariotrabajorealizado, operariotrabajorealizado.idTrabajador==trabajador.idTrabajador).filter(operariotrabajorealizado.idTrabajoRealizado==id)   
-    print(operarios)
-    
-    for o in operarios:
-        print(o.Nombre)
+
     if formEditTrabajosRealizados.validate_on_submit():
         formEditTrabajosRealizados.populate_obj( tr )
         db.session.commit()

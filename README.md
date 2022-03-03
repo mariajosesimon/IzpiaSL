@@ -16,6 +16,11 @@ Cómo generar buenas claves secretas
 UTILIZACION DEL ID NECESARIO, EL CORRELATIVO.
 https://www.iteramos.com/pregunta/63587/sqlalchemy-flush-y-obtener-id-insertado
 
+  ## UTILIZACION DEL ID NECESARIO, EL CORRELATIVO. Ver en trabajorealizado new
+        # https://www.iteramos.com/pregunta/63587/sqlalchemy-flush-y-obtener-id-insertado
+        db.session.flush()
+        db.session.refresh(tr)
+
 
 NAVBAR
 https://www.youtube.com/watch?v=16fc0YSn4o8
