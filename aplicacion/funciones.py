@@ -37,7 +37,10 @@ def allowed_file(filename):
  return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 	
 	
+def imagenes_albaran(id):
+    imagenes=db.session.query(imagenalbaran.idImagenAlbaran, imagenalbaran.nombreImagen).filter(imagenalbaran.idAlbaran==id)
+    return imagenes
 	
-	
+
 	
 	

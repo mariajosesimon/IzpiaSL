@@ -195,6 +195,7 @@ class imagenobra(db.Model):
 class imagenalbaran(db.Model):
     __tablename__='imagenalbaran'
     idImagenAlbaran = Column(Integer, primary_key=True)
+    nombreImagen = Column(String, nullable=False )
     fotoAlb = Column(BLOB, nullable=False )
 
     #necesito el id de la obra para asignarlo a la imagen

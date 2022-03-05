@@ -2,7 +2,7 @@
 import os
 
 from os import abort
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, null
 
@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] =  os.urandom(16)
 app.config.from_object( config )
 #Carpeta para subir imagenes de albaranes
-UPLOAD_FOLDER_ALBARAN = '/static/upload/Albaranes'
+UPLOAD_FOLDER_ALBARAN = '/static/upload/Albaranes/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER_ALBARAN
 
 
@@ -373,10 +373,12 @@ def albaranes_edit(id):
         abort( 404 )
 
     formEditAlbaran = formAlbaran(obj=alb)	
-
+    # Añado el listado de los proveedores al formulario
+    formEditAlbaran.idProveedor.choices = listaproveedores()
     #form para añadir la imagen. 
-    formImagenAlbaran = formImagenAlb()
+    #formImagenAlbaran = formImagenAlb()
 
+   
     #Añadir 1 imagen 
    # if formImagenAlbaran.upload:
    #    print("estoy en el form")
@@ -400,7 +402,13 @@ def albaranes_edit(id):
 
     # tutorial para subir varias imagenes:
     # https://tutorial101.blogspot.com/2021/01/python-flask-upload-multiple-images-and.html
-    if formImagenAlbaran.upload:
+
+    #Tengo que mostrar las imagenes guardadas del albaran. El nombre. 
+    # llamo a la funcion imagenes_albaran()
+
+    imagenes=imagenes_albaran(id)
+    
+    if request.method == 'POST':
         files = request.files.getlist('files[]')
         #print(files)
         for file in files:
@@ -411,20 +419,32 @@ def albaranes_edit(id):
         #https://stackoverflow.com/questions/39112238/sqlalchemy-insert-string-argument-without-an-encoding
         #para codificar el nombre del archivo hay que añadir str.enconde(nombrearchivo)
                 imagenDeAlbaran.fotoAlb=str.encode(filename)
+                imagenDeAlbaran.nombreImagen=filename
                 imagenDeAlbaran.idAlbaran=alb.idAlbaran
                 db.session.add(imagenDeAlbaran)
-                db.session.commit()           
-   
-	
-	# Añado el listado de los proveedores al formulario
-    formEditAlbaran.idProveedor.choices = listaproveedores()
-   
-    if formEditAlbaran.validate_on_submit():
-        formEditAlbaran.populate_obj( alb )
-        db.session.commit()
+                db.session.commit()
+                formEditAlbaran.populate_obj( alb )
+                db.session.commit()
+                      
         return redirect( url_for( "inicio" ) )
 
-    return render_template( "albaranes_new.html", form=formEditAlbaran, formularioImagen=formImagenAlbaran, alb=alb )
+    return render_template( "albaranes_new.html", form=formEditAlbaran,  alb=alb, imagenes=imagenes )
+
+
+@app.route('/deleteImagenAlbaran/<idImagenAlbaran>/<idAlbaran>', methods=["get", "post"] )
+def deleteImagenAlbaran(idImagenAlbaran, idAlbaran):
+    alb = albaran.query.get(idAlbaran)
+    if alb is None:
+        abort( 404 )
+
+    imagen = imagenalbaran.query.get(idImagenAlbaran)
+    if idImagenAlbaran!="":
+        os.remove(app.root_path+"/static/upload/Albaranes/"+imagen.nombreImagen)
+    db.session.delete(imagen)
+    db.session.commit()
+  
+
+    return redirect( url_for("albaranes_edit", id=idAlbaran ))
 
 
 

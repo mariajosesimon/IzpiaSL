@@ -19,3 +19,10 @@ URL: TRABAJOSREALIZADOS EDIT
   SELECT * FROM izpiasl.operariotrabajorealizado where idTrabajoRealizado = 6;
 
   operarios = db.session.query(trabajador.Nombre).join(operariotrabajorealizado, operariotrabajorealizado.idTrabajador==trabajador.idTrabajador).filter(operariotrabajorealizado.idTrabajoRealizado==id)   
+
+
+URL: ALBARANES EDIT
+  Necesito recuperar los nombres de las imagenes que pertenecen al albaran
+  select * from imagenalbaran where idAlbaran = id
+
+  imagenes = db.session.query(imagenalbaran.fotoAlb).filter(imagenalbaran.idAlbaran==id)
