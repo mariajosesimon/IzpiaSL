@@ -22,9 +22,12 @@
                 {% if alb.idAlbaran != None%}
                
                 {%for i in imagenes%}
-                <div class="my-2">
-                    <a href="/deleteImagenAlbaran/{{i.idImagenAlbaran}}/{{alb.idAlbaran}}">   {{i.nombreImagen}} 
+                <div class="my-5">
+                    <a href="/deleteImagenAlbaran/{{i.idImagenAlbaran}}/{{alb.idAlbaran}}"> 
                     <i class="fas fa-trash-alt text-black font-bold btn-delete"></i></a></div>
+                   {{i.nombreImagen}} 
+                    <a class="display_image" href="/static/upload/Albaranes/{{i.nombreImagen}}"><i class="fas fa-eye"></i></a> 
+                   
                 {%endfor%}
                 <form method="post" action="" enctype="multipart/form-data" class="flex items-center">
                    
