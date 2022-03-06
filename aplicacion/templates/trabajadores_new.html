@@ -10,9 +10,9 @@
         <div class="form-group">
             {{ form.csrf_token }}
           
-            <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-green-800 form-control">
+            <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-black form-control">
                 {{form.Nombre.label(class="font-bold ")}}
-                {{form.Nombre (class="text-green-800 border border-green-200")}}
+                {{form.Nombre (class="text-black border border-green-200")}}
                 {% for error in form.Nombre.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
@@ -22,7 +22,7 @@
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}                        
 
-                {{form.Telefono.label(class="text-green-800 font-bold")}}
+                {{form.Telefono.label(class="text-black font-bold")}}
                 {{form.Telefono( class="border border-green-200")}}
                 {% for error in form.Telefono.errors %}
                 <span style="color: red;">{{ error }}</span>
@@ -34,25 +34,25 @@
             {% if form.Baja.type == 'BooleanField' %}
             {% if form.Baja() == 1 %}
             <div class="form-check form-check-inline">  
-                {{form.Baja.label(class="font-bold text-green-800")}} 
+                {{form.Baja.label(class="font-bold text-black")}} 
                 {{ form.Baja(checked=True, class='form-check-input ') }}
             </div>
             {% else %}
             <div class="form-check form-check-inline">
-                {{form.Baja.label(class="font-bold text-green-800")}}         
+                {{form.Baja.label(class="font-bold text-black")}}         
                 {{ form.Baja(checked=False, class='form-check-input ') }}
             </div>
             {% endif %}
             {%endif%}
 			
-            {{form.Rol.label(class="text-green-800 font-bold")}}
+            {{form.Rol.label(class="text-black font-bold")}}
             {{form.Rol( class="border border-green-200")}}
 
 
-				{{form.Usuario.label(class="text-green-800 font-bold")}}
+				{{form.Usuario.label(class="text-black font-bold")}}
                 {{form.Usuario( class="border border-green-200")}}
 
-                {{form.Contrasena.label(class="text-green-800 font-bold")}}
+                {{form.Contrasena.label(class="text-black font-bold")}}
                 {{form.Contrasena( class="border border-green-200")}}
 
 

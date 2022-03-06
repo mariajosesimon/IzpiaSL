@@ -15,7 +15,7 @@ if(btnDelete){
 
 /*
 Mostrar imagenes. 
-https://css-tricks.com/how-to-show-images-on-click/ */
+https://css-tricks.com/how-to-show-images-on-click/
 
 document.querySelectorAll(".display_image").forEach((item) => {
     item.addEventListener("click", (event) => {
@@ -27,3 +27,9 @@ document.querySelectorAll(".display_image").forEach((item) => {
       event.target.remove();
     });
   });
+*/
+
+  function mostrar(){
+    var image = document.getElementById('ima');
+   console.log("aqui aqui")
+  }

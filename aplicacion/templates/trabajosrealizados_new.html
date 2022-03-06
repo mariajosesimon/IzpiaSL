@@ -13,21 +13,17 @@
                 {%if trabajorealizado.idTrabajoRealizado != None%}
                 <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-black form-control">
                     {{form.Fecha.label(class="font-bold ")}}
-                    {{trabajorealizado.Fecha}}
+                    {{form.Fecha}}
                     {{form.HoraInicio.label(class="font-bold ")}}
-                    {{trabajorealizado.HoraInicio}}
+                    {{form.HoraInicio}}
                     {{form.HoraFin.label(class="font-bold ")}}
-                    {{trabajorealizado.HoraFin}}
+                    {{form.HoraFin}}
                     {{form.Descripcion.label(class="font-bold ")}}
-                    {{trabajorealizado.Descripcion}}
+                    {{form.Descripcion}}
                     {{form.idObra.label(class=" font-bold") }}
-                    {{ob.Nombre}}
+                    {{form.idObra}}
                     {{form.idTrabajador.label(class=" font-bold")}}
-                    {%for operario in operarios%}
-                    <div class="bg-white p-2 rounded mt-1 border-b border-grey">
-                        {{operario.Nombre}}
-                    </div>
-                    {%endfor%}
+                    {{form.idTrabajador}}
                 </div>
 
                 {%else%}

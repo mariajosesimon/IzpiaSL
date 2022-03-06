@@ -32,16 +32,16 @@
 
                <div class="list-group">
                 <grid class="grid grid-flow-col grid-cols-4 grid-rows-1 grid place-items-center gap-4 p-3 m-10">
-                    <div class="text-green-800 font-bold">ESTADO</div>
+                    <div class="text-black font-bold">ESTADO</div>
                 </grid>
 
                 {% for e in estados %}
 
                 <grid class="grid grid-flow-col grid-cols-5 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
 
-                    <div class="text-green-800 ">{{e.Estado}}</div>                  
+                    <div class="text-black ">{{e.Estado}}</div>                  
                     <div><a href="{{url_for('estados_edit',id=e.idEstado)}}">
-                        <i class="fas fa-edit text-green-800 font-bold"></i></a></div>
+                        <i class="fas fa-edit text-black font-bold"></i></a></div>
 
                 </grid>
                 {% endfor %}

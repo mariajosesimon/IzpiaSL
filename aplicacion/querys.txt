@@ -26,3 +26,10 @@ URL: ALBARANES EDIT
   select * from imagenalbaran where idAlbaran = id
 
   imagenes = db.session.query(imagenalbaran.fotoAlb).filter(imagenalbaran.idAlbaran==id)
+  
+URL OBRAS EDIT
+  Necesito mostrar las tareas realizadas en la obra y su estado. 
+  resultadoTareasObra = db.session.query(tarea.Descripcion, tarea.Notas, tarea.EstadoTarea).filter(tarea.idObra==id)
+
+  Sumo cantidades por producto que se han comprado para la obra escogida. 
+  productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()

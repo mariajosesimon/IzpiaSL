@@ -40,7 +40,17 @@ def allowed_file(filename):
 def imagenes_albaran(id):
     imagenes=db.session.query(imagenalbaran.idImagenAlbaran, imagenalbaran.nombreImagen).filter(imagenalbaran.idAlbaran==id)
     return imagenes
+
+def resultadoTarObr(id):
+    resultadoTareasObra = db.session.query(tarea.Descripcion, tarea.Notas, tarea.EstadoTarea).filter(tarea.idObra==id)
+    return resultadoTareasObra
+
+def suma(id):
+    productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
+    return productosSeleccionados
 	
 
-	
-	
+def albs(id): 
+    alba = db.session.query(albaran.idAlbaran, albaran.Numero, proveedor.Empresa, imagenalbaran.nombreImagen).select_from(albaran).join(proveedor).join(imagenalbaran).filter(albaran.idObra==id)
+    return alba
+

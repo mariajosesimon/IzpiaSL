@@ -99,6 +99,9 @@ class albaran(db.Model):
     # ProveedorID -> toma el proveedor del albarán.
     idProveedor = Column(Integer, ForeignKey('proveedor.idProveedor'), nullable=False)
 
+    # ObraID -> se asigna a una obra.
+    idObra = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
+
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
@@ -156,15 +159,7 @@ class obraproducto(db.Model):
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
-class obraalbaran(db.Model):
-    __tablename__ = 'obraalbaran'
-    idObraAlbaran = Column(Integer, primary_key=True)
-    Cantidad = Column(Integer, nullable=False)
 
-    # ProveedorIDOPv -> se asigna a un producto.
-    idAlbaran = Column(Integer, ForeignKey('albaran.idAlbaran'), nullable=False)
-    # ObraID -> se asigna a una obra.
-    idObra = Column(Integer, ForeignKey('obra.idObra'), nullable=False)
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))

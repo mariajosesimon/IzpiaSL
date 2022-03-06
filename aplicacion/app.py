@@ -345,13 +345,15 @@ def albaranes_new():
 	# Añado el listado de los proveedores al formulario.
     # He creado un archivo donde recojo las funciones que utilizo. 
     formNewAlbaran.idProveedor.choices = listaproveedores()
+    formNewAlbaran.idObra.choices = listaobras()
 
     if formNewAlbaran.submit.data and formNewAlbaran.validate():
             #validacion de los campos según nuestro form, que hemos puesto Validators
 
       #Creacion del albaran para subirlo
         alb = albaran(Numero=formNewAlbaran.Numero.data,
-                       idProveedor=formNewAlbaran.idProveedor.data)             
+                       idProveedor=formNewAlbaran.idProveedor.data,
+                       idObra=formNewAlbaran.idObra.data)             
 
         db.session.add(alb)
         db.session.commit()
@@ -375,6 +377,9 @@ def albaranes_edit(id):
     formEditAlbaran = formAlbaran(obj=alb)	
     # Añado el listado de los proveedores al formulario
     formEditAlbaran.idProveedor.choices = listaproveedores()
+
+    #Añadir el listado de obras al formulario
+    formEditAlbaran.idObra.choices=listaobras()
     #form para añadir la imagen. 
     #formImagenAlbaran = formImagenAlb()
 
@@ -408,27 +413,38 @@ def albaranes_edit(id):
 
     imagenes=imagenes_albaran(id)
     
-    if request.method == 'POST':
-        files = request.files.getlist('files[]')
+    
+    if formEditAlbaran.submit.data:
+        #files = request.files.getlist('files[]')
         #print(files)
+        pics = request.files.getlist(formEditAlbaran.imagenesAlbaran.name)
+        files = formEditAlbaran.imagenesAlbaran.data
+               
         for file in files:
             if file and allowed_file(file.filename):
+                #Guardamos la imagen del albaran.
                 filename = secure_filename(file.filename)
                 file.save(app.root_path+app.config['UPLOAD_FOLDER']+filename)
+
                 imagenDeAlbaran=imagenalbaran()
         #https://stackoverflow.com/questions/39112238/sqlalchemy-insert-string-argument-without-an-encoding
         #para codificar el nombre del archivo hay que añadir str.enconde(nombrearchivo)
-                imagenDeAlbaran.fotoAlb=str.encode(filename)
+                #imagenDeAlbaran.fotoAlb=str.encode(filename)
                 imagenDeAlbaran.nombreImagen=filename
+                imagenDeAlbaran.fotoAlb=str.encode(filename) 
                 imagenDeAlbaran.idAlbaran=alb.idAlbaran
                 db.session.add(imagenDeAlbaran)
                 db.session.commit()
                 formEditAlbaran.populate_obj( alb )
                 db.session.commit()
+
                       
         return redirect( url_for( "inicio" ) )
-
-    return render_template( "albaranes_new.html", form=formEditAlbaran,  alb=alb, imagenes=imagenes )
+    elif formEditAlbaran.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template( "albaranes_new.html", form=formEditAlbaran,  alb=alb, imagenes=imagenes )
+   
 
 
 @app.route('/deleteImagenAlbaran/<idImagenAlbaran>/<idAlbaran>', methods=["get", "post"] )
@@ -569,27 +585,20 @@ def obras_edit(id):
     formEditObra.idEstado.choices = listaestados()
     
     #Necesito mostrar las tareas realizadas en la obra y su estado. 
-
-    resultadoTareasObra = db.session.query(tarea.Descripcion, tarea.Notas, tarea.EstadoTarea).filter(tarea.idObra==id)
-    #for r in resultadoTareasObra:
-     #   print(r[0])
+    resultadoTareasObra = resultadoTarObr(id)
 
     #en este form tengo que añadir todos los productos que se habian utilizado. hay que populate
     formEditProducto = formObraProducto()
     formEditProducto.idProducto.choices = listaproductos()
+    
 
     #Sumo cantidades por producto que se han comprado para la obra escogida. 
-    productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
-    prod = listaproductos()
+    productosSeleccionados = suma(id)
+    #prod = listaproductos()
   
-    #Tengo que rellenar el form con los datos 
-
-    #Hago una select en la tabla obraproducto por el id de obra, y recojo todos los productos. 
-    #productosSeleccionados = obraproducto.query.filter_by(idObra=id).all()
     products = producto.query.all()
-    #for ps in productosSeleccionados:
-    #    print(ps.Cantidad)
-
+    albaranes = albs(id)
+    
 
     if formEditProducto.btn_add.data:
         # Añadimos un producto a la obra. 
@@ -603,22 +612,22 @@ def obras_edit(id):
             db.session.add(obrPrd)
             db.session.commit()
             
-            productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
-                         
+            productosSeleccionados = suma(id)                        
 
     if formEditObra.submit.data:
         formEditObra.populate_obj( ob )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
-
-   
-    return render_template( "obras_new.html",
+    elif formEditObra.btn_cancel.data:
+        return redirect( url_for( "inicio" ) )
+    else:
+        return render_template( "obras_new.html",
      form=formEditObra,
      obr = ob,
      formularioProductos=formEditProducto,
      productosSeleccionados=productosSeleccionados, 
      products= products, client=client, 
-     resultadoTareasObra = resultadoTareasObra )
+     resultadoTareasObra = resultadoTareasObra, albaranes=albaranes )
 
 
 
@@ -694,13 +703,19 @@ def trabajosrealizados_edit(id):
     #Necesito saber los operarios que han realizado la tarea.
     
     operarios = db.session.query(trabajador.Nombre).join(operariotrabajorealizado, operariotrabajorealizado.idTrabajador==trabajador.idTrabajador).filter(operariotrabajorealizado.idTrabajoRealizado==id)   
+    operarios2 = db.session.query(trabajador.idTrabajador, trabajador.Nombre).join(operariotrabajorealizado, operariotrabajorealizado.idTrabajador==trabajador.idTrabajador).filter(operariotrabajorealizado.idTrabajoRealizado==id)   
 
-    if formEditTrabajosRealizados.validate_on_submit():
+    formEditTrabajosRealizados.idTrabajador.choices=operarios2
+   
+    if formEditTrabajosRealizados.submit.data:
         formEditTrabajosRealizados.populate_obj( tr )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
-
-    return render_template( "trabajosrealizados_new.html",
+    
+    elif formEditTrabajosRealizados.btn_cancel.data:
+        return redirect(url_for("inicio"))
+    else:
+        return render_template( "trabajosrealizados_new.html",
      form=formEditTrabajosRealizados, 
      operarios=operarios,
     trabajorealizado = tr, ob=ob)

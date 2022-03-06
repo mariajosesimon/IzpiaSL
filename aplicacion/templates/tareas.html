@@ -16,12 +16,12 @@
 
         <div class="list-group">
             <grid class="grid grid-flow-col grid-cols-4 grid-rows-1 grid place-items-center gap-4 p-3 m-10">
-                <div class="text-green-800 font-bold">DESCRIPCION</div>
-                <div class="text-green-800 font-bold">ESTADO</div>
-                <div class="text-green-800 font-bold">NOTAS</div>
-                <div class="text-green-800 font-bold">OBRA</div>
-                <!--i class="fas fa-edit text-green-800 font-bold"></i>
-                <i class="fas fa-trash-alt text-green-800 font-bold"></i-->
+                <div class="text-black font-bold">DESCRIPCION</div>
+                <div class="text-black font-bold">ESTADO</div>
+                <div class="text-black font-bold">NOTAS</div>
+                <div class="text-black font-bold">OBRA</div>
+                <!--i class="fas fa-edit text-black font-bold"></i>
+                <i class="fas fa-trash-alt text-black font-bold"></i-->
 
             </grid>
 
@@ -29,19 +29,19 @@
 
             <grid class="grid grid-flow-col grid-cols-4 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
 
-                <div class="text-green-800 ">{{t.Descripcion}}</div>
-				<div class="text-green-800 ">{{t.EstadoTarea}}</div>
-				<div class="text-green-800 ">{{t.Notas}}</div>
+                <div class="text-black ">{{t.Descripcion}}</div>
+				<div class="text-black ">{{t.EstadoTarea}}</div>
+				<div class="text-black ">{{t.Notas}}</div>
 
             
 				{% for o in obras%}
                     {%if o.idObra == t.idObra%}
-                    <div class="text-green-800">{{o.Nombre}}</div>
+                    <div class="text-black">{{o.Nombre}}</div>
                     {%endif%}
                     {%endfor%}
 
                 <div><a href="{{url_for('tareas_edit',id=t.idTarea)}}">
-                    <i class="fas fa-edit text-green-800 font-bold"></i></a></div>
+                    <i class="fas fa-edit text-black font-bold"></i></a></div>
                
 
             </grid>

@@ -16,12 +16,12 @@
 
         <div class="list-group">
             <grid class="grid grid-flow-col grid-cols-4 grid-rows-1 grid place-items-center gap-4 p-3 m-10">
-                <div class="text-green-800 font-bold">NUMERO</div>
-                <div class="text-green-800 font-bold">PROVEEDOR</div>
-                <div class="text-green-800 font-bold"></div>
-                <div class="text-green-800 font-bold"></div>
-                <!--i class="fas fa-edit text-green-800 font-bold"></i>
-                <i class="fas fa-trash-alt text-green-800 font-bold"></i-->
+                <div class="text-black font-bold">NUMERO</div>
+                <div class="text-black font-bold">PROVEEDOR</div>
+                <div class="text-black font-bold"></div>
+                <div class="text-black font-bold"></div>
+                <!--i class="fas fa-edit text-black font-bold"></i>
+                <i class="fas fa-trash-alt text-black font-bold"></i-->
 
             </grid>
 
@@ -29,16 +29,17 @@
 
             <grid class="grid grid-flow-col grid-cols-5 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
 
-                <div class="text-green-800 ">{{a.Numero}}</div>
+                <div class="text-black ">{{a.Numero}}</div>
             
 				{% for p in proveedores%}
                     {%if p.idProveedor == a.idProveedor%}
-                    <div class="text-green-800">{{p.Empresa}}</div>
+                    <div class="text-black">{{p.Empresa}}</div>
                     {%endif%}
                     {%endfor%}
 
                 <div><a href="{{url_for('albaranes_edit',id=a.idAlbaran)}}">
-                    <i class="fas fa-edit text-green-800 font-bold"></i></a></div>
+                    <i class="fas fa-edit text-black font-bold"></i></a>
+                </div>
                
 
             </grid>

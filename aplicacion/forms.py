@@ -6,7 +6,7 @@ from msilib.schema import Error
 from typing_extensions import Required
 from wsgiref.validate import validator
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField
+from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField, MultipleFileField
 from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField, DecimalField, SelectMultipleField
 from wtforms.validators import ValidationError, DataRequired 
 from wtforms.validators import Length, Email, NumberRange, InputRequired	
@@ -92,6 +92,8 @@ class formAlbaran(FlaskForm):
     Numero = StringField("Numero: ", validators=[DataRequired(), Length(min=3, max=45, 
     message='Campo obligatorio. Minimo 5 caracteres.')])
     idProveedor = SelectField('Proveedor: ',  coerce=int)
+    idObra=SelectField('Obra', coerce=int)
+    imagenesAlbaran=MultipleFileField("Imagenes: ")
 
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
@@ -155,10 +157,11 @@ class formTrabajoRealizado(FlaskForm):
     idTrabajador = SelectMultipleField('Trabajador: ')
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
+   
     
 class formImagenAlb(FlaskForm):
     fotoAlb = FileField('Imagen: ', validators=[FileRequired()])
-    submit = SubmitField('Enviar')
+    upload = SubmitField('Upload')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
 class formSINO(FlaskForm):
