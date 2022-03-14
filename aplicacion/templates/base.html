@@ -65,6 +65,7 @@
                 Obras
             </a>
 
+            {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
             <a href="/UnidadMedida" class="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-white mr-3">
                 Unidad Medida
             </a>
@@ -72,6 +73,15 @@
             <a href="/Estado" class="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-white mr-3">
                 Estados
             </a>
+            {% endif %} 
+            {% if current_user.is_authenticated %}
+         
+            <a href="/logout"> {{ current_user.Nombre}} (Salir)</a>
+            <a href="/Trabajadores/{{ current_user.idTrabajador}}/changepassword">Cambio Pass</a>
+            {% else %}
+            <a  href="/login">Login</a>
+    
+            {% endif %}
 
         </div>
 

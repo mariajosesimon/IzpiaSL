@@ -1,15 +1,14 @@
-
 import os
-
 from os import abort
 from flask import Flask, render_template, request, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func, null
-
+from flask_login import LoginManager
 from werkzeug.utils import redirect, secure_filename
 import config
 from forms import *
 from funciones import *
+from flask_login import LoginManager,login_user,logout_user,login_required,current_user
+
 
 app = Flask(__name__)
 #app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
@@ -18,8 +17,9 @@ app.config.from_object( config )
 #Carpeta para subir imagenes de albaranes
 UPLOAD_FOLDER_ALBARAN = '/static/upload/Albaranes/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER_ALBARAN
-
-
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view="inicio"
 db = SQLAlchemy( app )
 
 # esta importación se hace despues de la conexion a la BD sino, no obtendremos nada.
@@ -28,8 +28,26 @@ from models import *
 
 @app.route( '/', methods=['GET', 'POST'] )
 def inicio():
-    return render_template("inicio.html")
+    return render_template('inicio.html')
 
+@app.route('/changepassword/<Usuario>', methods=['Get', 'Post'])
+def changepassword(username):
+	user=trabajador.query.filter_by(Usuario=form.Usuario.data).first()
+	if user is None:
+		abort(404)
+
+	form=formChangepassword()
+	if form.validate_on_submit():
+		form.populate_obj(user)
+		db.session.commit()
+		return redirect(url_for("inicio"))
+
+	return render_template("changepassword.html",form=form)
+
+
+@login_manager.user_loader
+def load_user(idTrabajador):
+	return trabajador.query.get(int(idTrabajador))
 
 ####################### CLIENTES #####################################
 
@@ -38,11 +56,13 @@ def clientes():
     clientes = cliente.query.all()
     return render_template("clientes.html", clientes=clientes)
 
-
 #Creacion de nuevo cliente.
 @app.route('/Clientes/New', methods=['GET', 'POST'])
+@login_required
 def clientes_new():
-
+    
+    if current_user.is_admin()!="Admin":
+        abort(401)
     cli = cliente()
     #recopilacion de datos del cliente
     formNewCliente = formCliente()
@@ -73,7 +93,11 @@ def clientes_new():
 
 
 @app.route( '/Clientes/<id>/edit', methods=["get", "post"] )
+@login_required
 def clientes_edit(id):
+
+    if current_user.is_admin()!="Admin":
+        abort(401)
     clien = cliente.query.get(id)
     if clien is None:
         abort( 404 )
@@ -97,8 +121,10 @@ def proveedores():
 
 #Creacion de nuevo proveedor.
 @app.route('/Proveedores/New', methods=['GET', 'POST'])
+@login_required
 def proveedores_new():
-
+    if current_user.is_admin()!="Admin":
+        abort(401)
     prv = proveedor()
     #recopilacion de datos del proveedor
     formNewProveedor = formProveedor()
@@ -129,7 +155,10 @@ def proveedores_new():
 
 
 @app.route( '/Proveedores/<id>/edit', methods=["get", "post"] )
+@login_required
 def proveedores_edit(id):
+    if current_user.is_admin()!="Admin":
+        abort(401)
     prv = proveedor.query.get(id)
     if prv is None:
         abort( 404 )
@@ -153,7 +182,10 @@ def trabajadores():
 
 #Creacion de nuevo trabajador.
 @app.route('/Trabajadores/New', methods=['GET', 'POST'])
+@login_required
 def trabajadores_new():
+    if current_user.is_admin()!="Admin":
+        abort(401)
 
     trb = trabajador()
     #recopilacion de datos del trabajador
@@ -162,49 +194,83 @@ def trabajadores_new():
     if formNewTrabajador.submit.data and formNewTrabajador.validate():
             #validacion de los campos según nuestro form, que hemos puesto Validators
 
+        
       #Creacion del trabajador para subirlo
-        trb = trabajador(Nombre=formNewTrabajador.Nombre.data,
-                        Apellidos=formNewTrabajador.Apellidos.data,
-                        Telefono=formNewTrabajador.Telefono.data,
-						Baja = formNewTrabajador.Baja.data,
-                        Rol = formNewTrabajador.Rol.data,
-                        Usuario=formNewTrabajador.Usuario.data,
-                        Contrasena = None
-                        )
+        trb=trabajador()
+
+        trb.Nombre=formNewTrabajador.Nombre.data
+        trb.Apellidos=formNewTrabajador.Apellidos.data
+        trb.Telefono=formNewTrabajador.Telefono.data
+        trb.Baja = formNewTrabajador.Baja.data
+        trb.Rol = formNewTrabajador.Rol.data
+        trb.Usuario=formNewTrabajador.Usuario.data
+        trb.password = formNewTrabajador.password.data
+
         db.session.add(trb)
         db.session.commit()
         return redirect(url_for("inicio"))
     elif formNewTrabajador.btn_cancel.data:
         return redirect(url_for("inicio"))
     else:
-        return render_template("trabajadores_new.html", form=formNewTrabajador)
+        return render_template("trabajadores_new.html", form=formNewTrabajador, trabajador=trb)
 
 
 @app.route( '/Trabajadores/<id>/edit', methods=["get", "post"] )
+@login_required
 def trabajadores_edit(id):
+
+    if current_user.is_admin()!="Admin":
+        abort(401)
     trb = trabajador.query.get(id)
     if trb is None:
         abort( 404 )
 
     formEditTrabajador = formTrabajador(obj=trb)
+    del formEditTrabajador.password
    
     if formEditTrabajador.validate_on_submit():
+
+      
         formEditTrabajador.populate_obj( trb )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
 
-    return render_template( "trabajadores_new.html", form=formEditTrabajador )
+    return render_template( "trabajadores_new.html", form=formEditTrabajador, trabajador=trb )
+
+
+#Funcion para que un usuario "Administrador" pueda cambiar la
+# contraseña de un trabajador si éste no se acuerda de su propia contraseña
+
+@app.route('/Trabajadores/<id>/changepassword', methods=["get", "post"] )
+def trabajadores_changepassword(id):
+    trb = trabajador.query.get(id)
+        
+    formChangePass = formChangePassword()
+    if formChangePass.validate_on_submit():
+        formChangePass.populate_obj(trb)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+    elif formChangePass.cancel.data:
+        return redirect(url_for("inicio"))
+    
+    return render_template( "changepassword.html", form=formChangePass, trabajador=trb )
 
 
 ####################### UNIDADES #####################################
 
 @app.route('/UnidadMedida', methods=['GET', 'POST'] )
+@login_required
 def unidades():
+    if current_user.is_admin()!="Admin":
+        abort(401)
     unidades = unidad.query.all()
     return render_template("unidadMedida.html", unidades=unidades)
 
 @app.route('/UnidadMedida/New', methods=['POST'])
+@login_required
 def unidades_new():
+    if current_user.is_admin()!="Admin":
+        abort(401)
     un = unidad()
     if request.method == 'POST':
         un.Unidad = request.form['Unidad']
@@ -215,7 +281,10 @@ def unidades_new():
         return render_template("unidadMedida.html")
 
 @app.route( '/UnidadMedida/<id>/edit', methods=["get", "post"] )
+@login_required
 def unidades_edit(id):
+    if current_user.is_admin()!="Admin":
+        abort(401)
     un = unidad.query.get(id)
     if un is None:
         abort( 404 )
@@ -229,6 +298,8 @@ def unidades_edit(id):
     else:
         return render_template("unidadMedida_edit.html", form=formEditUnidad)
    
+
+
 
 ####################### PRODUCTOS #####################################
 
@@ -289,15 +360,21 @@ def productos_edit(id):
 
     return render_template( "productos_new.html", form=formEditProducto )
 
-####################### UNIDADES #####################################
+####################### ESTADOS #####################################
 
 @app.route('/Estado', methods=['GET', 'POST'] )
+@login_required
 def estados():
+    if current_user.is_admin()!="Admin":
+        abort(401)
     estados = estado.query.all()
     return render_template("estados.html", estados=estados)
 
 @app.route('/Estado/New', methods=['POST'])
+@login_required
 def estados_new():
+    if current_user.is_admin()!="Admin":
+        abort(401)
     es = estado()
     if request.method == 'POST':
         es.Estado = request.form['Estado']
@@ -308,7 +385,10 @@ def estados_new():
         return render_template("estados.html")
 
 @app.route( '/Estado/<id>/edit', methods=["get", "post"] )
+@login_required
 def estados_edit(id):
+    if current_user.is_admin()!="Admin":
+        abort(401)
     es = estado.query.get(id)
     if es is None:
         abort( 404 )
@@ -327,10 +407,24 @@ def estados_edit(id):
 ####################### ALBARANES #####################################
 
 @app.route('/Albaranes', methods=['GET', 'POST'] )
+@app.route('/Albaranes/filter', methods=['POST'] )
 def albaranes():
     albaranes = albaran.query.all()
     proveedores = proveedor.query.all()
-    return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores)
+    filtroAlbaran=formFiltroObra()
+    filtroAlbaran.idObra.choices=listaobras()
+    if filtroAlbaran.submit.data:
+        try:
+            idOb=filtroAlbaran.idObra.data
+            print(idOb)
+        except:
+            idOb=""
+    
+    #ranas = db.session.query( Ranas ).filter( and_( Ranas.sexo == sex, Ranas.size == talla ) ).all()
+        albaranes= db.session.query(albaran).filter(albaran.idObra==idOb).all()
+        return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaran)
+    
+    return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaran)
 
 #Creacion de nuevo albaran.
 @app.route('/Albaranes/New', methods=['GET', 'POST'])
@@ -359,7 +453,6 @@ def albaranes_new():
         db.session.commit()
         db.session.flush()
         db.session.refresh(alb)
-        print("id de albaran: ", alb.idAlbaran)
 
         return redirect(url_for("inicio"))
     elif formNewAlbaran.btn_cancel.data:
@@ -485,6 +578,8 @@ def tareas_new():
    
     formNewTarea.idObra.choices = listaobras()
 
+
+
     if formNewTarea.submit.data and formNewTarea.validate():
             #validacion de los campos según nuestro form, que hemos puesto Validators
 
@@ -534,8 +629,11 @@ def obras():
 
 #Creacion de nuevo obra.
 @app.route('/Obras/New', methods=['GET', 'POST'])
+@login_required
 def obras_new():
 
+    if current_user.is_admin()!="Admin":
+        abort(401)
     ob = obra()
     #recopilacion de datos del obra
     formNewObra = formObra()
@@ -630,10 +728,6 @@ def obras_edit(id):
      resultadoTareasObra = resultadoTareasObra, albaranes=albaranes )
 
 
-
-
-
-
 ####################### TRABAJOS REALIZADOS #####################################
 
 @app.route('/TrabajosRealizados', methods=['GET', 'POST'] )
@@ -721,10 +815,37 @@ def trabajosrealizados_edit(id):
     trabajorealizado = tr, ob=ob)
 
 
+################################ LOGIN #######################################
+
+@app.route('/login', methods=['get', 'post'])
+def login():
+    form = formLogin()
+    if form.validate_on_submit():
+        user=trabajador.query.filter_by(Usuario=form.Usuario.data).first()
+        if user!=None and user.verify_password(form.password.data):
+            login_user(user)
+            return redirect(url_for('inicio'))
+    	
+        form.Usuario.errors.append("Usuario o contraseña incorrectas.")
+    return render_template('login.html', form=form)
+@app.route("/logout")
+def logout():
+	logout_user()
+	return redirect(url_for('login'))
 
 
+#Funcion necesaria para saber qué usuario trabajador está logueado en cada momento.
+@login_manager.user_loader
+def load_user(idTrabajador):
+	return trabajador.query.get(int(idTrabajador))
 
+@app.errorhandler(404)
+def page_not_found(error):
+	return render_template("error.html",error="Página no encontrada..."), 404
 
+@app.errorhandler(401)
+def page_not_found(error):
+	return render_template("error.html",error="No tienes permiso"), 401
 
 if __name__ == '__main__':
     app.run()

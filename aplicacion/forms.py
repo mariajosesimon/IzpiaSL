@@ -3,6 +3,7 @@ from decimal import Decimal
 from distutils import errors
 from email import message
 from msilib.schema import Error
+from tkinter import SE
 from typing_extensions import Required
 from wsgiref.validate import validator
 from flask_wtf import FlaskForm
@@ -57,9 +58,9 @@ class formTrabajador(FlaskForm):
     message='Campo obligatorio. Minimo 5 caracteres.')])
     Telefono = IntegerField("Telefono: ", validators=[DataRequired()])
     Baja = BooleanField('Baja', default=0)
-    Rol = SelectField('Rol: ', choices=[('All'),('Admin'), ('Trabajador')])
+    Rol = SelectField('Rol: ', choices=[('--'),('Admin'), ('Trabajador')])
     Usuario = StringField("Usuario: ")
-    Contrasena = PasswordField('Contraseña: ')
+    password = PasswordField('Contraseña: ', validators=[DataRequired()])
  
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
@@ -157,7 +158,8 @@ class formTrabajoRealizado(FlaskForm):
     idTrabajador = SelectMultipleField('Trabajador: ')
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
-   
+
+
     
 class formImagenAlb(FlaskForm):
     fotoAlb = FileField('Imagen: ', validators=[FileRequired()])
@@ -167,3 +169,18 @@ class formImagenAlb(FlaskForm):
 class formSINO(FlaskForm):
     si = SubmitField('Si')
     no = SubmitField('No')
+
+class formLogin(FlaskForm):
+    Usuario = StringField('Login', validators=[DataRequired()])
+    password = PasswordField('password')
+    submit = SubmitField('Entrar')
+
+class formChangePassword(FlaskForm):
+    password = PasswordField('Contraseña', validators=[DataRequired()])
+    cancel =SubmitField("No cambiar la contraseña", render_kw={'formnovalidate':True})
+    submit = SubmitField('Aceptar')
+
+class formFiltroObra(FlaskForm):
+    idObra=SelectField('Obra ', coerce=int)
+    submit = SubmitField('Aplicar filtros')
+    btn_cancel = SubmitField('Reset filtros')

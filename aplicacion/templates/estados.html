@@ -15,7 +15,7 @@
                             <input type="text" class="form-control border border-green-200" name="Estado">
                         </div>
                        
-    
+                        {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
                         <!--BOTONES-->
                         <div class="grid grid-flow-col grid-row-1 gap-2  m-2">
                            <button class="bg-transparent
@@ -25,6 +25,7 @@
     
                                
                         </div>
+                        {% endif %} 
                     </form>
                 </div>
 
@@ -39,10 +40,11 @@
 
                 <grid class="grid grid-flow-col grid-cols-5 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
 
-                    <div class="text-black ">{{e.Estado}}</div>                  
+                    <div class="text-black ">{{e.Estado}}</div>    
+                    {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}              
                     <div><a href="{{url_for('estados_edit',id=e.idEstado)}}">
                         <i class="fas fa-edit text-black font-bold"></i></a></div>
-
+                        {% endif %} 
                 </grid>
                 {% endfor %}
 

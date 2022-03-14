@@ -9,6 +9,7 @@
         <div class="row">
 
                 <div class="card card-body">
+                    {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
                     <form action="{{url_for('unidades_new')}}" method="post" >
                         <div class="form-group">
                             <label>Unidad: </label>
@@ -26,6 +27,7 @@
                                
                         </div>
                     </form>
+                    {% endif %}  
                 </div>
 
 
@@ -39,10 +41,11 @@
 
                 <grid class="grid grid-flow-col grid-cols-5 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
 
-                    <div class="text-black ">{{u.Unidad}}</div>                  
+                    <div class="text-black ">{{u.Unidad}}</div>      
+                    {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}            
                     <div><a href="{{url_for('unidades_edit',id=u.idUnidad)}}">
                         <i class="fas fa-edit text-black font-bold"></i></a></div>
-
+                        {% endif %}  
                 </grid>
                 {% endfor %}
 

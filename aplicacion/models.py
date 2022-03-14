@@ -1,8 +1,7 @@
-from ssl import DefaultVerifyPaths
 from sqlalchemy import Column, ForeignKey, BLOB, Boolean, Float, Text, Time
 from sqlalchemy import Integer, String, Date
 from app import db
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class cliente(db.Model):
     __tablename__ = 'cliente'
@@ -56,12 +55,34 @@ class trabajador(db.Model):
     Apellidos = Column(String(45), nullable=False)
     Telefono = Column(Integer, nullable=False)
     Baja = Column(Boolean)
-    Rol = Column(String(45), default='Trabajador', nullable=False)
+    Rol = Column(String(45), nullable=False)
     Usuario = Column(String(45))
-    Contrasena  = Column(String(100))
+    password_hash = Column(String(128))
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
+
+    
+    @property
+    def password(self):
+        raise AttributeError("Password is not a readable attribute")
+    @password.setter
+    def password(self, password):
+        self.password_hash=generate_password_hash(password)
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
+    def is_authenticated(self):
+        return True
+    def is_active(self):
+	    return self.Baja
+    def get_id(self):
+        return str(self.idTrabajador)
+    def is_admin(self):
+        return self.Rol
+
+    
+
 
 class producto(db.Model):
     __tablename__= 'producto'
