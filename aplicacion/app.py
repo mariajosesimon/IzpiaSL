@@ -112,6 +112,16 @@ def clientes_edit(id):
 
     return render_template( "clientes_new.html", form=formEditCliente )
 
+@app.route('/Clientes/<id>/view', methods=["get", "post"] )
+def clientes_view(id):
+    clien = cliente.query.get(id)
+    if clien is None:
+        abort( 404 ) 
+
+    if id=="Volver":
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "clientes_view.html", client=clien )
 
 ####################### PROVEEDORES #####################################
 @app.route('/Proveedores', methods=['GET', 'POST'] )
@@ -172,6 +182,17 @@ def proveedores_edit(id):
 
     return render_template( "proveedores_new.html", form=formEditProveedor )
 
+
+@app.route('/Proveedores/<id>/view', methods=["get", "post"] )
+def proveedores_view(id):
+    prv = proveedor.query.get(id)
+    if prv is None:
+        abort( 404 ) 
+
+    if id=="Volver":
+        return redirect( url_for( "inicio" ) )
+
+    return render_template( "proveedores_view.html", provee=prv )
 
 ####################### TRABAJADORES #####################################
 
@@ -848,4 +869,4 @@ def page_not_found(error):
 	return render_template("error.html",error="No tienes permiso"), 401
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0")

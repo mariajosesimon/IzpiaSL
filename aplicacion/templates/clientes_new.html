@@ -11,40 +11,40 @@
             <div class="form-group">
                 {{ form.csrf_token }}
 
-                <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-black form-control">
-                    {{form.Empresa.label(class="font-bold ")}}
-                    {{form.Empresa (class="text-black border border-green-200")}}
+                <div class="grid grid-cols-2 md:grid-cols-8 grid-row-1 gap-1 m-2 text-black form-control">
+                    {{form.Empresa.label(class="font-bold flex justify-right")}}
+                    {{form.Empresa (class="text-black border border-green-200 flex justify-right")}}
                     {% for error in form.Empresa.errors %}
                     <span style="color: red;">{{ error }}</span>
                     {% endfor %}
-                    {{form.CifNif.label(class="font-bold")}}
-                    {{form.CifNif (class="border border-green-200")}}
+                    {{form.CifNif.label(class="font-bold flex justify-right")}}
+                    {{form.CifNif (class="border border-green-200 flex justify-right")}}
                     {% for error in form.CifNif.errors %}
                     <span style="color: red;">{{ error }}</span>
                     {% endfor %}
-                    {{form.Direccion.label(class="font-bold ")}}
-                    {{form.Direccion(class="border border-green-200 ")}}
-                    {{form.CP.label(class="font-bold")}}
-                    {{form.CP (class="border border-green-200 ")}}
+                    {{form.Direccion.label(class="font-bold flex justify-right")}}
+                    {{form.Direccion(class="border border-green-200 flex justify-right ")}}
+                    {{form.CP.label(class="font-bold flex justify-right")}}
+                    {{form.CP (class="border border-green-200 flex justify-right")}}
 
                 </div>
 
 
-                <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-black form-control">
-                    {{form.Ciudad.label(class="font-bold ")}}
-                    {{form.Ciudad(class="border border-green-200 ")}}
+                <div class="grid grid-cols-2 md:grid-cols-8 grid-row-1 gap-1 m-2 text-black form-control">
+                    {{form.Ciudad.label(class="font-bold flex justify-right")}}
+                    {{form.Ciudad(class="border border-green-200 flex justify-right ")}}
 
-                    {{form.Provincia.label(class="text-black font-bold")}}
-                    {{form.Provincia(class="border border-green-200 ")}}
+                    {{form.Provincia.label(class="text-black font-bold flex justify-right")}}
+                    {{form.Provincia(class="border border-green-200 flex justify-right")}}
 
-                    {{form.Telefono.label(class="text-black font-bold")}}
-                    {{form.Telefono( class="border border-green-200")}}
+                    {{form.Telefono.label(class="text-black font-bold flex justify-right")}}
+                    {{form.Telefono( class="border border-green-200 flex justify-right")}}
                     {% for error in form.Telefono.errors %}
                     <span style="color: red;">{{ error }}</span>
                     {% endfor %}
 
-                    {{form.Email.label(class="font-bold")}}
-                    {{form.Email(class="border border-green-200")}}
+                    {{form.Email.label(class="font-bold flex justify-right")}}
+                    {{form.Email(class="border border-green-200 flex justify-right")}}
                     {% for error in form.Email.errors %}
                     <span style="color: red;">{{ error }}</span>
                     {% endfor %}
@@ -54,14 +54,14 @@
                
                 {% if form.Baja.type == 'BooleanField' %}
                 {% if form.Baja() == 1 %}
-                <div class="form-check form-check-inline">  
-                    {{form.Baja.label(class="font-bold text-black")}} 
-                    {{ form.Baja(checked=True, class='form-check-input ') }}
+                <div class="form-check form-check-inline  gap-1 m-2  grid grid-cols-2 grid-row-1">  
+                    {{form.Baja.label(class="font-bold text-black flex justify-right")}} 
+                    {{ form.Baja(checked=True, class='form-check-input flex justify-right') }}
                 </div>
                 {% else %}
-                <div class="form-check form-check-inline">
-                    {{form.Baja.label(class="font-bold text-black")}}         
-                    {{ form.Baja(checked=False, class='form-check-input ') }}
+                <div class="form-check form-check-inline gap-1 m-2 grid grid-cols-2 grid-row-1">
+                    {{form.Baja.label(class="font-bold text-black flex justify-right")}}         
+                    {{ form.Baja(checked=False, class='form-check-input flex justify-right') }}
                 </div>
                 {% endif %}
                 {%endif%}

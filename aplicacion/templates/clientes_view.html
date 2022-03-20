@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Cliente{% endblock %}
+{% block contenido %}
+
+<body>
+
+    <div class="container mx-auto py-4">
+        <div>CLIENTES</div>
+
+                <div class="grid grid-cols-2 md:grid-cols-8 grid-row-1 gap-1 m-2 text-black ">
+                    <div class="font-bold flex justify-right")>EMPRESA</div>
+                    {{client.Empresa }}
+
+                    <div class="font-bold flex justify-right")>CIF O NIF</div>
+            
+                    {{client.CifNif }}
+
+                    <div class="font-bold flex justify-right")>DIRECCION</div>
+              
+                    {{client.Direccion}}
+                    <div class="font-bold flex justify-right")>CP</div>
+       
+                    {{client.CP }}
+
+                </div>
+
+
+                <div class="grid grid-cols-2 md:grid-cols-8 grid-row-1 gap-1 m-2 text-black ">
+                    <div class="font-bold flex justify-right")>CIUDAD</div>
+                    {{client.Ciudad}}
+
+                    <div class="font-bold flex justify-right")>PROVINCIA</div>
+                    {{client.Provincia}}
+                    <div class="font-bold flex justify-right")>TELEFONO</div>
+
+                    {{client.Telefono}}
+                   
+                    <div class="font-bold flex justify-right")>EMAIL</div>
+                    {{client.Email}}
+                    
+
+                </div>
+
+                             
+                <div class="client-check client-check-inline  gap-1 m-2  grid grid-cols-2 grid-row-1">  
+                    <div class="font-bold flex justify-right")>BAJA</div>
+                    {{ client.Baja}}
+                </div>
+             
+            <!--BOTipconfig-->
+
+            <div class="grid grid-flow-col grid-row-1 gap-2  m-2">
+                <form action="{{ url_for( 'inicio' )}}" method="post">
+                <input class="bg-transparent
+                hover:bg-green-500 text-green-700
+                font-semibold hover:text-white py-2 px-4
+                border border-green-500 hover:border-transparent rounded" type="submit" value="volver" name="volver">
+            </form>
+               
+            </div>
+
+    </div>
+
+
+</body>
+
+{% endblock %}

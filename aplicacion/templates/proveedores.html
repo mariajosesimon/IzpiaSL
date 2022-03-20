@@ -12,14 +12,17 @@
             hover:bg-green-500 text-green-700
             font-semibold hover:text-white py-2 px-4
             border border-green-500 hover:border-transparent rounded" href="{{url_for('proveedores_new')}}"
-           role="button">Nuevo Proveedor</a>  {% endif %}  
+           role="button">Nuevo Proveedor</a> 
+            {% endif %}  
 
+           <div>PROVEEDORES</div>
         <div class="list-group">
-            <grid class="grid grid-flow-col grid-cols-4 grid-rows-1 grid place-items-center gap-4 p-3 m-10">
-                <div class="text-black font-bold">NOMBRE</div>
-                <div class="text-black font-bold">TELEFONO</div>
-                <div class="text-black font-bold"></div>
-                <div class="text-black font-bold"></div>
+            <grid class="grid grid-cols-3  md:grid-cols-6 grid-rows-1 grid place-items-center my-6">
+                <div class="text-black font-bold flex justify-center">NOMBRE</div>
+                <div class="text-black font-bold flex justify-center">TELEFONO</div>
+                <div class="text-black font-bold flex justify-center">CONTACTO</div>
+                <div class="text-black font-bold flex justify-center invisible md:visible">DIRECCION</div>
+                <div class="text-black font-bold flex justify-center invisible md:visible">CIUDAD</div>
                 <!--i class="fas fa-edit text-black font-bold"></i>
                 <i class="fas fa-trash-alt text-black font-bold"></i-->
 
@@ -27,10 +30,16 @@
 
             {% for p in proveedores %}
 
-            <grid class="grid grid-flow-col grid-cols-5 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
+            <grid class="grid grid-cols-3  md:grid-cols-6 grid-rows-1 grid place-items-center my-6">
 
-                <div class="text-black ">{{p.Empresa}}</div>
+
+                <div class="text-black flex justify-center">
+                    <a href="{{url_for('proveedores_view',id=p.idProveedor)}}"> {{p.Empresa}}</a></div>
                 <div class="text-black ">{{p.Telefono}}</div>
+              
+                <div class="text-black flex justify-center">{{p.Contacto}}</div>
+                <div class="text-black flex justify-center invisible md:visible" >{{p.Direccion}}</div>
+                    <div class="text-black flex justify-center invisible md:visible">{{p.Ciudad}}</div>
 
                 {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
                 <div><a href="{{url_for('proveedores_edit',id=p.idProveedor)}}">
