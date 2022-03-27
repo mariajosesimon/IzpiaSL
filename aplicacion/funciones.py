@@ -25,7 +25,10 @@ def listaalbaranes():
     return [(alb.idAlbaran, alb.Numero) for alb in albaran.query.all()]
 	
 def listaobras():
-    return [(o.idObra, o.Nombre) for o in obra.query.all()]
+    listadoObras=[(0, 'All')]
+    for o in obra.query.all():
+        listadoObras.append([o.idObra, o.Nombre])
+    return listadoObras
 
 def listatrabajosrealizados():
     return [(tr.idTrabajorealizado, tr.Descripcion, tr.Fecha) for tr in trabajorealizado.query.all()]		
@@ -45,7 +48,7 @@ def resultadoTarObr(id):
     resultadoTareasObra = db.session.query(tarea.Descripcion, tarea.Notas, tarea.EstadoTarea).filter(tarea.idObra==id)
     return resultadoTareasObra
 
-def suma(id):
+def sumaProductos(id):
     productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
     return productosSeleccionados
 	

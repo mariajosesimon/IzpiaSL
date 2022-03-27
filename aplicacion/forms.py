@@ -2,16 +2,15 @@
 from decimal import Decimal
 from distutils import errors
 from email import message
-from msilib.schema import Error
-from tkinter import SE
-from typing_extensions import Required
-from wsgiref.validate import validator
+from turtle import onclick
+from werkzeug.datastructures import MultiDict
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, BooleanField, FileField, TextAreaField, MultipleFileField
 from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField, DecimalField, SelectMultipleField
 from wtforms.validators import ValidationError, DataRequired 
 from wtforms.validators import Length, Email, NumberRange, InputRequired	
 from flask_wtf.file import FileField, FileRequired
+
 
 
 
@@ -108,7 +107,7 @@ class formObra(FlaskForm):
     idCliente = SelectField('Cliente: ',  coerce=int)
     NumeroPedido = StringField("Numero de pedido: ")
 
-    submit = SubmitField('Enviar')
+    submit = SubmitField('Guardar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
 class formObraProducto(FlaskForm):    
@@ -116,7 +115,12 @@ class formObraProducto(FlaskForm):
     idProducto = SelectField('Producto: ',  coerce=int)
     idObra = SelectField('Obra: ',  coerce=int)
    
-    btn_add = SubmitField('Añadir')
+    btn_add = SubmitField('Añadir producto')
+    
+
+   # def reset(self):
+    #    blankData = MultiDict([ ('csrf', self.reset_csrf()  ) ]) 
+     #   self.process(blankData)
    # btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
 class formObraAlbaran(FlaskForm):    
@@ -182,5 +186,11 @@ class formChangePassword(FlaskForm):
 
 class formFiltroObra(FlaskForm):
     idObra=SelectField('Obra ', coerce=int)
-    submit = SubmitField('Aplicar filtros')
-    btn_cancel = SubmitField('Reset filtros')
+    submit = SubmitField('Aplicar filtro')
+    btn_cancel = SubmitField('Reset filtro')
+
+class formFiltroEstadoObra(FlaskForm):
+    idObra=SelectField('Obra ', coerce=int)
+    EstadoTarea = SelectField('Estado: ', choices=['All','Asignada', 'En progreso', 'En Pausa', 'En espera de material', 'Finalizada'])
+    submit = SubmitField('Aplicar filtro')
+    resetFiltro = SubmitField('Reset filtro')

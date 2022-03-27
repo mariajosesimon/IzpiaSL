@@ -1,6 +1,7 @@
+from operator import and_
 import os
 from os import abort
-from flask import Flask, render_template, request, url_for, flash
+from flask import Flask, render_template, request, url_for, flash, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from werkzeug.utils import redirect, secure_filename
@@ -36,7 +37,7 @@ def changepassword(username):
 	if user is None:
 		abort(404)
 
-	form=formChangepassword()
+	form=formChangePassword()
 	if form.validate_on_submit():
 		form.populate_obj(user)
 		db.session.commit()
@@ -432,20 +433,20 @@ def estados_edit(id):
 def albaranes():
     albaranes = albaran.query.all()
     proveedores = proveedor.query.all()
-    filtroAlbaran=formFiltroObra()
-    filtroAlbaran.idObra.choices=listaobras()
-    if filtroAlbaran.submit.data:
+    filtroAlbaranXObra=formFiltroObra()
+    filtroAlbaranXObra.idObra.choices=listaobras()
+    if filtroAlbaranXObra.submit.data:
         try:
-            idOb=filtroAlbaran.idObra.data
+            idOb=filtroAlbaranXObra.idObra.data
             print(idOb)
         except:
             idOb=""
     
-    #ranas = db.session.query( Ranas ).filter( and_( Ranas.sexo == sex, Ranas.size == talla ) ).all()
+  
         albaranes= db.session.query(albaran).filter(albaran.idObra==idOb).all()
-        return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaran)
+        return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaranXObra)
     
-    return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaran)
+    return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaranXObra)
 
 #Creacion de nuevo albaran.
 @app.route('/Albaranes/New', methods=['GET', 'POST'])
@@ -584,7 +585,33 @@ def deleteImagenAlbaran(idImagenAlbaran, idAlbaran):
 def tareas():
     tareas = tarea.query.all()
     obras = obra.query.all()
-    return render_template("tareas.html", tareas=tareas, obras=obras)
+    filtroTareaXObrayEstado=formFiltroEstadoObra()
+    filtroTareaXObrayEstado.idObra.choices=listaobras()
+
+    if filtroTareaXObrayEstado.submit.data:
+        idOb=filtroTareaXObrayEstado.idObra.data
+        estado = filtroTareaXObrayEstado.EstadoTarea.data
+        
+        if filtroTareaXObrayEstado.idObra.data==0 and filtroTareaXObrayEstado.EstadoTarea.data == 'All':
+            tareas=db.session.query(tarea)
+        elif filtroTareaXObrayEstado.idObra.data!=0 and filtroTareaXObrayEstado.EstadoTarea.data == 'All':
+            tareas=db.session.query(tarea).filter(tarea.idObra==idOb)
+        elif filtroTareaXObrayEstado.idObra.data ==0 and filtroTareaXObrayEstado.EstadoTarea.data != 'All':
+            tareas=db.session.query(tarea).filter(tarea.EstadoTarea==estado) 
+        elif filtroTareaXObrayEstado.idObra.data !=0 and filtroTareaXObrayEstado.EstadoTarea.data != 'All':
+            tareas= db.session.query(tarea).filter(and_(tarea.idObra==idOb, tarea.EstadoTarea==estado) ).all()
+    
+    elif filtroTareaXObrayEstado.resetFiltro.data:
+        idOb=0
+        estado='All'
+        filtroTareaXObrayEstado.idObra.data=idOb
+        filtroTareaXObrayEstado.EstadoTarea.data = 'All'
+        filtroTaskXObrayEstado=filtroTareaXObrayEstado
+        tareas=db.session.query(tarea)
+    
+
+
+    return render_template("tareas.html", tareas=tareas, obras=obras, filtroTaskXObrayEstado= filtroTareaXObrayEstado)
 
 #Creacion de nuevo tarea.
 @app.route('/Tareas/New', methods=['GET', 'POST'])
@@ -709,19 +736,21 @@ def obras_edit(id):
     #en este form tengo que añadir todos los productos que se habian utilizado. hay que populate
     formEditProducto = formObraProducto()
     formEditProducto.idProducto.choices = listaproductos()
-    
+    print("paso 1")
 
     #Sumo cantidades por producto que se han comprado para la obra escogida. 
-    productosSeleccionados = suma(id)
+    productosSeleccionados = sumaProductos(id)
     #prod = listaproductos()
   
     products = producto.query.all()
-    albaranes = albs(id)
-    
+    albaranes = albs(id)   
 
     if formEditProducto.btn_add.data:
         # Añadimos un producto a la obra. 
 
+        print("Cantidad añadida: ", formEditProducto.Cantidad.data)
+
+        print("paso 2")
         if formEditProducto.idObra.data==None:
             formEditProducto.idObra.data = id
             obrPrd = obraproducto(Cantidad=formEditProducto.Cantidad.data,
@@ -731,24 +760,31 @@ def obras_edit(id):
             db.session.add(obrPrd)
             db.session.commit()
             
-            productosSeleccionados = suma(id)                        
+            productosSeleccionados = sumaProductos(id)  
+            print("paso 6")
+            return redirect(url_for( 'obras_edit', id = formEditProducto.idObra.data))
 
-    if formEditObra.submit.data:
+    elif formEditObra.submit.data:
+        print("estoy en submit")
         formEditObra.populate_obj( ob )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
     elif formEditObra.btn_cancel.data:
+        print("en cancel")
+        
         return redirect( url_for( "inicio" ) )
     else:
-        return render_template( "obras_new.html",
-     form=formEditObra,
-     obr = ob,
-     formularioProductos=formEditProducto,
-     productosSeleccionados=productosSeleccionados, 
-     products= products, client=client, 
-     resultadoTareasObra = resultadoTareasObra, albaranes=albaranes )
+        print("paso 7")
+            
+        return render_template("obras_new.html",
+        form=formEditObra,
+        obr = ob,
+        formularioProductos=formEditProducto,
+        productosSeleccionados=productosSeleccionados, 
+        products= products, client=client, 
+        resultadoTareasObra = resultadoTareasObra, albaranes=albaranes )
 
-
+# Administrador1
 ####################### TRABAJOS REALIZADOS #####################################
 
 @app.route('/TrabajosRealizados', methods=['GET', 'POST'] )
