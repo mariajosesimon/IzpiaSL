@@ -4,60 +4,58 @@
 
 <body>
 
-    <div class="container mx-auto py-4">
-    <div>PROVEEDORES</div>
+    <div class="container mx-auto p-8">
+        <div class="text-green-700 font-bold">PROVEEDOR</div>
 
-                <div class="grid grid-cols-2 md:grid-cols-8 grid-row-1 gap-1 m-2 text-black ">
-                    <div class="font-bold flex justify-right")>EMPRESA</div>
-                    {{provee.Empresa }}
+        <div class="grid grid-cols-2 md:grid-cols-6 grid-row-1 gap-1 m-2 text-black ">
+            <div class="font-bold flex justify-right" )>EMPRESA</div>
+            {{provee.Empresa }}
 
-                    <div class="font-bold flex justify-right")>CIF O NIF</div>
-            
-                    {{provee.CifNif }}
+            <div class="font-bold flex justify-right" )>CIF O NIF</div>
+            {{provee.CifNif }}
 
-                    <div class="font-bold flex justify-right")>DIRECCION</div>
-              
-                    {{provee.Direccion}}
-                    <div class="font-bold flex justify-right")>CP</div>
-       
-                    {{provee.CP }}
+            <div class="font-bold flex justify-right" )>DIRECCION</div>
+            {{provee.Direccion}}
+        </div>
 
-                </div>
+        <div class="grid grid-cols-2 md:grid-cols-6 grid-row-1 gap-1 m-2 text-black ">
+            <div class="font-bold flex justify-right" )>CP</div>
+            {{provee.CP }}   
 
+            <div class="font-bold flex justify-right" )>CIUDAD</div>
+            {{provee.Ciudad}}
 
-                <div class="grid grid-cols-2 md:grid-cols-8 grid-row-1 gap-1 m-2 text-black ">
-                    <div class="font-bold flex justify-right")>CIUDAD</div>
-                    {{provee.Ciudad}}
+            <div class="font-bold flex justify-right" )>PROVINCIA</div>
+            {{provee.Provincia}}
+        </div>
+    <div class="grid grid-cols-2 md:grid-cols-6 grid-row-1 gap-1 m-2 text-black ">
+        <div class="font-bold flex justify-right" )>TELEFONO</div>
+        {{provee.Telefono}}
 
-                    <div class="font-bold flex justify-right")>PROVINCIA</div>
-                    {{provee.Provincia}}
-                    <div class="font-bold flex justify-right")>TELEFONO</div>
+        <div class="font-bold flex justify-right" )>EMAIL</div>
+        {{provee.Email}}
 
-                    {{provee.Telefono}}
-                   
-                    <div class="font-bold flex justify-right")>EMAIL</div>
-                    {{provee.Email}}
-                    
+        <div class="font-bold flex justify-right" )>BAJA</div>
+        {{ provee.Baja}}
+    </div>
 
-                </div>
+    {% if current_user.is_authenticated and current_user.is_admin()=="Admin" %}
+    <div class="py-10"><a href="{{url_for('proveedores_edit',id=provee.idProveedor)}}" class=" hover:bg-green-500 text-green-700
+                    font-semibold hover:text-white py-2 px-4
+                    border border-green-500 hover:border-transparent rounded font-bold font-sans">
+            <i class="fas fa-edit bg-transparent mx-5"></i>Editar Proveedor</a></div>
+    {% endif %}
+    <!--BOTipconfig-->
 
-                             
-                <div class="client-check client-check-inline  gap-1 m-2  grid grid-cols-2 grid-row-1">  
-                    <div class="font-bold flex justify-right")>BAJA</div>
-                    {{ provee.Baja}}
-                </div>
-             
-            <!--BOTipconfig-->
-
-            <div class="grid grid-flow-col grid-row-1 gap-2  m-2">
-                <form action="{{ url_for( 'inicio' )}}" method="post">
-                <input class="bg-transparent
+    <div class="grid grid-flow-col grid-row-1 gap-2  m-2">
+        <form action="{{ url_for( 'inicio' )}}" method="post">
+            <input class="bg-transparent
                 hover:bg-green-500 text-green-700
                 font-semibold hover:text-white py-2 px-4
                 border border-green-500 hover:border-transparent rounded" type="submit" value="Volver" name="volver">
-            </form>
-               
-            </div>
+        </form>
+
+    </div>
 
     </div>
 

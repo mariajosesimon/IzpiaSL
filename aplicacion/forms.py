@@ -2,6 +2,7 @@
 from decimal import Decimal
 from distutils import errors
 from email import message
+from tkinter.tix import DirTree
 from turtle import onclick
 from werkzeug.datastructures import MultiDict
 from flask_wtf import FlaskForm
@@ -107,6 +108,12 @@ class formObra(FlaskForm):
     idCliente = SelectField('Cliente: ',  coerce=int)
     NumeroPedido = StringField("Numero de pedido: ")
 
+    Cantidad = DecimalField('Cantidad: ', default=0.0, validators=[DataRequired(message='no admite letras')], places=2)
+    idProducto = SelectField('Producto: ',  coerce=int)
+    idObra = SelectField('Obra: ',  coerce=int)
+    btn_add = SubmitField('Añadir producto')
+
+
     submit = SubmitField('Guardar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
 
@@ -152,6 +159,7 @@ class formTarea(FlaskForm):
     submit = SubmitField('Enviar')
     btn_cancel = SubmitField('Cancelar', render_kw={'formnovalidate': True})
     
+    
 class formTrabajoRealizado(FlaskForm):
     Fecha = DateField('Fecha: ')
     HoraInicio = TimeField('Hora de Inicio',format='%H:%M')
@@ -176,7 +184,7 @@ class formSINO(FlaskForm):
 
 class formLogin(FlaskForm):
     Usuario = StringField('Login', validators=[DataRequired()])
-    password = PasswordField('password')
+    password = PasswordField('Password')
     submit = SubmitField('Entrar')
 
 class formChangePassword(FlaskForm):
@@ -194,3 +202,5 @@ class formFiltroEstadoObra(FlaskForm):
     EstadoTarea = SelectField('Estado: ', choices=['All','Asignada', 'En progreso', 'En Pausa', 'En espera de material', 'Finalizada'])
     submit = SubmitField('Aplicar filtro')
     resetFiltro = SubmitField('Reset filtro')
+    descargar = SubmitField("Descargar selección")
+    

@@ -81,9 +81,6 @@ class trabajador(db.Model):
     def is_admin(self):
         return self.Rol
 
-    
-
-
 class producto(db.Model):
     __tablename__= 'producto'
     idProducto = Column(Integer, primary_key=True)

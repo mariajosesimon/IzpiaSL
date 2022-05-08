@@ -6,6 +6,7 @@
 <body>
 <div class="container">
 
+    <div class="text-green-700 font-bold m-5" >OBRAS</div>
     <div class="row">
         {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
         <a class="bg-transparent
@@ -15,24 +16,33 @@
            role="button">Nueva Obra</a>
            {% endif %} 
         <div class="list-group">
-            <grid class="grid grid-flow-col grid-cols-4 grid-rows-1 grid place-items-center gap-4 p-3 m-10">
+            <grid class="grid grid-cols-3  md:grid-cols-4 grid-rows-1 grid place-items-center my-6">
                 <div class="text-black font-bold">NOMBRE</div>
                 <div class="text-black font-bold">ESTADO</div>
                 <div class="text-black font-bold">CLIENTE</div>
-                <div class="text-black font-bold">Nº PEDIDO</div>
-                <!--i class="fas fa-edit text-black font-bold"></i>
-                <i class="fas fa-trash-alt text-black font-bold"></i-->
-
+                <div class="text-black font-bold hidden md:block">Nº PEDIDO</div>
+              
             </grid>
 
             {% for o in obras %}
 
-            <grid class="grid grid-flow-col grid-cols-5 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
+            <grid class="grid grid-cols-3  md:grid-cols-4 grid-rows-1 grid place-items-center my-6">
+                
+                {% if current_user.is_authenticated  %}
 
-                <div class="text-black ">{{o.Nombre}}</div>
-						
+                <div class="text-black text-left hover:text-green-900 hover:font-bold mx-10 ">
 
-            
+                <a href="{{url_for('obras_edit',id=o.idObra)}}">{{o.Nombre}}
+                   </a></div>
+                  
+                   {%else%}
+                   <div class="text-black text-left hover:text-green-900 hover:font-bold mx-10 ">
+
+                   {{o.Nombre}}
+                      </div>
+                  {% endif %} 
+
+	        
 				{% for e in estados%}
                     {%if e.idEstado == o.idEstado%}
                     <div class="text-black">{{e.Estado}}</div>
@@ -45,15 +55,9 @@
                     {%endif%}
                     {%endfor%}
 					
-					<div class="text-black ">{{o.NumeroPedido}}</div>
+					<div class="text-black hidden md:block ">{{o.NumeroPedido}}</div>
 
-                    {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
-
-                <div><a href="{{url_for('obras_edit',id=o.idObra)}}">
-                    <i class="fas fa-edit text-black font-bold"></i></a></div>
-                    <div><i class="fas fa-trash-alt text-black font-bold"></i></div>
                    
-                  {% endif %} 
 
             </grid>
             {% endfor %}

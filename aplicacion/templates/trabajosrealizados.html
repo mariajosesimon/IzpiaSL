@@ -4,63 +4,69 @@
 {% block contenido %}
 
 <body>
-<div class="container">
+    <div class="container">
 
-    <div class="row">
-        {% if current_user.is_authenticated   %}
-        <a class="bg-transparent
+        <div class="text-green-700 font-bold my-6">TRABAJOS REALIZADOS</div>
+        <div class="row">
+            {% if current_user.is_authenticated and current_user.Rol == "Admin"%}
+            <a class="bg-transparent
             hover:bg-green-500 text-green-700
             font-semibold hover:text-white py-2 px-4
             border border-green-500 hover:border-transparent rounded" href="{{url_for('trabajosrealizados_new')}}"
-           role="button">Nuevo Trabajo Realizado</a>
-{%endif%}
-        <div class="list-group">
-            <grid class="grid grid-flow-col grid-cols-4 grid-rows-1 grid place-items-center gap-4 p-3 m-10">
-                <div class="text-black font-bold">FECHA</div>
-                <div class="text-black font-bold">HORA INICIO</div>
-                <div class="text-black font-bold">HORA FIN</div>
-                <div class="text-black font-bold">OBRA</div>
-                <!--i class="fas fa-edit text-black font-bold"></i>
+                role="button">Nuevo Trabajo Realizado</a>
+            {%endif%}
+            <div class="list-group">
+
+                <grid class="grid grid-cols-3  md:grid-cols-5 grid-rows-1 grid place-items-center my-3 gap-x-2">
+                    <div class="text-black font-bold">FECHA</div>
+                    <div class="text-black font-bold col-span-2 md:col-span-1">DESCRIPCION</div>
+                    <div class="text-black font-bold hidden md:block">HORA INICIO</div>
+                    <div class="text-black font-bold hidden md:block">HORA FIN</div>
+                    <div class="text-black font-bold hidden md:block">OBRA</div>
+                    <div></div>
+                    <!--i class="fas fa-edit text-black font-bold"></i>
                 <i class="fas fa-trash-alt text-black font-bold"></i-->
 
-            </grid>
+                </grid>
 
-            {% for tr in trabajosrealizados %}
+                {% for tr in trabajosrealizados %}
 
-            <grid class="grid grid-flow-col grid-cols-5 grid place-items-center grid-rows-1 gap-4 p-3 m-10">
+                <grid class="grid grid-cols-3  md:grid-cols-5 grid-rows-1 grid place-items-center my-3">
 
-                <div class="text-black ">{{tr.Fecha}}</div>
-				<div class="text-black ">{{tr.HoraInicio}}</div>
-                {%if tr.HoraFin != None%}
-				<div class="text-black ">{{tr.HoraFin}}</div>
-                {%else%}
-                <div  class="text-black ">No finalizada</div>
-                {%endif%}
-                {%for o in obras%}
-                {%if o.idObra == tr.idObra%}
-                <div class="text-black ">{{o.Nombre}}</div>
-                {%endif%}
-                {%endfor%}
+                    <div class="text-black ">{{tr.Fecha}}</div>
+
+                    {% if current_user.is_authenticated %}
+                    <div class="text-black text-left hover:text-green-900 hover:font-bold mx-10 col-span-2 md:col-span-1 gap-x-2">
+                        <a href="{{url_for('trabajosrealizados_edit',id=tr.idTrabajoRealizado)}}">{{tr.Descripcion}}</a>
+                    </div>
+                    {%else%}
+                    <div class="text-black text-left  mx-10 col-span-2 md:col-span-1">
+                        {{tr.Descripcion}}
+                    </div>
+                    {%endif%}
+                
+                    <div class="text-black hidden md:block">{{tr.HoraInicio}}</div>
+                    {%if tr.HoraFin != None%}
+                    <div class="text-black hidden md:block">{{tr.HoraFin}}</div>
+                    {%else%}
+                    <div class="text-black hidden md:block">No finalizada</div>
+                    {%endif%}
+                    {%for o in obras%}
+                    {%if o.idObra == tr.idObra%}
+                    <div class="text-black hidden md:block">{{o.Nombre}}</div>
+                    {%endif%}
+                    {%endfor%}
+
+                </grid>
+                {% endfor %}
 
 
-            
-                {% if current_user.is_authenticated %}
-
-                <div><a href="{{url_for('trabajosrealizados_edit',id=tr.idTrabajoRealizado)}}">
-                    <i class="fas fa-edit text-black font-bold"></i></a></div>
-               
-{%endif%}
-            </grid>
-            {% endfor %}
-
-
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 
 
 
 {% endblock %}
-

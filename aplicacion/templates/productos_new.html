@@ -5,25 +5,20 @@
 <body>
 
     <div class="container mx-auto py-4">
-
+        <div class="text-green-700 font-bold">PRODUCTO</div>
 
         <form action="" method="post" novalidate enctype="multipart/form-data">
             <div class="form-group">
                 {{ form.csrf_token }}
 
-                <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-black form-control">
+                <div class="grid grid-cols-1 md:grid-cols-6 grid-row-1 gap-3 py-3 text-black form-control">
                     {{form.Nombre.label(class="font-bold ")}}
                     {{form.Nombre (class="text-black border border-green-200")}}
                     {% for error in form.Nombre.errors %}
                     <span style="color: red;">{{ error }}</span>
                     {% endfor %}
                     
-
-                </div>
-
-
-                <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-black form-control">
-                   
+                  
                     {{form.Precio.label(class="text-black font-bold")}}
                     {{form.Precio( class="border border-green-200")}}
                     {% for error in form.Precio.errors %}

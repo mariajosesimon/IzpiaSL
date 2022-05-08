@@ -4,6 +4,19 @@ import os
 secret_key = os.urandom(16)
 PWD = os.path.abspath(os.curdir)
 
+""" 
+Generacion de los datos de configuracion para la conexion a la base de datos
+Arguments: 
+    USERNAME {string} -- nombre de usuario
+    password {string} -- Contraseña de la base de datos
+    HOST {string} -- dirección local
+    PORT {integer} -- Número de puerto
+    DATABASE {string} -- Nombre de la base de datos
+    SQLALCHEMY_DATABASE_URI {string} -- Cadena de conexion a la base de datos
+
+"""
+
+
 DEBUG = True
 USERNAME = 'root'  # nombre de usuario
 password = 'root'  # Contraseña de la base de datos

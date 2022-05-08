@@ -1,5 +1,7 @@
-from operator import and_
+""" Proyecto fin de DAM"""
 import os
+from csv import excel
+from operator import and_
 from os import abort
 from flask import Flask, render_template, request, url_for, flash, send_file
 from flask_sqlalchemy import SQLAlchemy
@@ -9,7 +11,14 @@ import config
 from forms import *
 from funciones import *
 from flask_login import LoginManager,login_user,logout_user,login_required,current_user
+import pandas as pd
+from openpyxl.workbook import Workbook
+import flask_excel as excel
+from selenium import webdriver
 
+__name__ = "Izpia S.L."
+__version__="1.0.0"
+__author__="Mª Jose Simón Rodriguez"
 
 app = Flask(__name__)
 #app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
@@ -29,31 +38,57 @@ from models import *
 
 @app.route( '/', methods=['GET', 'POST'] )
 def inicio():
+    """Inicio del programa.
+    Returns:
+        html -- devuelve la web de inicio.
+    """
     return render_template('inicio.html')
 
 @app.route('/changepassword/<Usuario>', methods=['Get', 'Post'])
 def changepassword(username):
-	user=trabajador.query.filter_by(Usuario=form.Usuario.data).first()
-	if user is None:
-		abort(404)
+    """ Esta funcion nos permite cambiar la contraseña del usuario logado. 
 
-	form=formChangePassword()
-	if form.validate_on_submit():
-		form.populate_obj(user)
-		db.session.commit()
-		return redirect(url_for("inicio"))
+    Args:
+        username {String} -- nombre del usuario
 
-	return render_template("changepassword.html",form=form)
+    Returns:
+        html -- formulario para el cambio de contraseña
+    """    
+    user=trabajador.query.filter_by(Usuario=form.Usuario.data).first()
+    if user is None:
+        abort(404)
+
+    form=formChangePassword()
+    if form.validate_on_submit():
+        form.populate_obj(user)
+        db.session.commit()
+        return redirect(url_for("inicio"))
+
+    return render_template("changepassword.html",form=form)
 
 
 @login_manager.user_loader
 def load_user(idTrabajador):
-	return trabajador.query.get(int(idTrabajador))
+    """Función que se utiliza para cargar los datos del usuario que está logado
+
+    Args:
+        idTrabajador {integer} -- id del usuario 
+
+    Returns:
+        interger -- id del usuario que esta logado
+    """    
+    return trabajador.query.get(int(idTrabajador))
 
 ####################### CLIENTES #####################################
 
 @app.route('/Clientes', methods=['GET', 'POST'] )
 def clientes():
+    """ Funcion que devuelve todos los clientes almacenados en la base de datos.
+
+    Returns:
+        html de cliente -- muestra un listado de los clientes almacenados en la base de datos.
+    """
+
     clientes = cliente.query.all()
     return render_template("clientes.html", clientes=clientes)
 
@@ -61,6 +96,16 @@ def clientes():
 @app.route('/Clientes/New', methods=['GET', 'POST'])
 @login_required
 def clientes_new():
+
+    """Función para crear nuevos clientes.
+    Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Arguments:
+        formNewCliente: formulario para la creación de un cliente.
+
+    Returns:
+        html con formulario: formulario para crear un cliente. 
+    """    
     
     if current_user.is_admin()!="Admin":
         abort(401)
@@ -97,6 +142,16 @@ def clientes_new():
 @login_required
 def clientes_edit(id):
 
+    """Función para editar, modificar un cliente.
+    Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Args: 
+        id {integer} -- id del cliente
+        clien {cliente} -- cliente obtenido en la consulta - cliente.query.get(id)
+    Returns:
+        html con formulario -- formulario para modificar un cliente.
+    """    
+
     if current_user.is_admin()!="Admin":
         abort(401)
     clien = cliente.query.get(id)
@@ -115,6 +170,17 @@ def clientes_edit(id):
 
 @app.route('/Clientes/<id>/view', methods=["get", "post"] )
 def clientes_view(id):
+
+    """Función para ver, ver un cliente.
+
+    Args: 
+        id {integer} -- id del cliente
+        clien {cliente} -- cliente obtenido en la consulta - cliente.query.get(id)
+    Returns:
+        html con formulario: formulario para ver un cliente.
+    """    
+
+
     clien = cliente.query.get(id)
     if clien is None:
         abort( 404 ) 
@@ -127,6 +193,12 @@ def clientes_view(id):
 ####################### PROVEEDORES #####################################
 @app.route('/Proveedores', methods=['GET', 'POST'] )
 def proveedores():
+    """ Funcion que devuelve todos los proveedores almacenados en la base de datos.
+
+    Returns:
+        html de proveedor -- muestra un listado de los proveedores almacenados en la base de datos.
+    """
+    
     proveedores = proveedor.query.all()
     return render_template("proveedores.html", proveedores=proveedores)
 
@@ -134,6 +206,17 @@ def proveedores():
 @app.route('/Proveedores/New', methods=['GET', 'POST'])
 @login_required
 def proveedores_new():
+
+    """Función para crear nuevos proveedores.
+    Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Arguments:
+        formNewProveedor -- formulario para la creación de un proveedor.
+        prv {proveedor} -- proveedor
+
+    Returns:
+        html con formulario: formulario para crear un proveedor. 
+    """   
     if current_user.is_admin()!="Admin":
         abort(401)
     prv = proveedor()
@@ -168,6 +251,17 @@ def proveedores_new():
 @app.route( '/Proveedores/<id>/edit', methods=["get", "post"] )
 @login_required
 def proveedores_edit(id):
+
+    """Función para editar, modificar un proveedor.
+     Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Args: 
+        id {integer} -- id del cliente
+        prv {proveedor} -- proveedor obtenido en la consulta - proveedor.query.get(id)
+    Returns:
+        html con formulario -- formulario para modificar un proveedor.
+    """    
+
     if current_user.is_admin()!="Admin":
         abort(401)
     prv = proveedor.query.get(id)
@@ -175,7 +269,7 @@ def proveedores_edit(id):
         abort( 404 )
 
     formEditProveedor = formProveedor(obj=prv)
-   
+
     if formEditProveedor.validate_on_submit():
         formEditProveedor.populate_obj( prv )
         db.session.commit()
@@ -186,6 +280,16 @@ def proveedores_edit(id):
 
 @app.route('/Proveedores/<id>/view', methods=["get", "post"] )
 def proveedores_view(id):
+
+    """Función para ver, ver un proveedor.
+
+    Args: 
+        id {integer} -- id del proveedor
+        prv {proveedor} -- proveedor obtenido en la consulta - proveedor.query.get(id)
+    Returns:
+        html con formulario: formulario para ver un proveedor.
+    """    
+
     prv = proveedor.query.get(id)
     if prv is None:
         abort( 404 ) 
@@ -199,6 +303,12 @@ def proveedores_view(id):
 
 @app.route('/Trabajadores', methods=['GET', 'POST'] )
 def trabajadores():
+
+    """ Funcion que devuelve todos los trabajadores almacenados en la base de datos.
+
+    Returns:
+        html de trabajador -- muestra un listado de los trabajadores almacenados en la base de datos.
+    """
     trabajadores = trabajador.query.all()
     return render_template("trabajadores.html", trabajadores=trabajadores)
 
@@ -206,6 +316,17 @@ def trabajadores():
 @app.route('/Trabajadores/New', methods=['GET', 'POST'])
 @login_required
 def trabajadores_new():
+
+    """Función para crear nuevos trabajadores.
+    Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Arguments:
+        formNewtrabajador -- formulario para la creación de un trabajador.
+        trb {trabajador} -- trabajador
+
+    Returns:
+        html con formulario: formulario para crear un trabajador. 
+    """   
     if current_user.is_admin()!="Admin":
         abort(401)
 
@@ -216,9 +337,8 @@ def trabajadores_new():
     if formNewTrabajador.submit.data and formNewTrabajador.validate():
             #validacion de los campos según nuestro form, que hemos puesto Validators
 
-        
       #Creacion del trabajador para subirlo
-        trb=trabajador()
+        #trb=trabajador()
 
         trb.Nombre=formNewTrabajador.Nombre.data
         trb.Apellidos=formNewTrabajador.Apellidos.data
@@ -241,6 +361,16 @@ def trabajadores_new():
 @login_required
 def trabajadores_edit(id):
 
+    """Función para editar, modificar un trabajador.
+     Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Args: 
+        id {integer} -- id del cliente
+        trb {trabajador} -- trabajador obtenido en la consulta - trabajador.query.get(id)
+    Returns:
+        html con formulario -- formulario para modificar un trabajador.
+    """    
+
     if current_user.is_admin()!="Admin":
         abort(401)
     trb = trabajador.query.get(id)
@@ -248,11 +378,11 @@ def trabajadores_edit(id):
         abort( 404 )
 
     formEditTrabajador = formTrabajador(obj=trb)
+    #No quiero que desde la modificación se pueda modificar la contraseña.
     del formEditTrabajador.password
    
     if formEditTrabajador.validate_on_submit():
-
-      
+     
         formEditTrabajador.populate_obj( trb )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
@@ -283,6 +413,11 @@ def trabajadores_changepassword(id):
 @app.route('/UnidadMedida', methods=['GET', 'POST'] )
 @login_required
 def unidades():
+    """ Funcion que devuelve todos las unidades almacenadas en la base de datos.
+
+    Returns:
+        html de unidades -- muestra un listado de las unidades almacenados en la base de datos.
+    """
     if current_user.is_admin()!="Admin":
         abort(401)
     unidades = unidad.query.all()
@@ -291,6 +426,13 @@ def unidades():
 @app.route('/UnidadMedida/New', methods=['POST'])
 @login_required
 def unidades_new():
+
+    """Función para crear nuevas unidades.
+    Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Returns:
+        html con formulario: formulario para crear una unidad. 
+    """  
     if current_user.is_admin()!="Admin":
         abort(401)
     un = unidad()
@@ -305,6 +447,16 @@ def unidades_new():
 @app.route( '/UnidadMedida/<id>/edit', methods=["get", "post"] )
 @login_required
 def unidades_edit(id):
+
+    """Función para editar, modificar una unidad.
+     Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Args: 
+        id {integer} -- id de la unidad
+        un {unidad} -- unidad obtenido en la consulta - unidad.query.get(id)
+    Returns:
+        html con formulario -- formulario para modificar una unidad.
+    """   
     if current_user.is_admin()!="Admin":
         abort(401)
     un = unidad.query.get(id)
@@ -320,21 +472,35 @@ def unidades_edit(id):
     else:
         return render_template("unidadMedida_edit.html", form=formEditUnidad)
    
-
-
-
 ####################### PRODUCTOS #####################################
 
 
 @app.route('/Productos', methods=['GET', 'POST'] )
 def productos():
+
+    """ Funcion que devuelve todos los productos almacenados en la base de datos.
+
+    Returns:
+        html de productos -- muestra un listado de los productos almacenados en la base de datos.
+    """
     productos = producto.query.all()
     um = unidad.query.all()
     return render_template("productos.html", productos=productos, unidadMedida=um)
 
 #Creacion de nuevo producto.
 @app.route('/Productos/New', methods=['GET', 'POST'])
+@login_required
 def productos_new():
+    """Función para crear nuevos productos.
+    Se necesita estar logado para acceder a esta función.
+
+    Arguments:
+        formNewProducto -- formulario para la creación de un producto.
+        prd {producto} -- producto
+
+    Returns:
+        html con formulario: formulario para crear un producto. 
+    """   
 
     prd = producto()
     #recopilacion de datos del producto
@@ -345,15 +511,14 @@ def productos_new():
 
 
     if formNewProducto.submit.data and formNewProducto.validate():
-            #validacion de los campos según nuestro form, que hemos puesto Validators
+        #validacion de los campos según nuestro form, que hemos puesto Validators
     
       #Creacion del producto para subirlo
         prd = producto(Nombre=formNewProducto.Nombre.data,
                         Precio=formNewProducto.Precio.data,
                         idUnidad=formNewProducto.idUnidad.data)
 
-        print("id unidad: ", formNewProducto.idUnidad.data)
-
+      
         db.session.add(prd)
         db.session.commit()
         return redirect(url_for("inicio"))
@@ -363,7 +528,19 @@ def productos_new():
         return render_template("productos_new.html", form=formNewProducto )
 
 @app.route( '/Productos/<id>/edit', methods=["get", "post"] )
+@login_required
 def productos_edit(id):
+
+    """Función para editar, modificar un producto.
+     Se necesita estar logado para acceder a esta función.
+
+    Args: 
+        id {integer} -- id del producto
+        prd {producto} -- producto obtenido en la consulta - producto.query.get(id)
+    Returns:
+        html con formulario -- formulario para modificar un producto.
+    """  
+
     prd = producto.query.get(id)
     if prd is None:
         abort( 404 )
@@ -387,6 +564,11 @@ def productos_edit(id):
 @app.route('/Estado', methods=['GET', 'POST'] )
 @login_required
 def estados():
+    """ Funcion que devuelve todos los estados almacenadas en la base de datos.
+
+    Returns:
+        html de estados -- muestra un listado de los estados almacenados en la base de datos.
+    """
     if current_user.is_admin()!="Admin":
         abort(401)
     estados = estado.query.all()
@@ -395,6 +577,12 @@ def estados():
 @app.route('/Estado/New', methods=['POST'])
 @login_required
 def estados_new():
+    """Función para crear nuevos estados.
+    Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Returns:
+        html con formulario: formulario para crear un estado. 
+    """  
     if current_user.is_admin()!="Admin":
         abort(401)
     es = estado()
@@ -409,6 +597,12 @@ def estados_new():
 @app.route( '/Estado/<id>/edit', methods=["get", "post"] )
 @login_required
 def estados_edit(id):
+    """Función para modificar nuevos estados.
+    Se necesita estar logado para acceder a esta función y ser administrador.
+
+    Returns:
+        html con formulario: formulario para modificar un estado. 
+    """  
     if current_user.is_admin()!="Admin":
         abort(401)
     es = estado.query.get(id)
@@ -418,7 +612,7 @@ def estados_edit(id):
     formEditEstado = formEstado(obj=es)
     
     if formEditEstado.validate_on_submit():
-        print("estoy aqui")
+      
         formEditEstado.populate_obj( es )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
@@ -431,32 +625,58 @@ def estados_edit(id):
 @app.route('/Albaranes', methods=['GET', 'POST'] )
 @app.route('/Albaranes/filter', methods=['POST'] )
 def albaranes():
+
+    """Funcion para listar todos los albaranes almacenados y posibilidad de filtrarlos. 
+
+    Args:
+        albaranes {albaran} -- consulta para mostrar albaranes
+        proveedores {proveedor} -- consulta para mostrar proveedores
+        obras {obra} -- consulta para mostrar obras
+        filtroAlb {albaran} -- muestra lo albaranes filtrados por obras.
+
+
+    Returns:
+        html: muestra los albaranes filtrados. 
+    """
+
+
     albaranes = albaran.query.all()
     proveedores = proveedor.query.all()
+    obras=obra.query.all()
     filtroAlbaranXObra=formFiltroObra()
     filtroAlbaranXObra.idObra.choices=listaobras()
     if filtroAlbaranXObra.submit.data:
-        try:
-            idOb=filtroAlbaranXObra.idObra.data
-            print(idOb)
-        except:
-            idOb=""
-    
-  
+        idOb=filtroAlbaranXObra.idObra.data
         albaranes= db.session.query(albaran).filter(albaran.idObra==idOb).all()
-        return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaranXObra)
+    elif filtroAlbaranXObra.btn_cancel.data:
+        filtroAlbaranXObra.idObra.data=0
+        filtroAlb=filtroAlbaranXObra
+        albaranes=db.session.query(albaran)
+       
     
-    return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, filtroAlb=filtroAlbaranXObra)
+    return render_template("albaranes.html", albaranes=albaranes, proveedores=proveedores, obras=obras, filtroAlb=filtroAlbaranXObra)
 
 #Creacion de nuevo albaran.
 @app.route('/Albaranes/New', methods=['GET', 'POST'])
+@login_required
 def albaranes_new():
+
+    """
+    Función para crear un albarán. Se requiere estar logado
+
+    Arg:
+        alb {albaran} -- albaran creado
+        listaproveedores {proveedor} -- llama a la funcion listaproveedores() para mostrar todos los proveedores
+        listaobras {obra} -- llama a la funcion listaobras() para mostrar todos las obras
+
+    Returns:
+        html -- formulario para crear un albarán.
+
+    """    
 
     alb = albaran()
     #recopilacion de datos del albaran
-    formNewAlbaran = formAlbaran()
-	
-    
+    formNewAlbaran = formAlbaran()  
 
 	# Añado el listado de los proveedores al formulario.
     # He creado un archivo donde recojo las funciones que utilizo. 
@@ -484,7 +704,22 @@ def albaranes_new():
 
 
 @app.route( '/Albaranes/<id>/edit', methods=["get", "post"] )
+@login_required
 def albaranes_edit(id):
+
+    """
+    Función para modificar un albarán. Se requiere estar logado
+
+    Arg:
+        alb {albaran} -- albaran a modificar
+        listaproveedores {proveedor} -- llama a la funcion listaproveedores() para mostrar todos los proveedores
+        listaobras {obra} -- llama a la funcion listaobras() para mostrar todos las obras
+        imagenes {blob} -- necesito mostrar las imagenes del albarán.
+
+    Returns:
+        html -- formulario para editar un albarán.
+
+    """    
     alb = albaran.query.get(id)
     if alb is None:
         abort( 404 )
@@ -560,10 +795,16 @@ def albaranes_edit(id):
     else:
         return render_template( "albaranes_new.html", form=formEditAlbaran,  alb=alb, imagenes=imagenes )
    
-
-
 @app.route('/deleteImagenAlbaran/<idImagenAlbaran>/<idAlbaran>', methods=["get", "post"] )
+@login_required
 def deleteImagenAlbaran(idImagenAlbaran, idAlbaran):
+
+    """Funcion para eliminar una imagen de albarán que se ha subido por error.
+
+    Returns:
+        html: regresa a la edición del albarán. 
+    """
+
     alb = albaran.query.get(idAlbaran)
     if alb is None:
         abort( 404 )
@@ -583,10 +824,24 @@ def deleteImagenAlbaran(idImagenAlbaran, idAlbaran):
 
 @app.route('/Tareas', methods=['GET', 'POST'] )
 def tareas():
+
+    """Función para listar todas las tareas almacenadas en la base de datos. 
+    Revisar si se desea descargar un excel. Y como hacerlo. 
+    Args:
+        tareas {tarea} -- muestra todas las tareas
+        obras {obra} -- muestra todas las obras.
+        filtroTareaXObrayEstado {tarea} -- filtro en tareas por obras y/o estados.
+
+    Returns:
+        html: muestra las tareas creadas con su estado, para la obra que son
+    """
+
     tareas = tarea.query.all()
     obras = obra.query.all()
     filtroTareaXObrayEstado=formFiltroEstadoObra()
     filtroTareaXObrayEstado.idObra.choices=listaobras()
+
+    column_names = ['idTarea1','Descripcion1', 'EstadoTarea1', 'Notas1', 'idObra1']
 
     if filtroTareaXObrayEstado.submit.data:
         idOb=filtroTareaXObrayEstado.idObra.data
@@ -608,15 +863,83 @@ def tareas():
         filtroTareaXObrayEstado.EstadoTarea.data = 'All'
         filtroTaskXObrayEstado=filtroTareaXObrayEstado
         tareas=db.session.query(tarea)
-    
 
+    elif filtroTareaXObrayEstado.descargar.data:
 
+        idOb=filtroTareaXObrayEstado.idObra.data
+        estado = filtroTareaXObrayEstado.EstadoTarea.data
+        consulta=''
+
+        print("Filtros: ")
+        print(filtroTareaXObrayEstado.idObra.data)
+        print(filtroTareaXObrayEstado.EstadoTarea.data)
+        
+        
+        if filtroTareaXObrayEstado.idObra.data==0 and filtroTareaXObrayEstado.EstadoTarea.data == 'All':
+            print("en filtro")
+            consulta=db.session.query(tarea)
+            print(consulta)
+            resultadoidTarea=[]
+            resultadoDescripcion=[]
+            resultadoEstadoTarea=[]
+            resultadoNotas=[]
+            resultadoidObra=[]
+            
+            resultadoDicc={}
+            for a in consulta:
+                #print(a.Descripcion)
+                resultadoidTarea.append(a.idTarea)
+                resultadoDescripcion.append(a.Descripcion)
+                resultadoEstadoTarea.append(a.EstadoTarea)
+                resultadoNotas.append(a.Notas)
+                resultadoidObra.append(a.idObra)
+
+            resultadoDicc['idTarea']=resultadoidTarea
+            resultadoDicc['Descripcion']=resultadoDescripcion
+            resultadoDicc['EstadoTarea']=resultadoEstadoTarea
+            resultadoDicc['Notas']=resultadoNotas
+            resultadoDicc['idObra']=resultadoidObra
+                
+            df = pd.DataFrame(resultadoDicc)
+            op = webdriver.ChromeOptions() 
+            prefs = {'download.default_directory' : 'd:\\user\\Dercargas\\'}
+            op.add_experimental_option('prefs', prefs)
+           
+            #driver = webdriver.Chrome(executable_path=driver_path, options=op)
+            
+
+            df.to_excel('d:/prueba2.xlsx')
+
+           
+           
+            
+            
+        elif filtroTareaXObrayEstado.idObra.data!=0 and filtroTareaXObrayEstado.EstadoTarea.data == 'All':
+            return excel.make_response_from_query_sets(db.session.query(tarea).filter(tarea.idObra==idOb), column_names, "xlsx")
+        elif filtroTareaXObrayEstado.idObra.data ==0 and filtroTareaXObrayEstado.EstadoTarea.data != 'All':
+            return excel.make_response_from_query_sets(db.session.query(tarea).filter(tarea.EstadoTarea==estado) , column_names, "xlsx")
+        elif filtroTareaXObrayEstado.idObra.data !=0 and filtroTareaXObrayEstado.EstadoTarea.data != 'All':
+            return excel.make_response_from_query_sets(db.session.query(tarea).filter(and_(tarea.idObra==idOb, tarea.EstadoTarea==estado) ).all(), column_names, "xlsx")
+
+              
     return render_template("tareas.html", tareas=tareas, obras=obras, filtroTaskXObrayEstado= filtroTareaXObrayEstado)
 
 #Creacion de nuevo tarea.
 @app.route('/Tareas/New', methods=['GET', 'POST'])
+@login_required
 def tareas_new():
+  
+    """
+    Función para crear una tarea. Se requiere estar logado
 
+    Arg:
+        tar {tarea} -- tarea a crear
+        listaobras {obra} -- llama a la funcion listaobras() para mostrar todos las obras
+
+    Returns:
+        html -- formulario para crear una tarea.
+
+    """    
     tar = tarea()
     #recopilacion de datos del tarea
     formNewTarea = formTarea()
@@ -648,7 +971,20 @@ def tareas_new():
 
 
 @app.route( '/Tareas/<id>/edit', methods=["get", "post"] )
+@login_required
 def tareas_edit(id):
+    """
+    Función para modificar un albarán. Se requiere estar logado
+
+    Arg:
+        tar {tarea} -- tarea a modificar
+        listaobras {obra} -- llama a la funcion listaobras() para mostrar todos las obras
+
+    Returns:
+        html -- formulario para modificar una tarea.
+
+    """  
+
     tar = tarea.query.get(id)
     if tar is None:
         abort( 404 )
@@ -669,6 +1005,18 @@ def tareas_edit(id):
 
 @app.route('/Obras', methods=['GET', 'POST'] )
 def obras():
+
+    """Función para listar todas las obras  almacenadas en la base de datos. 
+  
+    Args:
+        clientes {cliente} -- muestra todos los clientes 
+        obras {obra} -- muestra todas las obras.
+        estados {estado} -- muestra todos los estados.
+
+    Returns:
+        html: muestra las obras creadas con su estado y para el cliente.
+    """
+
     obras = obra.query.all()
     clientes = cliente.query.all()
     estados = estado.query.all()
@@ -679,6 +1027,21 @@ def obras():
 @app.route('/Obras/New', methods=['GET', 'POST'])
 @login_required
 def obras_new():
+
+    """
+    Función para crear una obra. Se requiere estar logado
+
+    Arg:
+        ob {obra} -- obra a crear
+        listaclientes {cliente} -- llama a la funcion listaclientes() para mostrar todos los clientes
+        listaestados {estado} -- llama a la funcion listaestados() para mostrar todos los estados
+        formAddProducto {formObraProducto} -- requerimos añadir los productos necesarios para la obra. 
+        Utilizo un formulario para añadir los productos.
+
+    Returns:
+        html -- formulario para crear una obra.
+
+    """
 
     if current_user.is_admin()!="Admin":
         abort(401)
@@ -714,7 +1077,27 @@ def obras_new():
 
 
 @app.route( '/Obras/<id>/edit', methods=["get", "post"] )
+@login_required
 def obras_edit(id):
+
+    """
+    Función para crear una obra. Se requiere estar logado
+
+    Arg:
+        ob {obra} -- obra a modificar
+        listaclientes {cliente} -- llama a la funcion listaclientes() para mostrar todos los clientes.
+        listaestados {estado} -- llama a la funcion listaestados() para mostrar todos los estados.
+        listaproductos {producto} -- llama a la funcion listaproductos() para mostrar todos los productos.
+        formAddProducto {formObraProducto} -- requerimos añadir los productos necesarios para la obra. 
+            Utilizo un formulario para añadir los productos.
+        productosSeleccionados {sumaProductos} -- llama a la funcion sumaProductos enviando la obra en la que se encuentra.
+            Suma la cantidad de los productos utilizados por producto. 
+        albaranes {albarán} -- muestra en una segunda pestaña los albaranes asociados a la obra con su imagen. 
+        resultadoTareasObra {resultadoTarObr} --  Necesito mostrar las tareas realizadas en la obra y su estado. 
+    Returns:
+        html -- formulario para crear una obra.
+
+    """
 
     #Obra seleccionada.
     ob = obra.query.get(id)
@@ -726,69 +1109,80 @@ def obras_edit(id):
     #asigno todos los campos con los que he recuperado de la query. 
     formEditObra = formObra(obj=ob)	
 	
-	# Añado el listado de los obras al formulario
+	# Añado los listados de clientes, estado y productos al formulario
     formEditObra.idCliente.choices = listaclientes()
     formEditObra.idEstado.choices = listaestados()
+    formEditObra.idProducto.choices=listaproductos()
     
     #Necesito mostrar las tareas realizadas en la obra y su estado. 
     resultadoTareasObra = resultadoTarObr(id)
 
-    #en este form tengo que añadir todos los productos que se habian utilizado. hay que populate
-    formEditProducto = formObraProducto()
-    formEditProducto.idProducto.choices = listaproductos()
-    print("paso 1")
-
     #Sumo cantidades por producto que se han comprado para la obra escogida. 
     productosSeleccionados = sumaProductos(id)
-    #prod = listaproductos()
-  
+
+    #Necesito mostrar los productos.
     products = producto.query.all()
     albaranes = albs(id)   
+   #for a in albaranes:
+    #    print(a[0], " - ", a[1], " - ", a[2])
 
-    if formEditProducto.btn_add.data:
+    if formEditObra.btn_add.data:
         # Añadimos un producto a la obra. 
+       
 
-        print("Cantidad añadida: ", formEditProducto.Cantidad.data)
-
-        print("paso 2")
-        if formEditProducto.idObra.data==None:
-            formEditProducto.idObra.data = id
-            obrPrd = obraproducto(Cantidad=formEditProducto.Cantidad.data,
-                    idProducto = formEditProducto.idProducto.data,
-                    idObra = formEditProducto.idObra.data)
-
+        if formEditObra.idObra.data!=None:
+        
+            #Guaro en la base de datos el producto, la cantidad y la obra - tabla: obraproducto
+            obrPrd = obraproducto(Cantidad=formEditObra.Cantidad.data,
+                    idProducto = formEditObra.idProducto.data,
+                    idObra = formEditObra.idObra.data)
+      
             db.session.add(obrPrd)
             db.session.commit()
-            
-            productosSeleccionados = sumaProductos(id)  
-            print("paso 6")
-            return redirect(url_for( 'obras_edit', id = formEditProducto.idObra.data))
+        
+
+            return render_template("obras_new.html",
+        form=formEditObra,
+        obr = ob,
+        productosSeleccionados=sumaProductos(id), 
+        products= products, client=client, 
+        resultadoTareasObra = resultadoTareasObra, albaranes=albaranes )
 
     elif formEditObra.submit.data:
-        print("estoy en submit")
+       
         formEditObra.populate_obj( ob )
         db.session.commit()
         return redirect( url_for( "inicio" ) )
     elif formEditObra.btn_cancel.data:
-        print("en cancel")
+       
         
         return redirect( url_for( "inicio" ) )
     else:
-        print("paso 7")
+      
             
         return render_template("obras_new.html",
         form=formEditObra,
         obr = ob,
-        formularioProductos=formEditProducto,
-        productosSeleccionados=productosSeleccionados, 
+        productosSeleccionados=sumaProductos(id), 
         products= products, client=client, 
         resultadoTareasObra = resultadoTareasObra, albaranes=albaranes )
 
-# Administrador1
+
 ####################### TRABAJOS REALIZADOS #####################################
 
 @app.route('/TrabajosRealizados', methods=['GET', 'POST'] )
 def trabajosrealizados():
+
+    """Función para listar todas los trabajos realizados por los operarios almacenadas en la base de datos. 
+    Args:
+        trabajosrealizados {trabajorealizado} -- muestro todos los trabajs realizados.
+        obras {obra} -- muestra todas las obras.
+
+    Returns:
+        html: muestra los trabajos realizados creadas con su estado, para la obra que son
+    """
+
+
     trabajosrealizados = trabajorealizado.query.all()
     obras = obra.query.all()
    
@@ -797,7 +1191,21 @@ def trabajosrealizados():
 
 #Creacion de nuevo trabajorealizado.
 @app.route('/TrabajosRealizados/New', methods=['GET', 'POST'])
+@login_required
 def trabajosrealizados_new():
+
+    """
+    Función para crear un trabajo realizado. Se requiere estar logado
+
+    Arg:
+        tr {trabajorealizado} -- creación del trabajo a realizar 
+        listaobras {obra} -- llama a la funcion listaobras() para mostrar todos las obras
+        listatrabajadores {trabajador} -- llama a la funcion listatrabajadores() para mostrar todos los trabajadores
+        
+    Returns:
+        html -- formulario para crear un trabajo realizado.
+
+    """
 
     tr = trabajorealizado()
     #recopilacion de datos del trabajorealizado
@@ -838,7 +1246,21 @@ def trabajosrealizados_new():
         trabajorealizado = tr)
 
 @app.route( '/TrabajosRealizados/<id>/edit', methods=["get", "post"] )
+@login_required
 def trabajosrealizados_edit(id):
+
+    """
+    Función para modificar un trabajo realizado. Se requiere estar logado
+
+    Arg:
+        tr {trabajorealizado} -- modificación del trabajo a realizar 
+        ob {obra} -- selecciono la obra a la que pertenece el trabajo realizado
+        operarios {trabajador} -- selección de los trabajadores que están realizando el trabajo.         
+    Returns:
+        html -- formulario para modificar un trabajo realizado.
+
+    """
+
     tr = trabajorealizado.query.get(id)
     if tr is None:
         abort( 404 )
@@ -847,6 +1269,7 @@ def trabajosrealizados_edit(id):
 
     #Necesito saber la obra para mostrarla. 
     ob = obra.query.get(tr.idObra)
+    
 	
 	# Añado el listado de los obras al formulario
     formEditTrabajosRealizados.idObra.choices = listaobras()
@@ -854,9 +1277,8 @@ def trabajosrealizados_edit(id):
     #Necesito saber los operarios que han realizado la tarea.
     
     operarios = db.session.query(trabajador.Nombre).join(operariotrabajorealizado, operariotrabajorealizado.idTrabajador==trabajador.idTrabajador).filter(operariotrabajorealizado.idTrabajoRealizado==id)   
-    operarios2 = db.session.query(trabajador.idTrabajador, trabajador.Nombre).join(operariotrabajorealizado, operariotrabajorealizado.idTrabajador==trabajador.idTrabajador).filter(operariotrabajorealizado.idTrabajoRealizado==id)   
 
-    formEditTrabajosRealizados.idTrabajador.choices=operarios2
+    formEditTrabajosRealizados.idTrabajador.choices=operarios
    
     if formEditTrabajosRealizados.submit.data:
         formEditTrabajosRealizados.populate_obj( tr )
@@ -876,25 +1298,41 @@ def trabajosrealizados_edit(id):
 
 @app.route('/login', methods=['get', 'post'])
 def login():
-    form = formLogin()
-    if form.validate_on_submit():
-        user=trabajador.query.filter_by(Usuario=form.Usuario.data).first()
-        if user!=None and user.verify_password(form.password.data):
+
+    """Funcion para logarse.
+
+    Returns:
+        html: formulario para logarse
+    """
+
+    formularioLogarse = formLogin()
+    if formularioLogarse.validate_on_submit():
+        user=trabajador.query.filter_by(Usuario=formularioLogarse.Usuario.data).first()
+        if user!=None and user.verify_password(formularioLogarse.password.data):
             login_user(user)
             return redirect(url_for('inicio'))
     	
-        form.Usuario.errors.append("Usuario o contraseña incorrectas.")
-    return render_template('login.html', form=form)
+        formularioLogarse.Usuario.errors.append("Usuario o contraseña incorrectas.")
+    return render_template('login.html', formularioLogarse=formularioLogarse)
 @app.route("/logout")
 def logout():
-	logout_user()
-	return redirect(url_for('login'))
+    """Funcion para deslogarse.
+
+        Returns:
+            html: formulario para deslogarse
+    """
+    logout_user()
+    return redirect(url_for('login'))
 
 
-#Funcion necesaria para saber qué usuario trabajador está logueado en cada momento.
 @login_manager.user_loader
 def load_user(idTrabajador):
-	return trabajador.query.get(int(idTrabajador))
+
+    """ Funcion necesaria para saber qué usuario trabajador está logueado en cada momento.
+    Returns:
+        integer -- id del trabajador logado
+    """    
+    return trabajador.query.get(int(idTrabajador))
 
 @app.errorhandler(404)
 def page_not_found(error):

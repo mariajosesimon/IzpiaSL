@@ -16,7 +16,7 @@ def listaclientes():
     return [(c.idCliente, c.Empresa) for c in cliente.query.all()]
 
 def listaproductos():
-    return [(pd.idProducto, pd.Nombre) for pd in producto.query.all()]
+    return [(pd.idProducto, pd.Nombre) for pd in producto.query.order_by(producto.Nombre.asc()).all()]
 
 def listatrabajadores():
     return [(t.idTrabajador, t.Nombre) for t in trabajador.query.all()]
@@ -54,6 +54,12 @@ def sumaProductos(id):
 	
 
 def albs(id): 
-    alba = db.session.query(albaran.idAlbaran, albaran.Numero, proveedor.Empresa, imagenalbaran.nombreImagen).select_from(albaran).join(proveedor).join(imagenalbaran).filter(albaran.idObra==id)
+    #alba = db.session.query(albaran.idAlbaran, albaran.Numero, proveedor.Empresa, imagenalbaran.nombreImagen).select_from(albaran).join(proveedor).join(imagenalbaran).filter(albaran.idObra==id)
+    alba=[]
+    nombreAlbaranes = db.session.query(albaran.idAlbaran, imagenalbaran.nombreImagen).select_from(imagenalbaran).join(albaran).filter(albaran.idObra==id)
+    if nombreAlbaranes.count() > 0:
+        alba = db.session.query(albaran.idAlbaran, albaran.Numero, proveedor.Empresa, imagenalbaran.nombreImagen).select_from(albaran).join(proveedor).join(imagenalbaran).filter(albaran.idObra==id)
+    else:
+        alba = db.session.query(albaran.idAlbaran, albaran.Numero, proveedor.Empresa).select_from(albaran).join(proveedor).filter(albaran.idObra==id)
     return alba
 

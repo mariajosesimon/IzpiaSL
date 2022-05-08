@@ -4,9 +4,10 @@
 {% block contenido %}
 
 <body>
-    <div class="container">
+    <div class="container mx-auto">
+        <div class="text-green-700 font-bold">CLIENTES</div>
 
-        <div class="row">
+        <div class="row m-4">
 
             {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
             <a class="bg-transparent
@@ -19,13 +20,12 @@
                 <div class="container  mx-auto ">
 <!--Card-->
 
-<div>CLIENTES</div>
-            <grid class="grid grid-cols-3  md:grid-cols-6 grid-rows-1 grid place-items-center my-6">
+            <grid class="grid grid-cols-3  md:grid-cols-5 grid-rows-1 grid place-items-center my-6">
                 <div class="text-black font-bold flex justify-center">NOMBRE</div>
                 <div class="text-black font-bold flex justify-center">TELEFONO</div>
                 <div class="text-black font-bold flex justify-center">CONTACTO</div>
-                <div class="text-black font-bold flex justify-center invisible md:visible">DIRECCION</div>
-                <div class="text-black font-bold flex justify-center invisible md:visible">CIUDAD</div>
+                <div class="text-black font-bold flex justify-center hidden md:block">DIRECCION</div>
+                <div class="text-black font-bold flex justify-center hidden md:block">CIUDAD</div>
                 
                 <!--i class="fas fa-edit text-black font-bold"></i>
             <i class="fas fa-trash-alt text-black font-bold"></i-->
@@ -34,21 +34,17 @@
 
             {% for c in clientes %}
 
-            <grid class="grid grid-cols-3 md:grid-cols-6 grid-rows-1 grid place-items-center">           
+            <grid class="grid grid-cols-3  md:grid-cols-5 grid-rows-1 grid place-items-center my-6">           
 
-                <div class="text-black flex justify-center">
+                <div class="text-black text-left hover:text-green-900 hover:font-bold mx-10 ">
                     <a href="{{url_for('clientes_view',id=c.idCliente)}}"> {{c.Empresa}}</a></div>
-                <div class="text-black flex justify-center">{{c.Telefono}}</div>
-                <div class="text-black flex justify-center">{{c.Contacto}}</div>
-                <div class="text-black flex justify-center invisible md:visible" >{{c.Direccion}}</div>
-                    <div class="text-black flex justify-center invisible md:visible">{{c.Ciudad}}</div>
+                <div class="text-black text-left mx-10">{{c.Telefono}}</div>
+                <div class="text-black text-left mx-10">{{c.Contacto}}</div>
+                <div class="text-black text-left mx-10 hidden md:block" >{{c.Direccion}}</div>
+                    <div class="text-black text-left mx-10 hidden md:block">{{c.Ciudad}}</div>
                         
 
-                {% if current_user.is_authenticated and current_user.is_admin()=="Admin"  %}
-                <div><a href="{{url_for('clientes_edit',id=c.idCliente)}}">
-                        <i class="fas fa-edit text-black font-bold"></i></a></div>
-                        {% endif %}   
-             
+              
             </grid>
             {% endfor %}
 

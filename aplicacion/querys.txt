@@ -33,3 +33,7 @@ URL OBRAS EDIT
 
   Sumo cantidades por producto que se han comprado para la obra escogida. 
   productosSeleccionados = db.session.query(obraproducto.idProducto, db.func.sum(obraproducto.Cantidad)).group_by(obraproducto.idProducto, obraproducto.idObra).filter(obraproducto.idObra==id).all()
+
+
+PARA DOCUMENTAR:
+https://www.youtube.com/watch?v=Zqf0aeMn5dY&list=PLCTD_CpMeEKRppvi86Dy8CPYZ8-XzN2qu&index=89

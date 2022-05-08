@@ -5,26 +5,27 @@
 <body>
 
     <div class="container mx-auto py-4">
-
+        <div class="text-green-700 font-bold">TRABAJO REALIZADO</div>
 
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 {{ form.csrf_token }}
                 {%if trabajorealizado.idTrabajoRealizado != None%}
-                <div class="grid grid-cols-1 md:grid-cols-8 grid-row-1 gap-3 py-3 text-black form-control">
+                <div class="grid grid-cols-1 md:grid-cols-6 grid-row-1 gap-3 py-3 text-black form-control">
                     {{form.Fecha.label(class="font-bold ")}}
-                    {{form.Fecha}}
+                    {{form.Fecha  (class="text-black border border-green-200")}}
                     {{form.HoraInicio.label(class="font-bold ")}}
-                    {{form.HoraInicio}}
+                    {{form.HoraInicio (class="text-black border border-green-200")}}
                     {{form.HoraFin.label(class="font-bold ")}}
-                    {{form.HoraFin}}
+                    {{form.HoraFin (class="text-black border border-green-200")}}
                     {{form.Descripcion.label(class="font-bold ")}}
-                    {{form.Descripcion}}
+                    {{form.Descripcion (class="text-black border border-green-200")}}
                     {{form.idObra.label(class=" font-bold") }}
-                    {{form.idObra}}
+                   {{ob.Nombre}}
                     {{form.idTrabajador.label(class=" font-bold")}}
-                    {{form.idTrabajador}}
-                </div>
+                        {%for operario in operarios%}
+                        {{operario.Nombre}}
+                        {%endfor%}              
 
                 {%else%}
                 {{form.Fecha.label(class="font-bold ")}}
