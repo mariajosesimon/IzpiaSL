@@ -1,8 +1,6 @@
-
 from decimal import Decimal
 from distutils import errors
 from email import message
-from tkinter.tix import DirTree
 from turtle import onclick
 from werkzeug.datastructures import MultiDict
 from flask_wtf import FlaskForm
@@ -11,8 +9,6 @@ from wtforms import SelectField, PasswordField, FloatField, DateField, TimeField
 from wtforms.validators import ValidationError, DataRequired 
 from wtforms.validators import Length, Email, NumberRange, InputRequired	
 from flask_wtf.file import FileField, FileRequired
-
-
 
 
 class formCliente(FlaskForm):

@@ -1,0 +1,753 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>forms module &#8212; Izpia S.L. 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="funciones module" href="funciones.html" />
+    <link rel="prev" title="config module" href="config.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="funciones.html" title="funciones module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="config module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Izpia S.L. 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">forms module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-forms">
+<span id="forms-module"></span><h1>forms module<a class="headerlink" href="#module-forms" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formAlbaran">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formAlbaran</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formAlbaran" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formAlbaran.Numero">
+<span class="sig-name descname"><span class="pre">Numero</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Numero:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formAlbaran.Numero" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formAlbaran.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formAlbaran.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formAlbaran.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formAlbaran.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formAlbaran.idProveedor">
+<span class="sig-name descname"><span class="pre">idProveedor</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Proveedor:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formAlbaran.idProveedor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formAlbaran.imagenesAlbaran">
+<span class="sig-name descname"><span class="pre">imagenesAlbaran</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(MultipleFileField,</span> <span class="pre">('Imagenes:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formAlbaran.imagenesAlbaran" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formAlbaran.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formAlbaran.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formChangePassword">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formChangePassword</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formChangePassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formChangePassword.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('No</span> <span class="pre">cambiar</span> <span class="pre">la</span> <span class="pre">contraseña',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formChangePassword.cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formChangePassword.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(PasswordField,</span> <span class="pre">('Contraseña',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formChangePassword.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formChangePassword.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Aceptar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formChangePassword.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formCliente">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formCliente" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Baja">
+<span class="sig-name descname"><span class="pre">Baja</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(BooleanField,</span> <span class="pre">('Baja',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Baja" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.CP">
+<span class="sig-name descname"><span class="pre">CP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(IntegerField,</span> <span class="pre">('CP:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formCliente.CP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.CifNif">
+<span class="sig-name descname"><span class="pre">CifNif</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">(),</span> <span class="pre">{'label':</span> <span class="pre">'Cif:</span> <span class="pre">',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formCliente.CifNif" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Ciudad">
+<span class="sig-name descname"><span class="pre">Ciudad</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Ciudad:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Ciudad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Contacto">
+<span class="sig-name descname"><span class="pre">Contacto</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Contacto:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Contacto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Direccion">
+<span class="sig-name descname"><span class="pre">Direccion</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Direccion:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Direccion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Email">
+<span class="sig-name descname"><span class="pre">Email</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Email:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.Email</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Email" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Empresa">
+<span class="sig-name descname"><span class="pre">Empresa</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Empresa:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Empresa" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Provincia">
+<span class="sig-name descname"><span class="pre">Provincia</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Provincia:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Provincia" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.Telefono">
+<span class="sig-name descname"><span class="pre">Telefono</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(IntegerField,</span> <span class="pre">('Telefono:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formCliente.Telefono" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formCliente.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formCliente.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formCliente.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formEstado">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formEstado</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formEstado" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formEstado.Estado">
+<span class="sig-name descname"><span class="pre">Estado</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Estado:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formEstado.Estado" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formEstado.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formEstado.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formEstado.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formEstado.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formFiltroEstadoObra">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formFiltroEstadoObra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formFiltroEstadoObra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroEstadoObra.EstadoTarea">
+<span class="sig-name descname"><span class="pre">EstadoTarea</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Estado:</span> <span class="pre">',),</span> <span class="pre">{'choices':</span> <span class="pre">['All',</span> <span class="pre">'Asignada',</span> <span class="pre">'En</span> <span class="pre">progreso',</span> <span class="pre">'En</span> <span class="pre">Pausa',</span> <span class="pre">'En</span> <span class="pre">espera</span> <span class="pre">de</span> <span class="pre">material',</span> <span class="pre">'Finalizada']})&gt;</span></em><a class="headerlink" href="#forms.formFiltroEstadoObra.EstadoTarea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroEstadoObra.descargar">
+<span class="sig-name descname"><span class="pre">descargar</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Descargar</span> <span class="pre">selección',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formFiltroEstadoObra.descargar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroEstadoObra.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formFiltroEstadoObra.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroEstadoObra.resetFiltro">
+<span class="sig-name descname"><span class="pre">resetFiltro</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Reset</span> <span class="pre">filtro',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formFiltroEstadoObra.resetFiltro" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroEstadoObra.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Aplicar</span> <span class="pre">filtro',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formFiltroEstadoObra.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formFiltroObra">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formFiltroObra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formFiltroObra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroObra.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Reset</span> <span class="pre">filtro',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formFiltroObra.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroObra.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formFiltroObra.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formFiltroObra.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Aplicar</span> <span class="pre">filtro',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formFiltroObra.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formImagenAlb">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formImagenAlb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formImagenAlb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formImagenAlb.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formImagenAlb.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formImagenAlb.fotoAlb">
+<span class="sig-name descname"><span class="pre">fotoAlb</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(FileField,</span> <span class="pre">('Imagen:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;flask_wtf.file.FileRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formImagenAlb.fotoAlb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formImagenAlb.upload">
+<span class="sig-name descname"><span class="pre">upload</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Upload',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formImagenAlb.upload" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formLogin">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formLogin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formLogin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formLogin.Usuario">
+<span class="sig-name descname"><span class="pre">Usuario</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Login',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formLogin.Usuario" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formLogin.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(PasswordField,</span> <span class="pre">('Password',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formLogin.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formLogin.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Entrar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formLogin.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formObra">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formObra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formObra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.Cantidad">
+<span class="sig-name descname"><span class="pre">Cantidad</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(DecimalField,</span> <span class="pre">('Cantidad:</span> <span class="pre">',),</span> <span class="pre">{'default':</span> <span class="pre">0.0,</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;],</span> <span class="pre">'places':</span> <span class="pre">2})&gt;</span></em><a class="headerlink" href="#forms.formObra.Cantidad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.Nombre">
+<span class="sig-name descname"><span class="pre">Nombre</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Nombre:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formObra.Nombre" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.NumeroPedido">
+<span class="sig-name descname"><span class="pre">NumeroPedido</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Numero</span> <span class="pre">de</span> <span class="pre">pedido:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formObra.NumeroPedido" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.btn_add">
+<span class="sig-name descname"><span class="pre">btn_add</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Añadir</span> <span class="pre">producto',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formObra.btn_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formObra.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.idCliente">
+<span class="sig-name descname"><span class="pre">idCliente</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Cliente:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObra.idCliente" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.idEstado">
+<span class="sig-name descname"><span class="pre">idEstado</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Estado:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObra.idEstado" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObra.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.idProducto">
+<span class="sig-name descname"><span class="pre">idProducto</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Producto:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObra.idProducto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObra.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Guardar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formObra.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formObraAlbaran">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formObraAlbaran</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formObraAlbaran" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraAlbaran.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formObraAlbaran.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraAlbaran.idAlbaran">
+<span class="sig-name descname"><span class="pre">idAlbaran</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Albaran:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObraAlbaran.idAlbaran" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraAlbaran.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObraAlbaran.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraAlbaran.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formObraAlbaran.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formObraProducto">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formObraProducto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formObraProducto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraProducto.Cantidad">
+<span class="sig-name descname"><span class="pre">Cantidad</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(DecimalField,</span> <span class="pre">('Cantidad:</span> <span class="pre">',),</span> <span class="pre">{'default':</span> <span class="pre">0.0,</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;],</span> <span class="pre">'places':</span> <span class="pre">2})&gt;</span></em><a class="headerlink" href="#forms.formObraProducto.Cantidad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraProducto.btn_add">
+<span class="sig-name descname"><span class="pre">btn_add</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Añadir</span> <span class="pre">producto',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formObraProducto.btn_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraProducto.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObraProducto.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formObraProducto.idProducto">
+<span class="sig-name descname"><span class="pre">idProducto</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Producto:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formObraProducto.idProducto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formProducto">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formProducto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formProducto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProducto.Nombre">
+<span class="sig-name descname"><span class="pre">Nombre</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Nombre:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formProducto.Nombre" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProducto.Precio">
+<span class="sig-name descname"><span class="pre">Precio</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(FloatField,</span> <span class="pre">('Precio:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.NumberRange</span> <span class="pre">object&gt;],</span> <span class="pre">'default':</span> <span class="pre">1.0})&gt;</span></em><a class="headerlink" href="#forms.formProducto.Precio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProducto.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formProducto.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProducto.idUnidad">
+<span class="sig-name descname"><span class="pre">idUnidad</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Unidad</span> <span class="pre">Medida:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formProducto.idUnidad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProducto.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProducto.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formProductoAlbaran">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formProductoAlbaran</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formProductoAlbaran" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProductoAlbaran.Cantidad">
+<span class="sig-name descname"><span class="pre">Cantidad</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(IntegerField,</span> <span class="pre">('Cantidad:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formProductoAlbaran.Cantidad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProductoAlbaran.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formProductoAlbaran.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProductoAlbaran.idAlbaran">
+<span class="sig-name descname"><span class="pre">idAlbaran</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Albarán:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formProductoAlbaran.idAlbaran" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProductoAlbaran.idProducto">
+<span class="sig-name descname"><span class="pre">idProducto</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Producto:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formProductoAlbaran.idProducto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProductoAlbaran.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProductoAlbaran.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formProveedor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formProveedor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formProveedor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Baja">
+<span class="sig-name descname"><span class="pre">Baja</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(BooleanField,</span> <span class="pre">('Baja',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Baja" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.CP">
+<span class="sig-name descname"><span class="pre">CP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(IntegerField,</span> <span class="pre">('CP:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.CP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.CifNif">
+<span class="sig-name descname"><span class="pre">CifNif</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">(),</span> <span class="pre">{'label':</span> <span class="pre">'Cif:</span> <span class="pre">',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.CifNif" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Ciudad">
+<span class="sig-name descname"><span class="pre">Ciudad</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Ciudad:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Ciudad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Contacto">
+<span class="sig-name descname"><span class="pre">Contacto</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Contacto:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Contacto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Direccion">
+<span class="sig-name descname"><span class="pre">Direccion</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Direccion:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Direccion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Email">
+<span class="sig-name descname"><span class="pre">Email</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Email:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.Email</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Email" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Empresa">
+<span class="sig-name descname"><span class="pre">Empresa</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Empresa:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Empresa" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Provincia">
+<span class="sig-name descname"><span class="pre">Provincia</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Provincia:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Provincia" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.Telefono">
+<span class="sig-name descname"><span class="pre">Telefono</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(IntegerField,</span> <span class="pre">('Telefono:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.Telefono" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formProveedor.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formProveedor.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formSINO">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formSINO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formSINO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formSINO.no">
+<span class="sig-name descname"><span class="pre">no</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('No',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formSINO.no" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formSINO.si">
+<span class="sig-name descname"><span class="pre">si</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Si',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formSINO.si" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formTarea">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formTarea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formTarea" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTarea.Descripcion">
+<span class="sig-name descname"><span class="pre">Descripcion</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextAreaField,</span> <span class="pre">('Descripcion:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formTarea.Descripcion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTarea.EstadoTarea">
+<span class="sig-name descname"><span class="pre">EstadoTarea</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Estado:</span> <span class="pre">',),</span> <span class="pre">{'choices':</span> <span class="pre">['--',</span> <span class="pre">'Asignada',</span> <span class="pre">'En</span> <span class="pre">progreso',</span> <span class="pre">'En</span> <span class="pre">Pausa',</span> <span class="pre">'En</span> <span class="pre">espera</span> <span class="pre">de</span> <span class="pre">material',</span> <span class="pre">'Finalizada']})&gt;</span></em><a class="headerlink" href="#forms.formTarea.EstadoTarea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTarea.Notas">
+<span class="sig-name descname"><span class="pre">Notas</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextAreaField,</span> <span class="pre">('Notas:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formTarea.Notas" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTarea.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formTarea.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTarea.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formTarea.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTarea.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formTarea.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formTrabajador">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formTrabajador</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formTrabajador" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.Apellidos">
+<span class="sig-name descname"><span class="pre">Apellidos</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Apellidos:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.Apellidos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.Baja">
+<span class="sig-name descname"><span class="pre">Baja</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(BooleanField,</span> <span class="pre">('Baja',),</span> <span class="pre">{'default':</span> <span class="pre">0})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.Baja" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.Nombre">
+<span class="sig-name descname"><span class="pre">Nombre</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Nombre:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.Nombre" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.Rol">
+<span class="sig-name descname"><span class="pre">Rol</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Rol:</span> <span class="pre">',),</span> <span class="pre">{'choices':</span> <span class="pre">['--',</span> <span class="pre">'Admin',</span> <span class="pre">'Trabajador']})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.Rol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.Telefono">
+<span class="sig-name descname"><span class="pre">Telefono</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(IntegerField,</span> <span class="pre">('Telefono:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.Telefono" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.Usuario">
+<span class="sig-name descname"><span class="pre">Usuario</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Usuario:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.Usuario" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(PasswordField,</span> <span class="pre">('Contraseña:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajador.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formTrabajador.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formTrabajoRealizado</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formTrabajoRealizado" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.Descripcion">
+<span class="sig-name descname"><span class="pre">Descripcion</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextAreaField,</span> <span class="pre">('Descripcion:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.Descripcion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.Fecha">
+<span class="sig-name descname"><span class="pre">Fecha</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(DateField,</span> <span class="pre">('Fecha:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.Fecha" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.HoraFin">
+<span class="sig-name descname"><span class="pre">HoraFin</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TimeField,</span> <span class="pre">('Hora</span> <span class="pre">de</span> <span class="pre">Fin',),</span> <span class="pre">{'format':</span> <span class="pre">'%H:%M'})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.HoraFin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.HoraInicio">
+<span class="sig-name descname"><span class="pre">HoraInicio</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TimeField,</span> <span class="pre">('Hora</span> <span class="pre">de</span> <span class="pre">Inicio',),</span> <span class="pre">{'format':</span> <span class="pre">'%H:%M'})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.HoraInicio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.idObra">
+<span class="sig-name descname"><span class="pre">idObra</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Obra:</span> <span class="pre">',),</span> <span class="pre">{'coerce':</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.idObra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.idTrabajador">
+<span class="sig-name descname"><span class="pre">idTrabajador</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectMultipleField,</span> <span class="pre">('Trabajador:</span> <span class="pre">',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.idTrabajador" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formTrabajoRealizado.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formTrabajoRealizado.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="forms.formUnidad">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">forms.</span></span><span class="sig-name descname"><span class="pre">formUnidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#forms.formUnidad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formUnidad.Unidad">
+<span class="sig-name descname"><span class="pre">Unidad</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(StringField,</span> <span class="pre">('Unidad:</span> <span class="pre">',),</span> <span class="pre">{'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#forms.formUnidad.Unidad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formUnidad.btn_cancel">
+<span class="sig-name descname"><span class="pre">btn_cancel</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Cancelar',),</span> <span class="pre">{'render_kw':</span> <span class="pre">{'formnovalidate':</span> <span class="pre">True}})&gt;</span></em><a class="headerlink" href="#forms.formUnidad.btn_cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="forms.formUnidad.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enviar',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#forms.formUnidad.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="previous chapter">config module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="funciones.html"
+                        title="next chapter">funciones module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/forms.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="funciones.html" title="funciones module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="config module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Izpia S.L. 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">forms module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Maria Jose Simón Rodríguez.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

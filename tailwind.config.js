@@ -1,6 +1,9 @@
 module.exports = {
   content: ["./static/src/*.{js,css,html}"],
   theme: {
+    container:{
+      center:true,
+    },
     extend: {},
     screens: {
       'sm': '640px',
@@ -19,5 +22,23 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     }
   },
-  plugins: [],
+  plugins: [    plugin(function({ addComponents }){
+    const buttons = {
+      '.btn-red': {
+        padding: '.5rem 1rem',
+        borderRadius: '.25rem',
+        fontWeight: '600',
+        backgroundColor: '#e3342f',
+        color: '#fff',
+        '&:hover': {
+          backgroundColor: '#cc1f1a'
+
+
+         
+        }
+      }
+    }
+    
+    addComponents(buttons)
+  })],
 }

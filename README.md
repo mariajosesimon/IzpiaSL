@@ -29,3 +29,5 @@ https://tailwindui.com/components/application-ui/navigation/navbars
 
 INSTALACION DE CSS - TAILWIND
 https://tailwindcss.com/docs/installation
+
+https://gist.github.com/tomekwojcik/953046

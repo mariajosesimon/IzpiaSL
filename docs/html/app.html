@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>app module &#8212; Izpia S.L. 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="config module" href="config.html" />
+    <link rel="prev" title="aplicacion" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="config module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="aplicacion"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Izpia S.L. 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">app module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-app">
+<span id="app-module"></span><h1>app module<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.albaranes">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">albaranes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.albaranes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion para listar todos los albaranes almacenados y posibilidad de filtrarlos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>albaranes {albaran} – consulta para mostrar albaranes
+proveedores {proveedor} – consulta para mostrar proveedores
+obras {obra} – consulta para mostrar obras
+filtroAlb {albaran} – muestra lo albaranes filtrados por obras.</p>
+</dd>
+<dt>Returns:</dt><dd><p>html: muestra los albaranes filtrados.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.albaranes_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">albaranes_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.albaranes_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para modificar un albarán. Se requiere estar logado</p>
+<dl class="simple">
+<dt>Arg:</dt><dd><p>alb {albaran} – albaran a modificar
+listaproveedores {proveedor} – llama a la funcion listaproveedores() para mostrar todos los proveedores
+listaobras {obra} – llama a la funcion listaobras() para mostrar todos las obras
+imagenes {blob} – necesito mostrar las imagenes del albarán.</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para editar un albarán.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.albaranes_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">albaranes_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.albaranes_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear un albarán. Se requiere estar logado</p>
+<dl class="simple">
+<dt>Arg:</dt><dd><p>alb {albaran} – albaran creado
+listaproveedores {proveedor} – llama a la funcion listaproveedores() para mostrar todos los proveedores
+listaobras {obra} – llama a la funcion listaobras() para mostrar todos las obras</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para crear un albarán.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.changepassword">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">changepassword</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.changepassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Esta funcion nos permite cambiar la contraseña del usuario logado.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>username {String} – nombre del usuario</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para el cambio de contraseña</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.clientes">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">clientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.clientes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion que devuelve todos los clientes almacenados en la base de datos.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html de cliente – muestra un listado de los clientes almacenados en la base de datos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.clientes_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">clientes_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.clientes_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para editar, modificar un cliente.
+Se necesita estar logado para acceder a esta función y ser administrador.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>id {integer} – id del cliente
+clien {cliente} – cliente obtenido en la consulta - cliente.query.get(id)</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario – formulario para modificar un cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.clientes_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">clientes_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.clientes_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear nuevos clientes.
+Se necesita estar logado para acceder a esta función y ser administrador.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>formNewCliente: formulario para la creación de un cliente.</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario: formulario para crear un cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.clientes_view">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">clientes_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.clientes_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para ver, ver un cliente.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>id {integer} – id del cliente
+clien {cliente} – cliente obtenido en la consulta - cliente.query.get(id)</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario: formulario para ver un cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.deleteImagenAlbaran">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">deleteImagenAlbaran</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idImagenAlbaran</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idAlbaran</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.deleteImagenAlbaran" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion para eliminar una imagen de albarán que se ha subido por error.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html: regresa a la edición del albarán.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.documentation">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">documentation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.documentation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.estados">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">estados</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.estados" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion que devuelve todos los estados almacenadas en la base de datos.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html de estados – muestra un listado de los estados almacenados en la base de datos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.estados_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">estados_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.estados_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para modificar nuevos estados.
+Se necesita estar logado para acceder a esta función y ser administrador.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html con formulario: formulario para modificar un estado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.estados_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">estados_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.estados_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear nuevos estados.
+Se necesita estar logado para acceder a esta función y ser administrador.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html con formulario: formulario para crear un estado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.inicio">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">inicio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.inicio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inicio del programa.
+Returns:</p>
+<blockquote>
+<div><p>html – devuelve la web de inicio.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.load_user">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">load_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idTrabajador</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.load_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion necesaria para saber qué usuario trabajador está logueado en cada momento.
+Returns:</p>
+<blockquote>
+<div><p>integer – id del trabajador logado</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.login">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion para logarse.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html: formulario para logarse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.logout">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion para deslogarse.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html: formulario para deslogarse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.obras">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">obras</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.obras" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para listar todas las obras  almacenadas en la base de datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>clientes {cliente} – muestra todos los clientes 
+obras {obra} – muestra todas las obras.
+estados {estado} – muestra todos los estados.</p>
+</dd>
+<dt>Returns:</dt><dd><p>html: muestra las obras creadas con su estado y para el cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.obras_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">obras_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.obras_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear una obra. Se requiere estar logado</p>
+<dl>
+<dt>Arg:</dt><dd><p>ob {obra} – obra a modificar
+listaclientes {cliente} – llama a la funcion listaclientes() para mostrar todos los clientes.
+listaestados {estado} – llama a la funcion listaestados() para mostrar todos los estados.
+listaproductos {producto} – llama a la funcion listaproductos() para mostrar todos los productos.
+formAddProducto {formObraProducto} – requerimos añadir los productos necesarios para la obra.</p>
+<blockquote>
+<div><p>Utilizo un formulario para añadir los productos.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>productosSeleccionados {sumaProductos} – llama a la funcion sumaProductos enviando la obra en la que se encuentra.</dt><dd><p>Suma la cantidad de los productos utilizados por producto.</p>
+</dd>
+</dl>
+<p>albaranes {albarán} – muestra en una segunda pestaña los albaranes asociados a la obra con su imagen. 
+resultadoTareasObra {resultadoTarObr} –  Necesito mostrar las tareas realizadas en la obra y su estado.</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para crear una obra.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.obras_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">obras_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.obras_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear una obra. Se requiere estar logado
+Arg:</p>
+<blockquote>
+<div><p>ob {obra} – obra a crear
+listaclientes {cliente} – llama a la funcion listaclientes() para mostrar todos los clientes
+listaestados {estado} – llama a la funcion listaestados() para mostrar todos los estados
+formAddProducto {formObraProducto} – requerimos añadir los productos necesarios para la obra. 
+Utilizo un formulario para añadir los productos.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html – formulario para crear una obra.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.page_not_found">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">page_not_found</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.page_not_found" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.productos">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">productos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.productos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion que devuelve todos los productos almacenados en la base de datos.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html de productos – muestra un listado de los productos almacenados en la base de datos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.productos_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">productos_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.productos_edit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Función para editar, modificar un producto.</dt><dd><p>Se necesita estar logado para acceder a esta función.</p>
+</dd>
+<dt>Args: </dt><dd><p>id {integer} – id del producto
+prd {producto} – producto obtenido en la consulta - producto.query.get(id)</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario – formulario para modificar un producto.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.productos_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">productos_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.productos_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear nuevos productos.
+Se necesita estar logado para acceder a esta función.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>formNewProducto – formulario para la creación de un producto.
+prd {producto} – producto</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario: formulario para crear un producto.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.proveedores">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">proveedores</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.proveedores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion que devuelve todos los proveedores almacenados en la base de datos.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html de proveedor – muestra un listado de los proveedores almacenados en la base de datos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.proveedores_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">proveedores_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.proveedores_edit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Función para editar, modificar un proveedor.</dt><dd><p>Se necesita estar logado para acceder a esta función y ser administrador.</p>
+</dd>
+<dt>Args: </dt><dd><p>id {integer} – id del cliente
+prv {proveedor} – proveedor obtenido en la consulta - proveedor.query.get(id)</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario – formulario para modificar un proveedor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.proveedores_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">proveedores_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.proveedores_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear nuevos proveedores.
+Se necesita estar logado para acceder a esta función y ser administrador.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>formNewProveedor – formulario para la creación de un proveedor.
+prv {proveedor} – proveedor</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario: formulario para crear un proveedor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.proveedores_view">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">proveedores_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.proveedores_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para ver, ver un proveedor.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>id {integer} – id del proveedor
+prv {proveedor} – proveedor obtenido en la consulta - proveedor.query.get(id)</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario: formulario para ver un proveedor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.tareas">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">tareas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.tareas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para listar todas las tareas almacenadas en la base de datos. 
+Revisar si se desea descargar un excel. Y como hacerlo. 
+Args:</p>
+<blockquote>
+<div><p>tareas {tarea} – muestra todas las tareas
+obras {obra} – muestra todas las obras.
+filtroTareaXObrayEstado {tarea} – filtro en tareas por obras y/o estados.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html: muestra las tareas creadas con su estado, para la obra que son</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.tareas_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">tareas_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.tareas_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para modificar un albarán. Se requiere estar logado</p>
+<dl class="simple">
+<dt>Arg:</dt><dd><p>tar {tarea} – tarea a modificar
+listaobras {obra} – llama a la funcion listaobras() para mostrar todos las obras</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para modificar una tarea.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.tareas_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">tareas_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.tareas_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear una tarea. Se requiere estar logado</p>
+<dl class="simple">
+<dt>Arg:</dt><dd><p>tar {tarea} – tarea a crear
+listaobras {obra} – llama a la funcion listaobras() para mostrar todos las obras</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para crear una tarea.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.trabajadores">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">trabajadores</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.trabajadores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion que devuelve todos los trabajadores almacenados en la base de datos.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html de trabajador – muestra un listado de los trabajadores almacenados en la base de datos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.trabajadores_changepassword">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">trabajadores_changepassword</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.trabajadores_changepassword" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.trabajadores_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">trabajadores_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.trabajadores_edit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Función para editar, modificar un trabajador.</dt><dd><p>Se necesita estar logado para acceder a esta función y ser administrador.</p>
+</dd>
+<dt>Args: </dt><dd><p>id {integer} – id del cliente
+trb {trabajador} – trabajador obtenido en la consulta - trabajador.query.get(id)</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario – formulario para modificar un trabajador.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.trabajadores_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">trabajadores_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.trabajadores_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear nuevos trabajadores.
+Se necesita estar logado para acceder a esta función y ser administrador.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>formNewtrabajador – formulario para la creación de un trabajador.
+trb {trabajador} – trabajador</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario: formulario para crear un trabajador.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.trabajosrealizados">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">trabajosrealizados</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.trabajosrealizados" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para listar todas los trabajos realizados por los operarios almacenadas en la base de datos. 
+Args:</p>
+<blockquote>
+<div><p>trabajosrealizados {trabajorealizado} – muestro todos los trabajs realizados.
+obras {obra} – muestra todas las obras.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html: muestra los trabajos realizados creadas con su estado, para la obra que son</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.trabajosrealizados_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">trabajosrealizados_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.trabajosrealizados_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para modificar un trabajo realizado. Se requiere estar logado</p>
+<dl class="simple">
+<dt>Arg:</dt><dd><p>tr {trabajorealizado} – modificación del trabajo a realizar 
+ob {obra} – selecciono la obra a la que pertenece el trabajo realizado
+operarios {trabajador} – selección de los trabajadores que están realizando el trabajo.</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para modificar un trabajo realizado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.trabajosrealizados_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">trabajosrealizados_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.trabajosrealizados_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear un trabajo realizado. Se requiere estar logado</p>
+<dl class="simple">
+<dt>Arg:</dt><dd><p>tr {trabajorealizado} – creación del trabajo a realizar 
+listaobras {obra} – llama a la funcion listaobras() para mostrar todos las obras
+listatrabajadores {trabajador} – llama a la funcion listatrabajadores() para mostrar todos los trabajadores</p>
+</dd>
+<dt>Returns:</dt><dd><p>html – formulario para crear un trabajo realizado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.unidades">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">unidades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.unidades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Funcion que devuelve todos las unidades almacenadas en la base de datos.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html de unidades – muestra un listado de las unidades almacenados en la base de datos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.unidades_edit">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">unidades_edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.unidades_edit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Función para editar, modificar una unidad.</dt><dd><p>Se necesita estar logado para acceder a esta función y ser administrador.</p>
+</dd>
+<dt>Args: </dt><dd><p>id {integer} – id de la unidad
+un {unidad} – unidad obtenido en la consulta - unidad.query.get(id)</p>
+</dd>
+<dt>Returns:</dt><dd><p>html con formulario – formulario para modificar una unidad.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.unidades_new">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">unidades_new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.unidades_new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Función para crear nuevas unidades.
+Se necesita estar logado para acceder a esta función y ser administrador.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>html con formulario: formulario para crear una unidad.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">aplicacion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="next chapter">config module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/app.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="config module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="aplicacion"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Izpia S.L. 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">app module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Maria Jose Simón Rodríguez.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

@@ -37,3 +37,5 @@ URL OBRAS EDIT
 
 PARA DOCUMENTAR:
 https://www.youtube.com/watch?v=Zqf0aeMn5dY&list=PLCTD_CpMeEKRppvi86Dy8CPYZ8-XzN2qu&index=89
+https://es.acervolima.com/documentacion-del-punto-final-de-flask-con-flask-autodoc/
+https://www.youtube.com/watch?v=pb9ZVvdGAm4

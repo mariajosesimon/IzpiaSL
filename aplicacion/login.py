@@ -1,7 +1,5 @@
 from flask import session,redirect
 
-
-
 def login_user(trabajador):
 	session["idTrabajador"]=trabajador.idTrabajador
 	session["Usuario"]=trabajador.Usuario

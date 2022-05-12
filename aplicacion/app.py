@@ -1,5 +1,5 @@
-""" Proyecto fin de DAM"""
 import os
+import config
 from csv import excel
 from operator import and_
 from os import abort
@@ -7,37 +7,52 @@ from flask import Flask, render_template, request, url_for, flash, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from werkzeug.utils import redirect, secure_filename
-import config
 from forms import *
 from funciones import *
 from flask_login import LoginManager,login_user,logout_user,login_required,current_user
 import pandas as pd
-from openpyxl.workbook import Workbook
-import flask_excel as excel
-from selenium import webdriver
+#import flask_excel as excel
 
-__name__ = "Izpia S.L."
-__version__="1.0.0"
-__author__="Mª Jose Simón Rodriguez"
 
 app = Flask(__name__)
+#from flask_autodoc.autodoc import Autodoc
+#auto = Autodoc(app)
+
+
 #app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
-app.config['SECRET_KEY'] =  os.urandom(16)
+#app.config['SECRET_KEY'] =  os.urandom(16)
 app.config.from_object( config )
-#Carpeta para subir imagenes de albaranes
-UPLOAD_FOLDER_ALBARAN = '/static/upload/Albaranes/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER_ALBARAN
+
+""" Carpeta para subir imagenes de albaranes 
+    Argumentos:
+        UPLOAD_FOLDER_ALBARAN {dir} -- carpeta para subir las imagenes de los albaranes.
+"""
+#UPLOAD_FOLDER_ALBARAN = '/static/upload/Albaranes/'
+#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER_ALBARAN
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view="inicio"
-db = SQLAlchemy( app )
+
 
 # esta importación se hace despues de la conexion a la BD sino, no obtendremos nada.
 
 from models import *
 
+
+""" Importar para generar la documentación:
+    Arguments:
+        auto {html} -- genera la documentacion en un formato html plano.
+"""
+""" 
+__name__ = "Izpia S.L."
+__version__="1.0.0"
+__author__="Mª Jose Simón Rodriguez"
+"""
+
+#@auto.doc()
 @app.route( '/', methods=['GET', 'POST'] )
 def inicio():
+    
     """Inicio del programa.
     Returns:
         html -- devuelve la web de inicio.
@@ -45,6 +60,7 @@ def inicio():
     return render_template('inicio.html')
 
 @app.route('/changepassword/<Usuario>', methods=['Get', 'Post'])
+#@auto.doc()
 def changepassword(username):
     """ Esta funcion nos permite cambiar la contraseña del usuario logado. 
 
@@ -68,6 +84,7 @@ def changepassword(username):
 
 
 @login_manager.user_loader
+#@auto.doc()
 def load_user(idTrabajador):
     """Función que se utiliza para cargar los datos del usuario que está logado
 
@@ -82,6 +99,7 @@ def load_user(idTrabajador):
 ####################### CLIENTES #####################################
 
 @app.route('/Clientes', methods=['GET', 'POST'] )
+#@auto.doc()
 def clientes():
     """ Funcion que devuelve todos los clientes almacenados en la base de datos.
 
@@ -94,6 +112,7 @@ def clientes():
 
 #Creacion de nuevo cliente.
 @app.route('/Clientes/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def clientes_new():
 
@@ -139,6 +158,7 @@ def clientes_new():
 
 
 @app.route( '/Clientes/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def clientes_edit(id):
 
@@ -169,6 +189,7 @@ def clientes_edit(id):
     return render_template( "clientes_new.html", form=formEditCliente )
 
 @app.route('/Clientes/<id>/view', methods=["get", "post"] )
+#@auto.doc()
 def clientes_view(id):
 
     """Función para ver, ver un cliente.
@@ -192,6 +213,7 @@ def clientes_view(id):
 
 ####################### PROVEEDORES #####################################
 @app.route('/Proveedores', methods=['GET', 'POST'] )
+#@auto.doc()
 def proveedores():
     """ Funcion que devuelve todos los proveedores almacenados en la base de datos.
 
@@ -204,6 +226,7 @@ def proveedores():
 
 #Creacion de nuevo proveedor.
 @app.route('/Proveedores/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def proveedores_new():
 
@@ -249,6 +272,7 @@ def proveedores_new():
 
 
 @app.route( '/Proveedores/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def proveedores_edit(id):
 
@@ -279,6 +303,7 @@ def proveedores_edit(id):
 
 
 @app.route('/Proveedores/<id>/view', methods=["get", "post"] )
+#@auto.doc()
 def proveedores_view(id):
 
     """Función para ver, ver un proveedor.
@@ -302,6 +327,7 @@ def proveedores_view(id):
 ####################### TRABAJADORES #####################################
 
 @app.route('/Trabajadores', methods=['GET', 'POST'] )
+#@auto.doc()
 def trabajadores():
 
     """ Funcion que devuelve todos los trabajadores almacenados en la base de datos.
@@ -314,6 +340,7 @@ def trabajadores():
 
 #Creacion de nuevo trabajador.
 @app.route('/Trabajadores/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def trabajadores_new():
 
@@ -358,6 +385,7 @@ def trabajadores_new():
 
 
 @app.route( '/Trabajadores/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def trabajadores_edit(id):
 
@@ -394,6 +422,7 @@ def trabajadores_edit(id):
 # contraseña de un trabajador si éste no se acuerda de su propia contraseña
 
 @app.route('/Trabajadores/<id>/changepassword', methods=["get", "post"] )
+#@auto.doc()
 def trabajadores_changepassword(id):
     trb = trabajador.query.get(id)
         
@@ -411,6 +440,7 @@ def trabajadores_changepassword(id):
 ####################### UNIDADES #####################################
 
 @app.route('/UnidadMedida', methods=['GET', 'POST'] )
+#@auto.doc()
 @login_required
 def unidades():
     """ Funcion que devuelve todos las unidades almacenadas en la base de datos.
@@ -424,6 +454,7 @@ def unidades():
     return render_template("unidadMedida.html", unidades=unidades)
 
 @app.route('/UnidadMedida/New', methods=['POST'])
+#@auto.doc()
 @login_required
 def unidades_new():
 
@@ -445,6 +476,7 @@ def unidades_new():
         return render_template("unidadMedida.html")
 
 @app.route( '/UnidadMedida/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def unidades_edit(id):
 
@@ -476,6 +508,7 @@ def unidades_edit(id):
 
 
 @app.route('/Productos', methods=['GET', 'POST'] )
+#@auto.doc()
 def productos():
 
     """ Funcion que devuelve todos los productos almacenados en la base de datos.
@@ -489,6 +522,7 @@ def productos():
 
 #Creacion de nuevo producto.
 @app.route('/Productos/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def productos_new():
     """Función para crear nuevos productos.
@@ -528,6 +562,7 @@ def productos_new():
         return render_template("productos_new.html", form=formNewProducto )
 
 @app.route( '/Productos/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def productos_edit(id):
 
@@ -562,6 +597,7 @@ def productos_edit(id):
 ####################### ESTADOS #####################################
 
 @app.route('/Estado', methods=['GET', 'POST'] )
+#@auto.doc()
 @login_required
 def estados():
     """ Funcion que devuelve todos los estados almacenadas en la base de datos.
@@ -575,6 +611,7 @@ def estados():
     return render_template("estados.html", estados=estados)
 
 @app.route('/Estado/New', methods=['POST'])
+#@auto.doc()
 @login_required
 def estados_new():
     """Función para crear nuevos estados.
@@ -595,6 +632,7 @@ def estados_new():
         return render_template("estados.html")
 
 @app.route( '/Estado/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def estados_edit(id):
     """Función para modificar nuevos estados.
@@ -624,6 +662,7 @@ def estados_edit(id):
 
 @app.route('/Albaranes', methods=['GET', 'POST'] )
 @app.route('/Albaranes/filter', methods=['POST'] )
+#@auto.doc()
 def albaranes():
 
     """Funcion para listar todos los albaranes almacenados y posibilidad de filtrarlos. 
@@ -658,6 +697,7 @@ def albaranes():
 
 #Creacion de nuevo albaran.
 @app.route('/Albaranes/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def albaranes_new():
 
@@ -704,6 +744,7 @@ def albaranes_new():
 
 
 @app.route( '/Albaranes/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def albaranes_edit(id):
 
@@ -796,6 +837,7 @@ def albaranes_edit(id):
         return render_template( "albaranes_new.html", form=formEditAlbaran,  alb=alb, imagenes=imagenes )
    
 @app.route('/deleteImagenAlbaran/<idImagenAlbaran>/<idAlbaran>', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def deleteImagenAlbaran(idImagenAlbaran, idAlbaran):
 
@@ -823,6 +865,7 @@ def deleteImagenAlbaran(idImagenAlbaran, idAlbaran):
 ####################### TAREAS #####################################
 
 @app.route('/Tareas', methods=['GET', 'POST'] )
+#@auto.doc()
 def tareas():
 
     """Función para listar todas las tareas almacenadas en la base de datos. 
@@ -901,9 +944,9 @@ def tareas():
             resultadoDicc['idObra']=resultadoidObra
                 
             df = pd.DataFrame(resultadoDicc)
-            op = webdriver.ChromeOptions() 
-            prefs = {'download.default_directory' : 'd:\\user\\Dercargas\\'}
-            op.add_experimental_option('prefs', prefs)
+            #op = webdriver.ChromeOptions() 
+            # prefs = {'download.default_directory' : 'd:\\user\\Dercargas\\'}
+            #op.add_experimental_option('prefs', prefs)
            
             #driver = webdriver.Chrome(executable_path=driver_path, options=op)
             
@@ -926,6 +969,7 @@ def tareas():
 
 #Creacion de nuevo tarea.
 @app.route('/Tareas/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def tareas_new():
   
@@ -971,6 +1015,7 @@ def tareas_new():
 
 
 @app.route( '/Tareas/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def tareas_edit(id):
     """
@@ -1004,6 +1049,7 @@ def tareas_edit(id):
 ####################### OBRAS #####################################
 
 @app.route('/Obras', methods=['GET', 'POST'] )
+#@auto.doc()
 def obras():
 
     """Función para listar todas las obras  almacenadas en la base de datos. 
@@ -1025,22 +1071,20 @@ def obras():
 
 #Creacion de nuevo obra.
 @app.route('/Obras/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def obras_new():
 
     """
     Función para crear una obra. Se requiere estar logado
-
     Arg:
         ob {obra} -- obra a crear
         listaclientes {cliente} -- llama a la funcion listaclientes() para mostrar todos los clientes
         listaestados {estado} -- llama a la funcion listaestados() para mostrar todos los estados
         formAddProducto {formObraProducto} -- requerimos añadir los productos necesarios para la obra. 
         Utilizo un formulario para añadir los productos.
-
     Returns:
         html -- formulario para crear una obra.
-
     """
 
     if current_user.is_admin()!="Admin":
@@ -1171,6 +1215,7 @@ def obras_edit(id):
 ####################### TRABAJOS REALIZADOS #####################################
 
 @app.route('/TrabajosRealizados', methods=['GET', 'POST'] )
+#@auto.doc()
 def trabajosrealizados():
 
     """Función para listar todas los trabajos realizados por los operarios almacenadas en la base de datos. 
@@ -1191,6 +1236,7 @@ def trabajosrealizados():
 
 #Creacion de nuevo trabajorealizado.
 @app.route('/TrabajosRealizados/New', methods=['GET', 'POST'])
+#@auto.doc()
 @login_required
 def trabajosrealizados_new():
 
@@ -1246,6 +1292,7 @@ def trabajosrealizados_new():
         trabajorealizado = tr)
 
 @app.route( '/TrabajosRealizados/<id>/edit', methods=["get", "post"] )
+#@auto.doc()
 @login_required
 def trabajosrealizados_edit(id):
 
@@ -1297,6 +1344,7 @@ def trabajosrealizados_edit(id):
 ################################ LOGIN #######################################
 
 @app.route('/login', methods=['get', 'post'])
+#@auto.doc()
 def login():
 
     """Funcion para logarse.
@@ -1315,6 +1363,7 @@ def login():
         formularioLogarse.Usuario.errors.append("Usuario o contraseña incorrectas.")
     return render_template('login.html', formularioLogarse=formularioLogarse)
 @app.route("/logout")
+#@auto.doc()
 def logout():
     """Funcion para deslogarse.
 
@@ -1341,6 +1390,12 @@ def page_not_found(error):
 @app.errorhandler(401)
 def page_not_found(error):
 	return render_template("error.html",error="No tienes permiso"), 401
+
+
+# This route generates HTML of documentation
+@app.route('/documentation')
+def documentation():
+    return auto.html()
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
