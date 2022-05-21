@@ -10,7 +10,7 @@
             <div class="form-group">
                 {{ form.csrf_token }}
 
-                <div class="grid grid-cols-1 md:grid-cols-6 grid-row-1 gap-3 py-3 text-black form-control">
+                <div class="grid grid-cols-2 md:grid-cols-6 grid-row-1 gap-3 py-3 text-black form-control m-2">
                     {{form.Numero.label(class="font-bold ")}}
                     {{form.Numero (class="text-black border border-green-200")}}
                     {{form.idProveedor.label(class=" font-bold") }}
@@ -31,8 +31,7 @@
                 <div class="m-2">
 
                     {{i.nombreImagen}}
-                    <a class="display_image" href="/static/upload/Albaranes/{{i.nombreImagen}}" src="">
-                        <i class="fas fa-eye mx-3"></i></a>
+                   
 
                     <a class="mostrar" id="ima" href="/static/upload/Albaranes/{{i.nombreImagen}}" src="">
                         <i class="fas fa-eye text-green mx-3"></i></a>

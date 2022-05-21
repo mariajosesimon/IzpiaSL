@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 
 #app.config['SECRET_KEY'] = 'A0Zr98j/asdf3422a3+/*?)$/abSD3yX R~XHH!jmN]LWX/,?RT'
-#app.config['SECRET_KEY'] =  os.urandom(16)
+app.config['SECRET_KEY'] =  os.urandom(16)
 app.config.from_object( config )
 
 """ Carpeta para subir imagenes de albaranes 
@@ -33,7 +33,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view="inicio"
 
-
+db = SQLAlchemy( app )
 # esta importación se hace despues de la conexion a la BD sino, no obtendremos nada.
 
 from models import *

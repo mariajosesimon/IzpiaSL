@@ -6,7 +6,6 @@ secret_key = os.urandom(16)
 PWD = os.path.abspath(os.curdir)
 
 """ Generacion de los datos de configuracion para la conexion a la base de datos.
-
     Arguments: 
         USERNAME {string} -- nombre de usuario
         password {string} -- Contraseña de la base de datos
@@ -32,3 +31,6 @@ SQLALCHEMY_DATABASE_URI = "mysql://root:root@localhost/izpiasl"
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 UPLOAD_FOLDER_ALBARAN = '/static/upload/Albaranes/'
 UPLOAD_FOLDER = UPLOAD_FOLDER_ALBARAN
+
+pool_size=20
+max_overflow=0
